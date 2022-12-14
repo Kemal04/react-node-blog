@@ -11,7 +11,6 @@
 //                 Munif Tanjim <https://github.com/MunifTanjim>
 //                 Vlad Poluch <https://github.com/vlapo>
 //                 Piotr Błażejewicz <https://github.com/peterblazejewicz>
-//                 Matteo Nista <https://github.com/Mattewn99>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as _isBoolean from './lib/isBoolean';
@@ -30,23 +29,12 @@ declare namespace validator {
      *** Validators ***
      ******************/
 
-    interface ContainsOptions {
-        /**
-         * @default false
-         */
-        ignoreCase?: boolean | undefined;
-        /**
-         * @default 1
-         */
-        minOccurrences?: number | undefined;
-    }
-
     /**
      * Check if the string contains the seed.
      *
      * @param seed - Seed
      */
-    function contains(str: string, seed: any, options?: ContainsOptions): boolean;
+    function contains(str: string, seed: any): boolean;
 
     /**
      * Check if the string matches the comparison.
@@ -679,12 +667,6 @@ declare namespace validator {
          * @default false
          */
         strict?: boolean | undefined;
-        /**
-         * If `strictSeparator` is true, date strings with date and time separated
-         * by anything other than a T will be invalid
-         *
-         */
-        strictSeparator?: boolean | undefined;
     }
 
     /**
