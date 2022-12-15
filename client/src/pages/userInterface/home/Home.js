@@ -1,5 +1,6 @@
 import React from 'react'
 import './Home.css'
+import { Link } from 'react-router-dom'
 
 const Home = () => {
     return (
@@ -19,38 +20,166 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            <div className='container mt-5'>
+            <div className='container'>
                 <div className='row'>
-                    <div className='col-lg-9'>
-                        <div className='row align-items-center'>
+                    <div className='col-lg-9 mt-5'>
+                        <div className='row align-items-center me-4'>
                             <div className='col-lg-3'>
-                                Categories
+                                <div className='fw-bold h5'>Categories</div>
                             </div>
                             <div className='col-lg-9'>
-                                <ul class="nav justify-content-end">
-                                    <li class="nav-item small mx-1">
-                                        <a class="nav-link rounded-5 py-1 px-3 text-dark bg-light">Hemmesi</a>
+                                <ul className="nav justify-content-start">
+                                    <li className="nav-item small mx-1">
+                                        <Link to="/" className="nav-link rounded-5 py-1 px-3 text-dark bg-light">Hemmesi</Link>
                                     </li>
-                                    <li class="nav-item small mx-1">
-                                        <a class="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>Sport</a>
+                                    <li className="nav-item small mx-1">
+                                        <Link to="/" className="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>Sport</Link>
                                     </li>
-                                    <li class="nav-item small mx-1">
-                                        <a class="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>Saglyk</a>
+                                    <li className="nav-item small mx-1">
+                                        <Link to="/" className="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>Saglyk</Link>
                                     </li>
-                                    <li class="nav-item small mx-1">
-                                        <a class="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>Biznes</a>
+                                    <li className="nav-item small mx-1">
+                                        <Link to="/" className="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>Biznes</Link>
                                     </li>
-                                    <li class="nav-item small mx-1">
-                                        <a class="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>DÜnýäde</a>
+                                    <li className="nav-item small mx-1">
+                                        <Link to="/" className="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>DÜnýäde</Link>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <div className='row mt-4'>
-                            
+                        <div className='row mt-5'>
+                            <div className='col-lg-12'>
+                                <div className="card mb-3 border-0 rounded-3 me-4">
+                                    <div className="row g-0 align-items-center">
+                                        <div className="col-md-4">
+                                            <img src="/img/cards/1.jpg" className="img-fluid rounded-0" alt="card" />
+                                        </div>
+                                        <div className="col-md-8">
+                                            <div className="card-body">
+                                                <h5 className="card-title">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
+                                                <p className="card-text my-3">Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
+                                                <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='col-lg-6 mt-4'>
+                                <div className="card border-0 rounded-3 me-4">
+                                    <img src="/img/cards/2.jpg" className="card-img-top rounded-0" alt="card" />
+                                    <div className="card-body">
+                                        <h5 className="card-title">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
+                                        <p className="card-text my-3">Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
+                                        <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='col-lg-6 mt-4'>
+                                <div className="card border-0 rounded-3 me-4">
+                                    <img src="/img/cards/3.jpg" className="card-img-top rounded-0" alt="card" />
+                                    <div className="card-body">
+                                        <h5 className="card-title">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
+                                        <p className="card-text my-3">Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
+                                        <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='my-5 fw-bold h5'>
+                            Most Popular Videos
+                        </div>
+                        <div className='row'>
+                            <div className='col-lg-12'>
+                                <div className='bg-dark text-white me-4 rounded-3'>
+                                    <div className='row justify-content-between text-center align-items-center'>
+                                        <div className='col-lg-8'>
+                                            <div className="tab-content" id="v-pills-tabContent">
+                                                <div className="tab-pane fade active show" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
+                                                    <img src="/img/cards/1.jpg" alt="video-img" className='img-fluid' style={{ height: "400px" }} />
+                                                </div>
+                                                <div className="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
+                                                    <img src="/img/cards/2.jpg" alt="video-img" className='img-fluid' style={{ height: "400px" }} />
+                                                </div>
+                                                <div className="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab" tabindex="0">
+                                                    <img src="/img/cards/3.jpg" alt="video-img" className='img-fluid' style={{ height: "400px" }} />
+                                                </div>
+                                                <div className="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab" tabindex="0">
+                                                    <img src="/img/cards/1.jpg" alt="video-img" className='img-fluid' style={{ height: "400px" }} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='col-lg-4' style={{ fontSize: "14px" }}>
+                                            <div className="d-flex">
+                                                <div className="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                                    <div className="text-white" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                                                        <div class="card mb-3 border-0 mt-1" style={{ backgroundColor: "transparent" }}>
+                                                            <div class="row g-0 align-items-center">
+                                                                <div class="col-md-4">
+                                                                    <img src="/img/video-img/1.jpg" class="img-fluid rounded-circle active-img shadow-lg" alt="video-img" />
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <div class="card-body p-2 text-start">
+                                                                        <p class="card-text small mb-1">How Did van Gogh’s Turbulent Mind</p>
+                                                                        <p class="card-text small text-muted">1.2M views</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-white" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                                                        <div class="card mb-3 border-0 mt-1" style={{ backgroundColor: "transparent" }}>
+                                                            <div class="row g-0 align-items-center">
+                                                                <div class="col-md-4">
+                                                                    <img src="/img/video-img/2.jpg" class="img-fluid rounded-circle" alt="video-img" />
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <div class="card-body p-2 text-start">
+                                                                        <p class="card-text small mb-1">How Did van Gogh’s Turbulent Mind</p>
+                                                                        <p class="card-text small text-muted">1.2M views</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-white" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false">
+                                                        <div class="card mb-3 border-0 mt-1" style={{ backgroundColor: "transparent" }}>
+                                                            <div class="row g-0 align-items-center">
+                                                                <div class="col-md-4">
+                                                                    <img src="/img/video-img/3.jpg" class="img-fluid rounded-circle" alt="video-img" />
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <div class="card-body p-2 text-start">
+                                                                        <p class="card-text small mb-1">How Did van Gogh’s Turbulent Mind</p>
+                                                                        <p class="card-text small text-muted">1.2M views</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="text-white" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+                                                        <div class="card mb-3 border-0 mt-1" style={{ backgroundColor: "transparent" }}>
+                                                            <div class="row g-0 align-items-center">
+                                                                <div class="col-md-4">
+                                                                    <img src="/img/video-img/4.jpg" class="img-fluid rounded-circle" alt="video-img" />
+                                                                </div>
+                                                                <div class="col-md-8">
+                                                                    <div class="card-body p-2 text-start">
+                                                                        <p class="card-text small mb-1">How Did van Gogh’s Turbulent Mind</p>
+                                                                        <p class="card-text small text-muted">1.2M views</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className='col-lg-3'>
+                    <div className='col-lg-3 pt-5' style={{ backgroundColor: "#ededed " }}>
 
                     </div>
                 </div>
