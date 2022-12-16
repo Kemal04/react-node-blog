@@ -53,7 +53,7 @@ router.post("/login", async (req, res) => {
 });
 
 //current user
-router.get("/current_user", validateToken, async(req,res)=> {
+router.get("/current_user", validateToken, async (req, res) => {
     res.json(req.user)
 })
 
@@ -64,6 +64,8 @@ router.get("/basicinfo/:userId", async (req, res) => {
     const basicInfo = await User.findByPk(id, {
         attributes: { exclude: ["password"] },
     });
+
+    res.json(basicInfo);
 });
 
 
