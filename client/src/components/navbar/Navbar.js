@@ -34,8 +34,6 @@ const Navbar = () => {
 }
 
 $(document).ready(function () {
-    "use strict";
-
     $(window).scroll(function () {
         if ($(this).scrollTop() > 0) {
             $('.navbar').addClass('nav-sticky');
