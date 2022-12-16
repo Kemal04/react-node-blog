@@ -3,7 +3,7 @@ import $ from 'jquery';
 import { NavLink } from 'react-router-dom'
 import './Navbar.css'
 
-const Navbar = () => {
+const Navbar = ({ authState }) => {
     return (
         <div className="navbar navbar-expand-lg navbar-light">
             <div className="container">
@@ -21,10 +21,28 @@ const Navbar = () => {
                         <NavLink to="/makalalar" className="nav-item nav-link text-uppercase me-3">makalalar</NavLink>
                         <NavLink to="/biz-barada" className="nav-item nav-link text-uppercase me-3">biz barada</NavLink>
                         <NavLink to="/habarlasmak" className="nav-item nav-link text-uppercase me-3">habarlaşmak</NavLink>
+                        {
+                            !authState.status
+                                ?
+                                <NavLink to="/giris-etmek" className="nav-item nav-link text-uppercase me-3">Login</NavLink>
+                                :
+                                <div className="navbar-nav">
+                                    <li className="nav-item dropdown">
+                                        <NavLink className="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false" style={{ letterSpacing: "1px" }}>
+                                            {authState.email}
+                                        </NavLink>
+                                        <ul className="dropdown-menu rounded-0">
+                                            <li><NavLink to={`/ulanyjy-profili/${authState.id}`} className="dropdown-item bg-white text-black">Profile</NavLink></li>
+                                            <li><hr className="dropdown-divider" /></li>
+                                            <li><button className="dropdown-item bg-white text-black">Logout</button></li>
+                                        </ul>
+                                    </li>
+                                </div>
+                        }
                     </div>
                     <div className='ms-auto'>
-                        <div class="">
-                            <input type="text" placeholder='Gözleg . . .' class="form-control border-0 text-white search rounded-1 py-2 px-4" style={{ backgroundColor: "rgba(255,255,255,0.2)", outline: "none" }} />
+                        <div className="">
+                            <input type="text" placeholder='Gözleg . . .' className="form-control border-0 text-white search rounded-1 py-2 px-4" style={{ backgroundColor: "rgba(255,255,255,0.2)", outline: "none" }} />
                         </div>
                     </div>
                 </div>
