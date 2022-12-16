@@ -4,6 +4,12 @@ import { NavLink } from 'react-router-dom'
 import './Navbar.css'
 
 const Navbar = ({ authState }) => {
+
+    const logout = () => {
+        localStorage.removeItem("accessToken");
+        window.location.reload()
+    };
+
     return (
         <div className="navbar navbar-expand-lg navbar-light">
             <div className="container">
@@ -34,7 +40,7 @@ const Navbar = ({ authState }) => {
                                         <ul className="dropdown-menu rounded-0">
                                             <li><NavLink to={`/ulanyjy-profili/${authState.id}`} className="dropdown-item bg-white text-black">Profile</NavLink></li>
                                             <li><hr className="dropdown-divider" /></li>
-                                            <li><button className="dropdown-item bg-white text-black">Logout</button></li>
+                                            <li><button onClick={logout} className="dropdown-item bg-white text-black">Logout</button></li>
                                         </ul>
                                     </li>
                                 </div>

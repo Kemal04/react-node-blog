@@ -19,7 +19,7 @@ const App = () => {
     });
 
     useEffect(() => {
-        axios.get("http://localhost:3001/auth", {
+        axios.get("http://localhost:3001/auth/current_user", {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             },
@@ -34,29 +34,26 @@ const App = () => {
                 });
             }
         });
-    }, []);
-
-    console.log(authState);
+    }, [authState]);
 
     return (
         <>
             <AuthContext.Provider value={{ authState, setAuthState }}>
+
                 <Router>
                     <ToastContainer />
-
                     <Routes>
 
                         <Route path="/" element={<WithNavbar authState={authState} />}>
-
                             <Route path='/' element={<Home />}></Route>
                             <Route path='/biz-barada' element={<About />}></Route>
-
                         </Route>
 
                         <Route path='/agza-bolmak' element={<Register />}></Route>
                         <Route path='/giris-etmek' element={<Login />}></Route>
                     </Routes>
                 </Router>
+
             </AuthContext.Provider>
         </>
     );
