@@ -298,9 +298,9 @@ const Home = () => {
                         </div>
                         <div className='d-flex justify-content-start my-5 position-relative'>
                             <img src="/img/ads/1.jpg" alt="ads" className='img-fluid w-75' />
-                            <div class="position-absolute bottom-0 w-75 text-white p-4">
+                            <div className="position-absolute bottom-0 w-75 text-white p-4">
                                 <div className='small text-warning mb-3 fw-bold'>-32%</div>
-                                <div class="card-title h5">How Did van Gogh’s Turbulent Mind</div>
+                                <div className="card-title h5">How Did van Gogh’s Turbulent Mind</div>
                             </div>
                         </div>
                         <div className='fw-bold'>Newest Videos</div>
@@ -362,8 +362,8 @@ const Home = () => {
                         </div>
                         <div className='d-flex justify-content-start my-5 position-relative'>
                             <img src="/img/ads/2.jpg" alt="ads" className='img-fluid w-75' />
-                            <div class="position-absolute mt-4 w-75 text-white p-4">
-                                <div class="card-title h5">Turbulent Mind</div>
+                            <div className="position-absolute mt-4 w-75 text-white p-4">
+                                <div className="card-title h5">Turbulent Mind</div>
                             </div>
                         </div>
                     </div>
