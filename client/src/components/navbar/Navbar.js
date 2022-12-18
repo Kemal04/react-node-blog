@@ -24,7 +24,7 @@ const Navbar = ({ authState }) => {
                     <div className="navbar-nav me-auto ms-4">
                         <NavLink to="/" className="nav-item nav-link text-uppercase me-3">bas sahypa</NavLink>
                         <NavLink to="/tazelikler" className="nav-item nav-link text-uppercase me-3">Täzelikler</NavLink>
-                        <NavLink to="/makalalar" className="nav-item nav-link text-uppercase me-3">makalalar</NavLink>
+                        <NavLink to="/reklamalar" className="nav-item nav-link text-uppercase me-3">Reklamalar</NavLink>
                         <NavLink to="/biz-barada" className="nav-item nav-link text-uppercase me-3">biz barada</NavLink>
                         <NavLink to="/habarlasmak" className="nav-item nav-link text-uppercase me-3">habarlaşmak</NavLink>
                         {
