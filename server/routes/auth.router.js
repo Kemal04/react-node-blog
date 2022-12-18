@@ -39,17 +39,25 @@ router.post("/login", async (req, res) => {
 
     const user = await User.findOne({ where: { email: email } });
 
-    if (!user) res.json({ error: "Beyle ulanyjy tapylmady" });
+    if (!user) {
+        res.json({ error: "Ulanyjy tapylmady" })
+    }
+    else {
+        bcrypt.compare(password, user.password).then(async (match) => {
+            if (!match) {
+                res.json({ error: "E-mailinizi yada acar sozunizi yalnys yazdynyz" });
+            }
+            else {
+                const accessToken = sign(
+                    { email: user.email, id: user.id },
+                    "importantsecret"
+                );
+                res.json({ token: accessToken, email: email, id: user.id });
+            }
+        });
+    }
 
-    bcrypt.compare(password, user.password).then(async (match) => {
-        if (!match) res.json({ error: "E-mailinizi yada acar sozunizi yalnys yazdynyz" });
 
-        const accessToken = sign(
-            { email: user.email, id: user.id },
-            "importantsecret"
-        );
-        res.json({ token: accessToken, email: email, id: user.id });
-    });
 });
 
 //current user
