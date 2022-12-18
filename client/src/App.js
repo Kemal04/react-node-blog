@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Navbar, Footer } from "./components"
 import { AuthContext } from './context/AuthContext';
 //UserInterface Pages
-import { Home, About, Register, Login } from "./pages/userInterface"
+import { Home, About, Register, Login, Ads, Contact, News } from "./pages/userInterface"
 
 const App = () => {
 
@@ -46,7 +46,10 @@ const App = () => {
 
                         <Route path="/" element={<WithNavbar authState={authState} />}>
                             <Route path='/' element={<Home />}></Route>
+                            <Route path='/tazelikler' element={<News />}></Route>
+                            <Route path='/reklamalar' element={<Ads />}></Route>
                             <Route path='/biz-barada' element={<About />}></Route>
+                            <Route path='/habarlasmak' element={<Contact />}></Route>
                         </Route>
 
                         <Route path='/agza-bolmak' element={<Register />}></Route>
