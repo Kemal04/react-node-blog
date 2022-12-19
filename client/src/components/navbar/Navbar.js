@@ -26,7 +26,6 @@ const Navbar = ({ authState }) => {
                         <NavLink to="/tazelikler" className="nav-item nav-link text-uppercase me-3">Täzelikler</NavLink>
                         <NavLink to="/reklamalar" className="nav-item nav-link text-uppercase me-3">Reklamalar</NavLink>
                         <NavLink to="/biz-barada" className="nav-item nav-link text-uppercase me-3">biz barada</NavLink>
-                        <NavLink to="/habarlasmak" className="nav-item nav-link text-uppercase me-3">habarlaşmak</NavLink>
                         {
                             !authState.status
                                 ?
