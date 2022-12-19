@@ -7,8 +7,8 @@ const Ads = () => {
             <div className='home-bg'>
                 <div className='container'>
                     <div className='row flex-column aling-items-center justify-content-start text-white'>
-                        <div className='col-lg-1 text-center'>
-                            <div className='rounded-5 bg-secondary text-white py-1 px-3 fw-normal mt-3'>Sport</div>
+                        <div className='col-lg-2 text-center'>
+                            <div className='rounded-5 bg-secondary text-white py-1 px-3 fw-normal mt-3'>Reklamalar</div>
                         </div>
                         <div className='col-lg-5 h1 fw-normal mt-3'>
                             How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?

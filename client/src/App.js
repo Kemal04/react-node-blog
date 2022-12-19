@@ -1,14 +1,20 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
+import { AuthContext } from './context/AuthContext';
+
+//Routes
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom'
+
+//Components
+import { Navbar, Footer } from "./components"
+
+//UserInterface Pages
+import { Home, About, Register, Login, Ads, News } from "./pages/userInterface"
+
 //Toast Container
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-//Components
-import { Navbar, Footer } from "./components"
-import { AuthContext } from './context/AuthContext';
-//UserInterface Pages
-import { Home, About, Register, Login, Ads, Contact, News } from "./pages/userInterface"
+
 
 const App = () => {
 
@@ -49,7 +55,6 @@ const App = () => {
                             <Route path='/tazelikler' element={<News />}></Route>
                             <Route path='/reklamalar' element={<Ads />}></Route>
                             <Route path='/biz-barada' element={<About />}></Route>
-                            <Route path='/habarlasmak' element={<Contact />}></Route>
                         </Route>
 
                         <Route path='/agza-bolmak' element={<Register />}></Route>
