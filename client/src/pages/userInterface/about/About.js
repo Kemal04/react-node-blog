@@ -135,9 +135,13 @@ const About = () => {
                         </div>
                     </div>
                 </div>
-                <form className="row mt-5">
-                    <div className='col-lg-6'>
-
+                <form className="row mt-5 align-items-center">
+                    <div className='col-lg-6 mt-5'>
+                        <div>
+                            <iframe className="img-fluid border mt-lg-0 mt-3 shadow" style={{width: "500px", height: "400px"}}
+                                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1523.401717566166!2d58.34870495707465!3d37.901400452990146!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x9b88db95a44941de!2sSere!5e1!3m2!1sen!2sus!4v1619180690015!5m2!1sen!2sus"
+                                allowFullScreen="" loading="lazy"></iframe>
+                        </div>
                     </div>
                     <div className='col-lg-6 mt-5'>
                         <div className="row">

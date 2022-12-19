@@ -1,7 +1,23 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 const Ads = () => {
+
+    const [categories, setCategories] = useState([])
+
+    useEffect(() => {
+        const fetchAllCategories = async () => {
+            try {
+                const res = await axios.get('http://localhost:3001/category/')
+                setCategories(res.data.categories)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchAllCategories()
+    }, [])
+
     return (
         <>
             <div className='home-bg'>
@@ -31,18 +47,13 @@ const Ads = () => {
                                     <li className="nav-item small mx-1">
                                         <Link to="/" className="nav-link rounded-5 py-1 px-3 text-dark bg-light">Hemmesi</Link>
                                     </li>
-                                    <li className="nav-item small mx-1">
-                                        <Link to="/" className="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>Sport</Link>
-                                    </li>
-                                    <li className="nav-item small mx-1">
-                                        <Link to="/" className="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>Saglyk</Link>
-                                    </li>
-                                    <li className="nav-item small mx-1">
-                                        <Link to="/" className="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>Biznes</Link>
-                                    </li>
-                                    <li className="nav-item small mx-1">
-                                        <Link to="/" className="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>DÜnýäde</Link>
-                                    </li>
+                                    {
+                                        categories.map((category) => (
+                                            <li className="nav-item small mx-1">
+                                                <Link to="/" className="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>{category.name}</Link>
+                                            </li>
+                                        ))
+                                    }
                                 </ul>
                             </div>
                         </div>
