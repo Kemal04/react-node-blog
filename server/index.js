@@ -15,9 +15,12 @@ app.use(cors());
 
 //Routes
 const AuthRouter = require("./routes/auth.router")
-
+const CategoryRouter = require('./routes/category.router');
+const SubCategoryRouter = require('./routes/subCategory.router')
 
 app.use("/auth", AuthRouter);
+app.use("/category", CategoryRouter);
+app.use("/subCategory", SubCategoryRouter);
 
 
 
