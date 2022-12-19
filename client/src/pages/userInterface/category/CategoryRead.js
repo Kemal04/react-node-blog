@@ -1,25 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import './Home.css'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import axios from "axios"
 
-const Home = () => {
-
-    const [categories, setCategories] = useState([])
-
-    useEffect(() => {
-        const fetchAllCategories = async () => {
-            try {
-                const res = await axios.get('http://localhost:3001/category/')
-                setCategories(res.data.categories)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        fetchAllCategories()
-    }, [])
-
+const CategoryRead = () => {
     return (
+
         <>
             <div className='home-bg'>
                 <div className='container'>
@@ -384,4 +369,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default CategoryRead
