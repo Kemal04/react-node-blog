@@ -2,7 +2,7 @@ const express = require('express');
 const { Category, SubCategory } = require('../models/model');
 const router = express.Router();
 
-//all data get 
+//all data GET 
 router.get("/", async (req, res) => {
     const categories = await Category.findAll();
     res.json({
@@ -10,6 +10,7 @@ router.get("/", async (req, res) => {
     })
 });
 
+// single category GET 
 router.get("/:categoryId", async (req, res) => {
     const id = req.params.categoryId
     try {
@@ -25,7 +26,7 @@ router.get("/:categoryId", async (req, res) => {
     }
 });
 
-
+// create POST 
 router.post("/create", async (req, res) => {
     const name = req.body.name;
 
@@ -38,6 +39,7 @@ router.post("/create", async (req, res) => {
     }
 });
 
+// edit GET and POST 
 router.get("/edit/:categoryId", async (req, res) => {
     const id = req.params.categoryId;
     try {
@@ -52,7 +54,6 @@ router.get("/edit/:categoryId", async (req, res) => {
         console.log(err);
     }
 });
-
 router.post("/edit/:categoryId", async (req, res) => {
     const id = req.params.categoryId;
     const name = req.body.name;
@@ -71,6 +72,7 @@ router.post("/edit/:categoryId", async (req, res) => {
     }
 });
 
+// delete POST 
 router.post("/delete/:categoryId", async (req, res) => {
     const id = req.params.categoryId; 
     try{
