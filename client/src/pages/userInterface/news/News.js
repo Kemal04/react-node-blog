@@ -49,8 +49,8 @@ const News = () => {
                                     </li>
                                     {
                                         categories.map((category) => (
-                                            <li className="nav-item small mx-1">
-                                                <Link to="/" className="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>{category.name}</Link>
+                                            <li className="nav-item small mx-1" key={category.id}>
+                                                <Link to={`/kategoriya/${category.id}`} className="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>{category.name}</Link>
                                             </li>
                                         ))
                                     }
