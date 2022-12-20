@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom
 import { Navbar, Footer } from "./components"
 
 //UserInterface Pages
-import { Home, About, Register, Login, Ads, News, CategoryRead } from "./pages/userInterface"
+import { Home, About, Register, Login, Ads, News, CategoryRead, SubCategoryRead } from "./pages/userInterface"
 
 //Toast Container
 import { ToastContainer } from 'react-toastify'
@@ -56,6 +56,7 @@ const App = () => {
                             <Route path='/reklamalar' element={<Ads />}></Route>
                             <Route path='/biz-barada' element={<About />}></Route>
                             <Route path='/kategoriya/:id' element={<CategoryRead />}></Route>
+                            <Route path='/kici-kategoriya/:id' element={<SubCategoryRead />}></Route>
                         </Route>
 
                         <Route path='/agza-bolmak' element={<Register />}></Route>
