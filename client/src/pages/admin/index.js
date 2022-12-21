@@ -1,0 +1,7 @@
+export { default as Admin } from "./admin/Admin"
+export { default as AdminCategory } from "./category/AdminCategory"
+export { default as AdminSubCategory } from "./subCategory/AdminSubCategory"
+export { default as AdminBlog } from "./blog/AdminBlog"
+export { default as AdminAds } from "./ads/AdminAds"
+export { default as AdminUser } from "./user/AdminUser"
+export { default as AdminContact } from "./contact/AdminContact"

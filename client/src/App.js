@@ -9,7 +9,10 @@ import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom
 import { Navbar, Footer } from "./components"
 
 //UserInterface Pages
-import { Home, About, Register, Login, Ads, News, CategoryRead, SubCategoryRead } from "./pages/userInterface"
+import { Home, About, Register, Login, Ads, News, CategoryRead, SubCategoryRead, BlogRead } from "./pages/userInterface"
+
+//Admin Pages
+import { Admin, AdminAds, AdminBlog, AdminCategory, AdminContact, AdminSubCategory, AdminUser } from './pages/admin';
 
 //Toast Container
 import { ToastContainer } from 'react-toastify'
@@ -57,6 +60,17 @@ const App = () => {
                             <Route path='/biz-barada' element={<About />}></Route>
                             <Route path='/kategoriya/:id' element={<CategoryRead />}></Route>
                             <Route path='/kici-kategoriya/:id' element={<SubCategoryRead />}></Route>
+                            <Route path='/blog/:id' element={<BlogRead />}></Route>
+                        </Route>
+
+                        <Route path="/" element={<AdminWithNavbar />}>
+                            <Route path='/admin' element={<Admin />}></Route>
+                            <Route path='/admin/ulanyjylar' element={<AdminUser />}></Route>
+                            <Route path='/admin/reklamalar' element={<AdminAds />}></Route>
+                            <Route path='/admin/teswirler' element={<AdminContact />}></Route>
+                            <Route path='/admin/kategoriyalar' element={<AdminCategory />}></Route>
+                            <Route path='/admin/kici-kategoriyalar' element={<AdminSubCategory />}></Route>
+                            <Route path='/admin/bloglar' element={<AdminBlog />}></Route>
                         </Route>
 
                         <Route path='/agza-bolmak' element={<Register />}></Route>
@@ -81,4 +95,9 @@ const WithNavbar = ({ authState }) => {
     );
 }
 
+function AdminWithNavbar() {
+    return (
+        <Outlet />
+    );
+}
 export default App;

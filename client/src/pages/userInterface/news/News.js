@@ -18,6 +18,20 @@ const News = () => {
         fetchAllCategories()
     }, [])
 
+    const [blogs, setBlogs] = useState([])
+
+    useEffect(() => {
+        const fetchAllBlogs = async () => {
+            try {
+                const res = await axios.get('http://localhost:3001/blog/')
+                setBlogs(res.data.blogs)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchAllBlogs()
+    }, [])
+
     return (
         <>
             <div className='home-bg'>
@@ -58,114 +72,31 @@ const News = () => {
                             </div>
                         </div>
                         <div className='row mb-5 pb-5'>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <img src="/img/cards/1.jpg" className="card-img-top rounded-0" alt="card" />
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                    <img src="/img/cards/2.jpg" className="card-img-top rounded-0" alt="card" />
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <img src="/img/cards/3.jpg" className="card-img-top rounded-0" alt="card" />
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <img src="/img/cards/3.jpg" className="card-img-top rounded-0" alt="card" />
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                    <img src="/img/cards/1.jpg" className="card-img-top rounded-0" alt="card" />
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <img src="/img/cards/2.jpg" className="card-img-top rounded-0" alt="card" />
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <img src="/img/cards/1.jpg" className="card-img-top rounded-0" alt="card" />
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                    <img src="/img/cards/2.jpg" className="card-img-top rounded-0" alt="card" />
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <img src="/img/cards/3.jpg" className="card-img-top rounded-0" alt="card" />
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <img src="/img/cards/3.jpg" className="card-img-top rounded-0" alt="card" />
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                    <img src="/img/cards/1.jpg" className="card-img-top rounded-0" alt="card" />
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <img src="/img/cards/2.jpg" className="card-img-top rounded-0" alt="card" />
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                </div>
-                            </div>
+                            {
+                                blogs.sort((a, b) => a.id > b.id ? -1 : 1).map((blog, index) => (
+                                    index % 2 === 0
+                                        ?
+                                        <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark'>
+                                            <div className="card border-0 rounded-3 me-4 shadow">
+                                                <img src="/img/cards/1.jpg" className="card-img-top rounded-0" alt="card" />
+                                                <div className="card-body">
+                                                    <div className="card-title fw-bold">{blog.title}</div>
+                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                        :
+                                        <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark'>
+                                            <div className="card border-0 rounded-3 me-4 shadow">
+                                                <div className="card-body">
+                                                    <div className="card-title fw-bold">{blog.title}</div>
+                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
+                                                </div>
+                                                <img src="/img/cards/1.jpg" className="card-img-top rounded-0" alt="card" />
+                                            </div>
+                                        </Link>
+                                ))
+                            }
                         </div>
                         <Link className='d-flex justify-content-center text-center text-decoration-none text-dark'>
                             <div className='border rounded-5 p-1 mb-5' style={{ width: "70px" }}>
