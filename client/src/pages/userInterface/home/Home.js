@@ -19,6 +19,20 @@ const Home = () => {
         fetchAllCategories()
     }, [])
 
+    const [blogs, setBlogs] = useState([])
+
+    useEffect(() => {
+        const fetchAllBlogs = async () => {
+            try {
+                const res = await axios.get('http://localhost:3001/blog/')
+                setBlogs(res.data.blogs)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchAllBlogs()
+    }, [])
+
     return (
         <>
             <div className='home-bg'>
@@ -59,42 +73,21 @@ const Home = () => {
                             </div>
                         </div>
                         <div className='row mt-5'>
-                            <div className='col-lg-12'>
-                                <div className="card mb-3 border-0 rounded-3 me-4 shadow">
-                                    <div className="row g-0 align-items-center">
-                                        <div className="col-md-4">
-                                            <img src="/img/cards/1.jpg" className="img-fluid rounded-0" alt="card" />
-                                        </div>
-                                        <div className="col-md-8">
+                            {
+                                blogs.sort((a, b) => a.id > b.id ? -1 : 1).slice(0, 2).map(blog => (
+                                    <Link to={`/blog/${blog.id}`} className='col-lg-6 mt-4 text-decoration-none text-dark'>
+                                        <div className="card border-0 rounded-3 me-4 shadow">
+                                            <img src="/img/cards/2.jpg" className="card-img-top rounded-0" alt="card" />
                                             <div className="card-body">
-                                                <h5 className="card-title">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                                <p className="card-text my-3">Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
+                                                <h5 className="card-title">{blog.title}</h5>
+                                                <p className="card-text my-3">{blog.description}</p>
                                                 <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-6 mt-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <img src="/img/cards/2.jpg" className="card-img-top rounded-0" alt="card" />
-                                    <div className="card-body">
-                                        <h5 className="card-title">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                        <p className="card-text my-3">Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                        <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-6 mt-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <img src="/img/cards/3.jpg" className="card-img-top rounded-0" alt="card" />
-                                    <div className="card-body">
-                                        <h5 className="card-title">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                        <p className="card-text my-3">Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                        <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
-                                    </div>
-                                </div>
-                            </div>
+                                    </Link>
+                                ))
+                            }
+
                         </div>
                         <div className='my-5 fw-bold h5'>
                             Most Popular Videos
@@ -193,60 +186,31 @@ const Home = () => {
                             Most Popular Videos
                         </div>
                         <div className='row mb-5 pb-5'>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <img src="/img/cards/1.jpg" className="card-img-top rounded-0" alt="card" />
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                    <img src="/img/cards/2.jpg" className="card-img-top rounded-0" alt="card" />
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <img src="/img/cards/3.jpg" className="card-img-top rounded-0" alt="card" />
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <img src="/img/cards/3.jpg" className="card-img-top rounded-0" alt="card" />
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                    <img src="/img/cards/1.jpg" className="card-img-top rounded-0" alt="card" />
-                                </div>
-                            </div>
-                            <div className='col-lg-4 mb-4'>
-                                <div className="card border-0 rounded-3 me-4 shadow">
-                                    <img src="/img/cards/2.jpg" className="card-img-top rounded-0" alt="card" />
-                                    <div className="card-body">
-                                        <div className="card-title fw-bold">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</div>
-                                        <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
-                                    </div>
-                                </div>
-                            </div>
+                            {
+                                blogs.sort((a, b) => a.viewed > b.viewed ? -1 : 1).map((blog, index) => (
+                                    index % 2 === 0
+                                        ?
+                                        <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark'>
+                                            <div className="card border-0 rounded-3 me-4 shadow">
+                                                <img src="/img/cards/1.jpg" className="card-img-top rounded-0" alt="card" />
+                                                <div className="card-body">
+                                                    <div className="card-title fw-bold">{blog.title}</div>
+                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                        :
+                                        <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark'>
+                                            <div className="card border-0 rounded-3 me-4 shadow">
+                                                <div className="card-body">
+                                                    <div className="card-title fw-bold">{blog.title}</div>
+                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
+                                                </div>
+                                                <img src="/img/cards/1.jpg" className="card-img-top rounded-0" alt="card" />
+                                            </div>
+                                        </Link>
+                                ))
+                            }
                         </div>
                     </div>
                     <div className='col-lg-3 pt-5 px-4' style={{ backgroundColor: "#ededed " }}>

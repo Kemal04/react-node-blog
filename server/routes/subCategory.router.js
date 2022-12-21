@@ -1,5 +1,5 @@
 const express = require('express');
-const { SubCategory, Category } = require('../models/model');
+const { SubCategory, Category, Blog } = require('../models/model');
 const router = express.Router();
 
 // all data GET 
@@ -8,6 +8,22 @@ router.get("/", async (req, res) => {
     res.json({
         subCategories: subCategories
     })
+});
+
+// single subCategory GET 
+router.get("/:subId", async (req, res) => {
+    const id = req.params.subId;
+    try {
+        const subCategories = await SubCategory.findByPk(id, {include: Blog});
+        if (subCategories) {
+            return res.json({
+                subCategories: subCategories
+            })
+        } res.json({ error: "Kici kategoriya tapylmady"});
+    }
+    catch (err) {
+        console.log(err)
+    }
 });
 
 // create GET and POST
