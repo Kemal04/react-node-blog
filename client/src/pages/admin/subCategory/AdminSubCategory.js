@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import AdminNavbar from '../../../components/admin/AdminNavbar'
 import Sidebar from '../../../components/admin/Sidebar'
 
@@ -20,6 +21,18 @@ const AdminSubCategory = () => {
         fetchSubCategories()
     }, [])
 
+    const handleDelete = async (id) => {
+
+        await axios.delete('http://localhost:3001/subCategory/delete/' + id)
+            .then((res) => {
+                toast.success(res.data.success)
+                window.location.reload()
+            }).catch((error) => {
+                toast.error(error.message)
+            });
+
+    }
+
     return (
         <>
             <div className="hold-transition sidebar-mini layout-fixed">
@@ -31,7 +44,7 @@ const AdminSubCategory = () => {
                             <div className='container py-5'>
                                 <div className='d-flex justify-content-between aling-items-center h2 mb-5'>
                                     Kici kategoriylar bölümi
-                                    <Link to="/" className='text-decoration-none'>+</Link>
+                                    <Link to="/admin/kici-kategoriya-gos" className='text-decoration-none'>+</Link>
                                 </div>
                                 <div className='row'>
                                     <div className='col-lg-12'>
@@ -53,8 +66,8 @@ const AdminSubCategory = () => {
                                                             <td>{subCategory.name}</td>
                                                             <td className='text-muted'>{subCategory.category.name}</td>
                                                             <td>
-                                                                <Link className='me-3 btn btn-sm btn-warning' to="/">Duzeltmek</Link>
-                                                                <button className='btn btn-sm btn-danger' to="/">Pozmak</button>
+                                                                <Link className='me-3 btn btn-sm btn-warning' to={`/admin/kici-kategoriya-uytget/${subCategory.id}`}>Duzeltmek</Link>
+                                                                <button className='btn btn-sm btn-danger' onClick={() => handleDelete(subCategory.id)}>Pozmak</button>
                                                             </td>
                                                         </tr>
                                                     ))

@@ -11,7 +11,7 @@ const Navbar = ({ authState }) => {
     };
 
     return (
-        <div className="navbar navbar-expand-lg navbar-light">
+        <div className="navbar navbar-expand-lg navbar-dark">
             <div className="container">
                 <NavLink to="/" className="navbar-brand text-white fw-bold">
                     Logo

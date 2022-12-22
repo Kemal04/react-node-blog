@@ -12,7 +12,7 @@ import { Navbar, Footer } from "./components"
 import { Home, About, Register, Login, Ads, News, CategoryRead, SubCategoryRead, BlogRead } from "./pages/userInterface"
 
 //Admin Pages
-import { Admin, AdminAds, AdminBlog, AdminCategory, AdminContact, AdminSubCategory, AdminUser } from './pages/admin';
+import { Admin, AdminAds, AdminBlog, AdminCategory, AdminCategoryCreate, AdminCategoryEdit, AdminContact, AdminSubCategory, AdminSubCategoryCreate, AdminSubCategoryEdit, AdminUser } from './pages/admin';
 
 //Toast Container
 import { ToastContainer } from 'react-toastify'
@@ -69,7 +69,11 @@ const App = () => {
                             <Route path='/admin/reklamalar' element={<AdminAds />}></Route>
                             <Route path='/admin/teswirler' element={<AdminContact />}></Route>
                             <Route path='/admin/kategoriyalar' element={<AdminCategory />}></Route>
+                            <Route path='/admin/kategoriya-gos' element={<AdminCategoryCreate />}></Route>
+                            <Route path='/admin/kategoriya-uytget/:id' element={<AdminCategoryEdit />}></Route>
                             <Route path='/admin/kici-kategoriyalar' element={<AdminSubCategory />}></Route>
+                            <Route path='/admin/kici-kategoriya-gos' element={<AdminSubCategoryCreate />}></Route>
+                            <Route path='/admin/kici-kategoriya-uytget/:id' element={<AdminSubCategoryEdit />}></Route>
                             <Route path='/admin/bloglar' element={<AdminBlog />}></Route>
                         </Route>
 
