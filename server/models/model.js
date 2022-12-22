@@ -67,7 +67,19 @@ const SubCategory = sequelize.define("subcategory", {
         type: DataTypes.STRING,
         allowNull:false
     }
+});
+
+const Ads = sequelize.define("ads", {
+    title: {
+        type: DataTypes.STRING,
+        allowNull:false
+    },
+    description: {
+        type: DataTypes.STRING,
+        allowNull:false
+    }
 })
+
 
 Category.hasMany(SubCategory, {onDelete: "cascade"});
 SubCategory.belongsTo(Category);
@@ -83,5 +95,10 @@ Blog.belongsTo(SubCategory);
 // User.belongsToMany(Role, {through: "userRoles"});
 
 module.exports = {
-    User,Category,Blog,Role,SubCategory
+    User,
+    Category,
+    Blog,
+    Role,
+    SubCategory,
+    Ads
 }
