@@ -80,7 +80,7 @@ router.post("/edit/:adsId", async (req, res) => {
 });
 
 // delete POST
-router.delete("/delete/:adsId", async (req, res) => {
+router.post("/delete/:adsId", async (req, res) => {
     const id = req.params.adsId; 
     try{
         const ads = await Ads.findByPk(id);

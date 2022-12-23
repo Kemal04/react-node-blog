@@ -90,7 +90,7 @@ router.post("/edit/:subCategoryId", async (req, res) => {
 });
 
 // delete POST
-router.delete("/delete/:subCategoryId", async (req, res) => {
+router.post("/delete/:subCategoryId", async (req, res) => {
     const id = req.params.subCategoryId; 
     try{
         const subCategory = await SubCategory.findByPk(id);

@@ -1,17 +1,12 @@
 const express = require('express');
-const { User } = require('../models/model');
+const { User, Role } = require('../models/model');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const { sign } = require("jsonwebtoken");
 const { validateToken } = require('../middlewares/AuthMiddlewares');
 
 //all data get 
-router.get("/", async (req, res) => {
-    const users = await User.findAll();
-    res.json({
-        users: users
-    })
-});
+
 
 //register_post
 router.post("/register", async (req, res) => {
