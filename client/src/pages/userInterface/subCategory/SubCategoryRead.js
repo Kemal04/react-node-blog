@@ -47,16 +47,28 @@ const SubCategoryRead = () => {
                         </div>
                         <div className='row mb-5 pb-5'>
                             {
-                                blogs.map(blog => (
-                                    <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark'>
-                                        <div className="card border-0 rounded-3 me-4 shadow">
-                                            <img src="/img/cards/1.jpg" className="card-img-top rounded-0" alt="card" />
-                                            <div className="card-body">
-                                                <div className="card-title fw-bold">{blog.title}</div>
-                                                <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
+                                blogs.sort((a, b) => a.id > b.id ? -1 : 1).map((blog, index) => (
+                                    index % 2 === 0
+                                        ?
+                                        <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretchk'>
+                                            <div className="card border-0 rounded-3 me-4 shadow">
+                                                <img src={blog.img} className="card-img-top rounded-0" alt="card" />
+                                                <div className="card-body">
+                                                    <div className="card-title fw-bold">{blog.title}</div>
+                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Link>
+                                        </Link>
+                                        :
+                                        <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
+                                            <div className="card border-0 rounded-3 me-4 shadow">
+                                                <div className="card-body">
+                                                    <div className="card-title fw-bold">{blog.title}</div>
+                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
+                                                </div>
+                                                <img src={blog.img} className="card-img-top rounded-0" alt="card" />
+                                            </div>
+                                        </Link>
                                 ))
                             }
                         </div>

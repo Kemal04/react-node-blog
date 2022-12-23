@@ -5,7 +5,7 @@ import axios from "axios"
 const CategoryRead = () => {
 
     const [category, setCategory] = useState("");
-    const [subCategory, setSubCategory] = useState([]);
+    const [subCategories, setSubCategories] = useState([]);
 
     const location = useLocation();
     const categoryId = location.pathname.split("/")[2];
@@ -14,10 +14,20 @@ const CategoryRead = () => {
         axios.get(`http://localhost:3001/category/${categoryId}`)
             .then((res) => {
                 setCategory(res.data.category)
-                setSubCategory(res.data.category.subcategories)
+                setSubCategories(res.data.category.subcategories)
             })
     }, [categoryId])
 
+    const [blogs, setBlogs] = useState([]);
+    const [subCategory, setSubCategory] = useState("");
+
+    useEffect(() => {
+        axios.get(`http://localhost:3001/blog/`)
+            .then((res) => {
+                setBlogs(res.data.blogs)
+                setSubCategory(res.data.blog.subcategories)
+            })
+    }, [])
 
     return (
 
@@ -50,7 +60,7 @@ const CategoryRead = () => {
                                         <Link to="/" className="nav-link rounded-5 py-1 px-3 text-dark bg-light">Hemmesi</Link>
                                     </li>
                                     {
-                                        subCategory.map(subCategory => (
+                                        subCategories.map(subCategory => (
                                             <li className="nav-item small mx-1" key={subCategory.id}>
                                                 <Link to={`/kici-kategoriya/${subCategory.id}`} className="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>{subCategory.name}</Link>
                                             </li>
@@ -59,8 +69,33 @@ const CategoryRead = () => {
                                 </ul>
                             </div>
                         </div>
-                        <div className='row mt-5'>
-                            
+
+                        <div className='row my-5 py-5'>
+                            {
+                                blogs.sort((a, b) => a.id > b.id ? -1 : 1).map((blog, index) => (
+                                    index % 2 === 0
+                                        ?
+                                        <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretchk'>
+                                            <div className="card border-0 rounded-3 me-4 shadow">
+                                                <img src={blog.img} className="card-img-top rounded-0" alt="card" />
+                                                <div className="card-body">
+                                                    <div className="card-title fw-bold">{blog.title}</div>
+                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                        :
+                                        <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
+                                            <div className="card border-0 rounded-3 me-4 shadow">
+                                                <div className="card-body">
+                                                    <div className="card-title fw-bold">{blog.title}</div>
+                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
+                                                </div>
+                                                <img src={blog.img} className="card-img-top rounded-0" alt="card" />
+                                            </div>
+                                        </Link>
+                                ))
+                            }
                         </div>
                     </div>
                     <div className='col-lg-3 pt-5 px-4' style={{ backgroundColor: "#ededed " }}>
