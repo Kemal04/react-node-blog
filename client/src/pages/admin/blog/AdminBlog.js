@@ -76,8 +76,8 @@ const AdminBlog = () => {
                                                             {/* <td>{blog.liked}</td> */}
                                                             <td className='text-muted'>{blog.subcategory.name}</td>
                                                             <td>
-                                                                <Link className='me-3 btn btn-sm btn-primary' to={`/admin/kici-kategoriya/${blog.id}`}>Gormek</Link>
-                                                                <Link className='me-3 btn btn-sm btn-warning' to={`/admin/kici-kategoriya-uytget/${blog.id}`}>Duzeltmek</Link>
+                                                                <Link className='me-3 btn btn-sm btn-primary' to={`/admin/blog/${blog.id}`}>Gormek</Link>
+                                                                <Link className='me-3 btn btn-sm btn-warning' to={`/admin/blog-uytget/${blog.id}`}>Duzeltmek</Link>
                                                                 <button className='btn btn-sm btn-danger' onClick={() => handleDelete(blog.id)}>Pozmak</button>
                                                             </td>
                                                         </tr>

@@ -47,11 +47,11 @@ const Blog = sequelize.define("blog", {
     },
     viewed: {
         type: DataTypes.INTEGER,
-        allowNull:false
+        allowNull:true
     },
     liked: {
         type: DataTypes.INTEGER,
-        allowNull:false
+        allowNull:true
     }
 });
 

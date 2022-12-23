@@ -70,6 +70,7 @@ router.post("/edit/:blogId", async (req, res) => {
     const viewed = req.body.viewed;
     const liked = req.body.liked;
     const subcategoryId = req.body.subcategoryId;
+    
     try {
         const blog = await Blog.findByPk(id);
         if(blog){
