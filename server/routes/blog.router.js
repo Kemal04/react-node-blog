@@ -23,6 +23,8 @@ router.get("/create", async (req, res) => {
         console.log(err)
     }
 });
+
+// delete POST
 router.post("/create", async (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
@@ -30,7 +32,8 @@ router.post("/create", async (req, res) => {
     const viewed = req.body.viewed;
     const liked = req.body.liked;
     const subcategoryId = req.body.subcategoryId;
-
+    const userId = req.body.userId;
+    
     try {
         await Blog.create({
             title: title,
@@ -38,7 +41,8 @@ router.post("/create", async (req, res) => {
             img:img,
             viewed:viewed,
             liked:liked,
-            subcategoryId:subcategoryId
+            subcategoryId:subcategoryId,
+            userId:userId
         });
         res.json({success: "Makala üstünlikli goşuldy" });
     }
@@ -91,7 +95,7 @@ router.post("/edit/:blogId", async (req, res) => {
 });
 
 // delete POST
-router.delete("/delete/:blogId", async (req, res) => {
+router.post("/delete/:blogId", async (req, res) => {
     const id = req.params.blogId; 
     try{
         const blog = await Blog.findByPk(id);
