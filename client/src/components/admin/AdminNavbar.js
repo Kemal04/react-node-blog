@@ -10,10 +10,10 @@ const AdminNavbar = () => {
                         <Link to="" className="p-2 pt-3 d-flex text-dark" data-widget="pushmenu"><i className="fas fa-bars"></i></Link>
                     </li>
                     <li className="nav-item d-none d-sm-inline-block">
-                        <Link to="" className="nav-link">Baş Sahypa</Link>
+                        <Link to="/" className="nav-link">Baş Sahypa</Link>
                     </li>
                     <li className="nav-item d-none d-sm-inline-block">
-                        <Link to="" className="nav-link">Biz barada</Link>
+                        <Link to="/biz-barada" className="nav-link">Biz barada</Link>
                     </li>
                 </ul>
             </nav>

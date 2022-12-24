@@ -71,6 +71,7 @@ const News = () => {
                                 </ul>
                             </div>
                         </div>
+                        
                         <div className='row mb-5 pb-5'>
                             {
                                 blogs.sort((a, b) => a.id > b.id ? -1 : 1).map((blog, index) => (

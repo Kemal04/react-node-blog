@@ -10,7 +10,7 @@ const AdminCategoryCreate = () => {
     const [category, setCategory] = useState({
         name: ""
     })
-
+ 
     const handleChange = (e) => {
         setCategory((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }

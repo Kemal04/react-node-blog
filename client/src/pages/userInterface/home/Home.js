@@ -65,7 +65,7 @@ const Home = () => {
                                     {
                                         categories.map((category) => (
                                             <li className="nav-item small mx-1" key={category.id}>
-                                                <Link to={`/kategoriya/${category.id}`} className="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>{category.name}</Link>
+                                                <Link key={category.id} to={`/kategoriya/${category.id}`} className="nav-link rounded-5 py-1 px-3 text-dark" style={{ backgroundColor: "#ededed" }}>{category.name}</Link>
                                             </li>
                                         ))
                                     }
@@ -75,7 +75,7 @@ const Home = () => {
                         <div className='row mt-5'>
                             {
                                 blogs.sort((a, b) => a.id > b.id ? -1 : 1).slice(0, 2).map(blog => (
-                                    <Link to={`/blog/${blog.id}`} className='col-lg-6 mt-4 text-decoration-none text-dark d-flex align-items-stretch'>
+                                    <Link key={blog.id} to={`/blog/${blog.id}`} className='col-lg-6 mt-4 text-decoration-none text-dark d-flex align-items-stretch'>
                                         <div className="card border-0 rounded-3 me-4 shadow">
                                             <img src={blog.img} className="card-img-top rounded-0" alt="card" />
                                             <div className="card-body">
@@ -190,7 +190,7 @@ const Home = () => {
                                 blogs.sort((a, b) => a.viewed > b.viewed ? -1 : 1).map((blog, index) => (
                                     index % 2 === 0
                                         ?
-                                        <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
+                                        <Link key={blog.id} to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
                                             <div className="card border-0 rounded-3 me-4 shadow">
                                                 <img src={blog.img} className="card-img-top rounded-0" alt="card" />
                                                 <div className="card-body">
@@ -203,7 +203,7 @@ const Home = () => {
                                             </div>
                                         </Link>
                                         :
-                                        <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
+                                        <Link key={blog.id} to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
                                             <div className="card border-0 rounded-3 me-4 shadow">
                                                 <div className="card-body">
                                                     <div className="card-title fw-bold">{blog.title}</div>

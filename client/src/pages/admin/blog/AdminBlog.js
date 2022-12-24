@@ -14,7 +14,6 @@ const AdminBlog = () => {
             try {
                 const res = await axios.get('http://localhost:3001/blog')
                 setBlogs(res.data.blogs)
-                console.log(res.data.blogs);
             } catch (err) {
                 console.log(err)
             }
@@ -33,7 +32,7 @@ const AdminBlog = () => {
             });
 
     }
-
+    
     return (
         <>
             <div className="hold-transition sidebar-mini layout-fixed">

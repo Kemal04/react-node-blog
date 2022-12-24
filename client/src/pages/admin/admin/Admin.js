@@ -12,7 +12,7 @@ const Admin = () => {
                     <Sidebar />
                     <div className="content-wrapper" style={{ paddingTop: "70px" }}>
                         <div className='content'>
-
+ 
                         </div>
                     </div>
                 </div>

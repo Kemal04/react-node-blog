@@ -15,7 +15,7 @@ const AdminBlogEdit = () => {
 
     const blogId = location.pathname.split("/")[3];
 
-
+    
     const handleChange = (e) => {
         setBlog((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }

@@ -15,7 +15,6 @@ const SubCategoryRead = () => {
             .then((res) => {
                 setSubCategory(res.data.subCategories)
                 setBlogs(res.data.subCategories.blogs)
-                console.log(res.data.subCategories);
             })
     }, [subId])
 
@@ -50,7 +49,7 @@ const SubCategoryRead = () => {
                                 blogs.sort((a, b) => a.id > b.id ? -1 : 1).map((blog, index) => (
                                     index % 2 === 0
                                         ?
-                                        <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretchk'>
+                                        <Link key={blog.id} to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretchk'>
                                             <div className="card border-0 rounded-3 me-4 shadow">
                                                 <img src={blog.img} className="card-img-top rounded-0" alt="card" />
                                                 <div className="card-body">
@@ -60,7 +59,7 @@ const SubCategoryRead = () => {
                                             </div>
                                         </Link>
                                         :
-                                        <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
+                                        <Link key={blog.id} to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
                                             <div className="card border-0 rounded-3 me-4 shadow">
                                                 <div className="card-body">
                                                     <div className="card-title fw-bold">{blog.title}</div>

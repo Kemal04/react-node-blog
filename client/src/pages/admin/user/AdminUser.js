@@ -11,7 +11,7 @@ const AdminUser = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const res = await axios.get('http://localhost:3001/auth')
+                const res = await axios.get('http://localhost:3001/user')
                 setUsers(res.data.users)
             } catch (err) {
                 console.log(err)
