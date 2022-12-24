@@ -1,28 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
 const BlogRead = () => {
 
-    const [subCategories, setSubCategories] = useState([])
-
-    useEffect(() => {
-        const fetchAllSubCategories = async () => {
-            try {
-                const res = await axios.get('http://localhost:3001/subCategory/')
-                setSubCategories(res.data.subCategories)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        fetchAllSubCategories()
-    }, [])
-
     const [blog, setBlog] = useState("")
     const [subCategory, setSubCategory] = useState("")
 
-    const navigate = useNavigate()
     const location = useLocation();
 
     const blogId = location.pathname.split("/")[2];
@@ -62,6 +47,9 @@ const BlogRead = () => {
             <div className='container'>
                 <div className='row'>
                     <div className='col-lg-9 my-5 py-5'>
+                        <div className='small'>
+                            Bas sahypa -{'>'} {subCategory.name}
+                        </div>
                         <div className='h1'>
                             {blog.title}
                         </div>

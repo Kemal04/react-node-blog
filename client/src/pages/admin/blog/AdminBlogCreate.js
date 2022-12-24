@@ -13,7 +13,7 @@ const AdminBlogCreate = () => {
         img: "",
         subcategoryId: ""
     })
-
+    
     const handleChange = (e) => {
         setBlog((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }

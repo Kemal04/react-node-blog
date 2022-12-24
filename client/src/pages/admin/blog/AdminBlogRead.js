@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import AdminNavbar from '../../../components/admin/AdminNavbar'
 import Sidebar from '../../../components/admin/Sidebar'
@@ -10,15 +10,8 @@ const AdminBlogRead = () => {
     const [blog, setBlog] = useState("")
     const [subCategory, setSubCategory] = useState("")
 
-    const navigate = useNavigate()
     const location = useLocation();
-
     const blogId = location.pathname.split("/")[3];
-
-
-    const handleChange = (e) => {
-        setBlog((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-    }
 
     useEffect(() => {
         axios.get(`http://localhost:3001/blog/${blogId}`).then((res) => {
@@ -41,8 +34,9 @@ const AdminBlogRead = () => {
                                 <div className='row justify-content-center'>
                                     <div className='col-lg-8'>
                                         <div className='card rounded-0'>
-                                            <img src={blog.img} alt='' className='img-fluid'/>
+                                            <img src={blog.img} alt='' className='img-fluid' />
                                             <div className='card-body'>
+                                                <div className='small'>subCategory:{subCategory.name}</div>
                                                 <div className='card-title h4'>{blog.title}</div>
                                                 <div className='card-text mt-5'>{blog.description}</div>
                                             </div>

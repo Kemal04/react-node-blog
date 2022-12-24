@@ -43,7 +43,7 @@ const AdminCategoryEdit = () => {
                 });
         }
     }
-
+ 
     return (
         <>
             <div className="hold-transition sidebar-mini layout-fixed">

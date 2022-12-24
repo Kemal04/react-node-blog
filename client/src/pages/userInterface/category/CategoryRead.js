@@ -19,13 +19,11 @@ const CategoryRead = () => {
     }, [categoryId])
 
     const [blogs, setBlogs] = useState([]);
-    const [subCategory, setSubCategory] = useState("");
 
     useEffect(() => {
         axios.get(`http://localhost:3001/blog/`)
             .then((res) => {
                 setBlogs(res.data.blogs)
-                setSubCategory(res.data.blog.subcategories)
             })
     }, [])
 
@@ -69,27 +67,27 @@ const CategoryRead = () => {
                                 </ul>
                             </div>
                         </div>
-
+                        
                         <div className='row my-5 py-5'>
                             {
                                 blogs.sort((a, b) => a.id > b.id ? -1 : 1).map((blog, index) => (
                                     index % 2 === 0
                                         ?
-                                        <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretchk'>
+                                        <Link key={blog.id} to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretchk'>
                                             <div className="card border-0 rounded-3 me-4 shadow">
                                                 <img src={blog.img} className="card-img-top rounded-0" alt="card" />
                                                 <div className="card-body">
                                                     <div className="card-title fw-bold">{blog.title}</div>
-                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
+                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>{blog.subcategory.name} - </Link><span>{new Date(blog.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric", })}</span></div>
                                                 </div>
                                             </div>
                                         </Link>
                                         :
-                                        <Link to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
+                                        <Link key={blog.id} to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
                                             <div className="card border-0 rounded-3 me-4 shadow">
                                                 <div className="card-body">
                                                     <div className="card-title fw-bold">{blog.title}</div>
-                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
+                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>{blog.subcategory.name} - </Link><span>{new Date(blog.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric", })}</span></div>
                                                 </div>
                                                 <img src={blog.img} className="card-img-top rounded-0" alt="card" />
                                             </div>
