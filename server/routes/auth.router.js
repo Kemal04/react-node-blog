@@ -43,6 +43,7 @@ router.post("/login", async (req, res) => {
                 res.json({ error: "E-mailinizi yada acar sozunizi yalnys yazdynyz" });
             }
             else {
+                req.session.isAuth = 1;
                 const accessToken = sign(
                     { email: user.email, id: user.id },
                     "importantsecret"
