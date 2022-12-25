@@ -34,6 +34,7 @@ const BlogRouter = require('./routes/blog.router');
 const AdsRouter = require('./routes/ads.router');
 const RoleRouter = require('./routes/role.router');
 const UserRouter = require('./routes/user.router');
+const ContactRouter = require('./routes/contact.router');
 
 app.use("/auth", AuthRouter);
 app.use("/category", CategoryRouter);
@@ -42,6 +43,7 @@ app.use("/blog", BlogRouter);
 app.use("/ads", AdsRouter);
 app.use("/role", RoleRouter);
 app.use("/user", UserRouter);
+app.use("/contact", ContactRouter);
 
 //serv
 app.listen(port, () => {

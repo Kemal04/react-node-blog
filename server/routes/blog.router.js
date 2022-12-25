@@ -5,13 +5,19 @@ const fs = require('fs')
 
 //all data GET 
 router.get("/", async (req, res) => {
-    const blogs = await Blog.findAll({include: SubCategory});
+    const userid = req.session.userId;
+    const isModerator = req.session.roles.includes("MODERATOR");
+    const isAdmin = req.session.roles.include("ADMIN")
+    const blogs = await Blog.findAll({
+            include: SubCategory,
+            where: isModerator && !isAdmin ? { userId: userid } : null
+        });
     res.json({
         blogs: blogs
     })
 });
 
-// create GET and POST
+// create GET
 router.get("/create", async (req, res) => {
     try {
         const subCategory = await SubCategory.findAll();
@@ -24,7 +30,7 @@ router.get("/create", async (req, res) => {
     }
 });
 
-// delete POST
+// create POST
 router.post("/create", async (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
@@ -32,19 +38,19 @@ router.post("/create", async (req, res) => {
     const viewed = req.body.viewed;
     const liked = req.body.liked;
     const subcategoryId = req.body.subcategoryId;
-    const userId = req.body.userId;
-    
+    const userid = req.session.userid;
+
     try {
         await Blog.create({
             title: title,
             description: description,
-            img:img,
-            viewed:viewed,
-            liked:liked,
-            subcategoryId:subcategoryId,
-            userId:userId
+            img: img,
+            viewed: viewed,
+            liked: liked,
+            subcategoryId: subcategoryId,
+            userId: userid
         });
-        res.json({success: "Makala üstünlikli goşuldy" });
+        res.json({ success: "Makala üstünlikli goşuldy" });
     }
     catch (err) {
         console.log(err);
@@ -55,7 +61,7 @@ router.post("/create", async (req, res) => {
 router.get("/edit/:blogId", async (req, res) => {
     const id = req.params.blogId;
     try {
-        const blog = await Blog.findByPk(id, {include: SubCategory});
+        const blog = await Blog.findByPk(id, { include: SubCategory });
         if (blog) {
             return res.json({
                 blog: blog
@@ -74,21 +80,21 @@ router.post("/edit/:blogId", async (req, res) => {
     const viewed = req.body.viewed;
     const liked = req.body.liked;
     const subcategoryId = req.body.subcategoryId;
-    
+
     try {
         const blog = await Blog.findByPk(id);
-        if(blog){
+        if (blog) {
             blog.title = title,
-            blog.description = description,
-            blog.img = img,
-            blog.viewed = viewed,
-            blog.liked = liked,
-            blog.subcategoryId = subcategoryId,
-            blog.save();
-            return  res.json({success: "Makala üstünlikli duzedildi" });
+                blog.description = description,
+                blog.img = img,
+                blog.viewed = viewed,
+                blog.liked = liked,
+                blog.subcategoryId = subcategoryId,
+                blog.save();
+            return res.json({ success: "Makala üstünlikli duzedildi" });
         }
-        res.json({error: "Makala tapylmady"});
-        
+        res.json({ error: "Makala tapylmady" });
+
     }
     catch (err) {
         console.log(err);
@@ -97,16 +103,16 @@ router.post("/edit/:blogId", async (req, res) => {
 
 // delete POST
 router.post("/delete/:blogId", async (req, res) => {
-    const id = req.params.blogId; 
-    try{
+    const id = req.params.blogId;
+    try {
         const blog = await Blog.findByPk(id);
-        if(blog){
+        if (blog) {
             await blog.destroy();
-            return res.json({success: "Makala üstünlikli pozuldy" });
+            return res.json({ success: "Makala üstünlikli pozuldy" });
         }
-        res.json({ error: "Makala tapylmady"})
+        res.json({ error: "Makala tapylmady" })
     }
-    catch(err){
+    catch (err) {
         console.log(err);
     }
 });
@@ -115,12 +121,12 @@ router.post("/delete/:blogId", async (req, res) => {
 router.get("/:blogId", async (req, res) => {
     const id = req.params.blogId
     try {
-        const blog = await Blog.findByPk(id, {include: SubCategory});
+        const blog = await Blog.findByPk(id, { include: SubCategory });
         if (blog) {
             return res.json({
-                blog:blog
+                blog: blog
             })
-        } res.json({ error: "Blog tapylmady"});
+        } res.json({ error: "Blog tapylmady" });
     }
     catch (err) {
         console.log(err)

@@ -73,7 +73,7 @@ router.post("/edit/:categoryId", async (req, res) => {
 });
 
 // delete POST 
-router.post("/delete/:categoryId", async (req, res) => {
+router.delete("/delete/:categoryId", async (req, res) => {
     const id = req.params.categoryId; 
     try{
         const category = await Category.findByPk(id);

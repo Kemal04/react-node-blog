@@ -21,76 +21,114 @@ const User = sequelize.define("user", {
     },
     img: {
         type: DataTypes.STRING,
-        allowNull:true
+        allowNull: true
     }
-});
+},
+    { timestamps: true }
+);
+
 
 const Category = sequelize.define("categories", {
     name: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     }
 })
 
 const Blog = sequelize.define("blog", {
     title: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
     description: {
         type: DataTypes.TEXT,
-        allowNull:false
+        allowNull: false
     },
     img: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
     viewed: {
         type: DataTypes.INTEGER,
-        allowNull:true
+        allowNull: true
     },
     liked: {
         type: DataTypes.INTEGER,
-        allowNull:true
+        allowNull: true
     }
-});
+},
+    { timestamps: true }
+);
 
 const Role = sequelize.define("role", {
     name: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     }
 })
 
 const SubCategory = sequelize.define("subcategory", {
     name: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     }
 });
 
 const Ads = sequelize.define("ads", {
     title: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
     },
     description: {
         type: DataTypes.STRING,
-        allowNull:false
+        allowNull: false
+    },
+    img: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
-})
+},
+    { timestamps: true }
+)
+
+const Contact = sequelize.define("contact", {
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    subject: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    comment: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    check: {
+        type: DataTypes.TINYINT,
+        allowNull: false,
+        defaultValue: "0"
+    }
+},
+    { timestamps: true }
+);
 
 
-Category.hasMany(SubCategory, {onDelete: "cascade"});
+
+Category.hasMany(SubCategory, { onDelete: "cascade" });
 SubCategory.belongsTo(Category);
 
 SubCategory.hasMany(Blog, { onDelete: "cascade" });
 Blog.belongsTo(SubCategory);
 
-Blog.belongsTo(User,{foreignKey: {allowNull:true}});
+Blog.belongsTo(User, { foreignKey: { allowNull: true } });
 User.hasMany(Blog);
 
-Role.hasMany(User, {onDelete: "cascade"});
+Role.hasMany(User, { onDelete: "cascade" });
 User.belongsTo(Role);
 
 module.exports = {
@@ -99,5 +137,6 @@ module.exports = {
     Blog,
     Role,
     SubCategory,
-    Ads
+    Ads,
+    Contact
 }

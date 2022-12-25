@@ -75,7 +75,7 @@ router.post("/edit/:userId", async (req, res) => {
 
 
 // delete POST 
-router.post("/delete/:userId", async (req, res) => {
+router.delete("/delete/:userId", async (req, res) => {
     const id = req.params.userId; 
     try{
         const user = await User.findByPk(id);
