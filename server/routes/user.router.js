@@ -54,9 +54,7 @@ router.get("/edit/:userId", async (req, res) => {
 // Edit POST
 router.post("/edit/:userId", async (req, res) => {
     const id = req.params.userId;
-    const name = req.body.name;
-    const email = req.body.email;
-    const roleIds = req.body.roles;
+    const roleId = req.body.roles;
     try {
         const user = await User.findOne({
             where: { id: id },
@@ -64,18 +62,7 @@ router.post("/edit/:userId", async (req, res) => {
         });
 
         if (user) {
-            user.name = name;
-            user.email = email;
-
-            if (roleIds == undefined) {
-                await user.removeRoles(user.roles);
-            } else {
-                await user.removeRoles(user.roles);
-                const selectedRoles = await Role.findAll({
-                    where: {id: {[Op.eq]: roleIds}}
-                });
-                await user.addRoles(selectedRoles);
-            }
+            user.roleId = roleId;
             await user.save();
             return res.json({ succes: "Ulanyjy duzedildi!!!"});
         } 
@@ -86,6 +73,22 @@ router.post("/edit/:userId", async (req, res) => {
     }
 });
 
+
+// delete POST 
+router.post("/delete/:userId", async (req, res) => {
+    const id = req.params.userId; 
+    try{
+        const user = await User.findByPk(id);
+        if(user){
+            await user.destroy();
+            return res.json({success: "Ulanyjy üstünlikli pozuldy" });
+        }
+        res.json({ error: "Ulanyjy tapylmady"})
+    }
+    catch(err){
+        console.log(err);
+    }
+});
 
 
 module.exports = router;

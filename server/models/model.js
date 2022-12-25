@@ -90,7 +90,6 @@ Blog.belongsTo(SubCategory);
 Blog.belongsTo(User,{foreignKey: {allowNull:true}});
 User.hasMany(Blog);
 
-
 Role.hasMany(User, {onDelete: "cascade"});
 User.belongsTo(Role);
 
