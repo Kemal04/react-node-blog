@@ -9,6 +9,7 @@ const AdminAdsCreate = () => {
 
     const [ads, setAds] = useState({
         title: "",
+        img: "",
         description: "",
     })
 
@@ -26,6 +27,9 @@ const AdminAdsCreate = () => {
         }
         else if (!ads.description) {
             toast.error("Mazmuny ýazyň")
+        }
+        else if (!ads.img) {
+            toast.error("Surady ýazyň")
         }
         else {
             await axios.post("http://localhost:3001/ads/create", ads)
@@ -62,7 +66,7 @@ const AdminAdsCreate = () => {
 
                                                 <div className="col-lg-6 mb-3">
                                                     <label className="form-label fw-bold">Reklama Suraty</label>
-                                                    <input onChange={handleChange} name='img' type="text" className="form-control rounded-0" autoComplete="off" disabled/>
+                                                    <input onChange={handleChange} name='img' type="text" className="form-control rounded-0" autoComplete="off" />
                                                 </div>
 
                                                 <div className="col-lg-12 mb-3">

@@ -18,6 +18,20 @@ const Ads = () => {
         fetchAllCategories()
     }, [])
 
+    const [ads, setAds] = useState([])
+
+    useEffect(() => {
+        const fetchAllAds = async () => {
+            try {
+                const res = await axios.get('http://localhost:3001/ads/')
+                setAds(res.data.ads)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchAllAds()
+    }, [])
+
     return (
         <>
             <div className='home-bg'>
@@ -57,103 +71,48 @@ const Ads = () => {
                                 </ul>
                             </div>
                         </div>
+
+
                         <div className='row mb-5 pb-5'>
-                            <div className='col-lg-12'>
-                                <div className="card mb-5 border-0 rounded-3 me-4 shadow">
-                                    <div className="row g-0 align-items-center">
-                                        <div className="col-md-4">
-                                            <img src="/img/cards/1.jpg" className="img-fluid rounded-0" alt="card" />
-                                        </div>
-                                        <div className="col-md-8">
-                                            <div className="card-body">
-                                                <h5 className="card-title">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                                <p className="card-text my-3">Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                                <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
+                            {
+                                ads.sort((a, b) => a.viewed > b.viewed ? -1 : 1).map((ads, index) => (
+                                    index % 2 === 0
+                                        ?
+                                        <Link key={ads.id} to={`/ads/${ads.id}`} className='col-lg-12 text-decoration-none text-dark'>
+                                            <div className="card mb-5 border-0 rounded-3 me-4 shadow">
+                                                <div className="row g-0 align-items-center">
+                                                    <div className="col-md-4">
+                                                        <img src={ads.img} className="img-fluid rounded-0" alt="card" />
+                                                    </div>
+                                                    <div className="col-md-8">
+                                                        <div className="card-body">
+                                                            <h5 className="card-title">{ads.title}</h5>
+                                                            <p className="card-text my-3">{ads.description}</p>
+                                                            <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-12'>
-                                <div className="card mb-5 border-0 rounded-3 me-4 shadow">
-                                    <div className="row g-0 align-items-center">
-                                        <div className="col-md-8">
-                                            <div className="card-body">
-                                                <h5 className="card-title">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                                <p className="card-text my-3">Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                                <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
+                                        </Link>
+                                        :
+                                        <Link key={ads.id} to={`/ads/${ads.id}`} className='col-lg-12 text-decoration-none text-dark'>
+                                            <div className="card mb-5 border-0 rounded-3 me-4 shadow">
+                                                <div className="row g-0 align-items-center">
+                                                    <div className="col-md-8">
+                                                        <div className="card-body">
+                                                            <h5 className="card-title">{ads.title}</h5>
+                                                            <p className="card-text my-3">{ads.description}</p>
+                                                            <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <img src={ads.img} className="img-fluid rounded-0" alt="card" />
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="col-md-4">
-                                            <img src="/img/cards/2.jpg" className="img-fluid rounded-0" alt="card" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-12'>
-                                <div className="card mb-5 border-0 rounded-3 me-4 shadow">
-                                    <div className="row g-0 align-items-center">
-                                        <div className="col-md-4">
-                                            <img src="/img/cards/1.jpg" className="img-fluid rounded-0" alt="card" />
-                                        </div>
-                                        <div className="col-md-8">
-                                            <div className="card-body">
-                                                <h5 className="card-title">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                                <p className="card-text my-3">Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                                <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-12'>
-                                <div className="card mb-5 border-0 rounded-3 me-4 shadow">
-                                    <div className="row g-0 align-items-center">
-                                        <div className="col-md-8">
-                                            <div className="card-body">
-                                                <h5 className="card-title">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                                <p className="card-text my-3">Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                                <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-4">
-                                            <img src="/img/cards/2.jpg" className="img-fluid rounded-0" alt="card" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-12'>
-                                <div className="card mb-5 border-0 rounded-3 me-4 shadow">
-                                    <div className="row g-0 align-items-center">
-                                        <div className="col-md-4">
-                                            <img src="/img/cards/1.jpg" className="img-fluid rounded-0" alt="card" />
-                                        </div>
-                                        <div className="col-md-8">
-                                            <div className="card-body">
-                                                <h5 className="card-title">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                                <p className="card-text my-3">Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                                <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='col-lg-12'>
-                                <div className="card mb-5 border-0 rounded-3 me-4 shadow">
-                                    <div className="row g-0 align-items-center">
-                                        <div className="col-md-8">
-                                            <div className="card-body">
-                                                <h5 className="card-title">How Did van Gogh’s Turbulent Mind Depict One of the Most Complex Concepts in Physics?</h5>
-                                                <p className="card-text my-3">Pick the yellow peach that looks like a sunset with its red, orange, and pink coat skin, peel it off with your teeth. Sink them into unripened...</p>
-                                                <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
-                                            </div>
-                                        </div>
-                                        <div className="col-md-4">
-                                            <img src="/img/cards/2.jpg" className="img-fluid rounded-0" alt="card" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                        </Link>
+                                ))
+                            }
                         </div>
                         <Link className='d-flex justify-content-center text-center text-decoration-none text-dark'>
                             <div className='border rounded-5 p-1 mb-5' style={{ width: "70px" }}>

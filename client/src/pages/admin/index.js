@@ -16,6 +16,7 @@ export { default as AdminBlogRead } from "./blog/AdminBlogRead"
 export { default as AdminAds } from "./ads/AdminAds"
 export { default as AdminAdsCreate } from "./ads/AdminAdsCreate"
 export { default as AdminAdsEdit } from "./ads/AdminAdsEdit"
+export { default as AdminAdsRead } from "./ads/AdminAdsRead"
 
 export { default as AdminUser } from "./user/AdminUser"
 export { default as AdminUserCreate } from "./user/AdminUserCreate"

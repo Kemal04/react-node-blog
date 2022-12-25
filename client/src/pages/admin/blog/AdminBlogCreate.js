@@ -5,15 +5,16 @@ import { toast } from 'react-toastify'
 import AdminNavbar from '../../../components/admin/AdminNavbar'
 import Sidebar from '../../../components/admin/Sidebar'
 
-const AdminBlogCreate = () => {
+const AdminBlogCreate = ({ authState }) => {
 
     const [blog, setBlog] = useState({
         title: "",
         description: "",
         img: "",
-        subcategoryId: ""
+        subcategoryId: "",
+        // userId: authState.id
     })
-    
+
     const handleChange = (e) => {
         setBlog((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
