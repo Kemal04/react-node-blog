@@ -44,6 +44,9 @@ router.post("/login", async (req, res) => {
             }
             else {
                 req.session.isAuth = 1;
+                req.session.userid = user.id;
+                req.session.userid = user.name;
+
                 const accessToken = sign(
                     { email: user.email, id: user.id },
                     "importantsecret"

@@ -90,9 +90,8 @@ Blog.belongsTo(SubCategory);
 Blog.belongsTo(User,{foreignKey: {allowNull:true}});
 User.hasMany(Blog);
 
-
-Role.belongsToMany(User, {through: "userRoles"});
-User.belongsToMany(Role, {through: "userRoles"});
+Role.hasMany(User, {onDelete: "cascade"});
+User.belongsTo(Role);
 
 module.exports = {
     User,
