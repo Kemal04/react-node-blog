@@ -7,7 +7,7 @@ const sequelize = new Sequelize(config.db.database, config.db.user, config.db.pa
     dialect: "mysql",
     host: config.db.host ,
     define: {
-        timestamps: false
+        timestamps: true
     },
     storage: "./session.mysql"
 });

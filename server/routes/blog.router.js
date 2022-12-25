@@ -5,12 +5,20 @@ const fs = require('fs')
 
 //all data GET 
 router.get("/", async (req, res) => {
-    const userid = req.session.userId;
+    const blogs = await Blog.findAll({include: SubCategory});
+    res.json({
+        blogs: blogs
+    })
+});
+
+router.get("/admin", async (req, res) => {
+    const userId = req.session.userid;
     const isModerator = req.session.roles.includes("MODERATOR");
-    const isAdmin = req.session.roles.include("ADMIN")
+    const isAdmin = req.session.roles.includes("ADMIN")
+
     const blogs = await Blog.findAll({
             include: SubCategory,
-            where: isModerator && !isAdmin ? { userId: userid } : null
+            where: isModerator && !isAdmin ? { userid: userId } : null
         });
     res.json({
         blogs: blogs
@@ -60,8 +68,15 @@ router.post("/create", async (req, res) => {
 // edit GET and POST
 router.get("/edit/:blogId", async (req, res) => {
     const id = req.params.blogId;
+    const userId = req.session.userid;
     try {
-        const blog = await Blog.findByPk(id, { include: SubCategory });
+        const blog = await Blog.findOne({ 
+            where: {
+                id: id,
+                userId: userId
+            },
+            include: SubCategory 
+        });
         if (blog) {
             return res.json({
                 blog: blog
@@ -80,6 +95,7 @@ router.post("/edit/:blogId", async (req, res) => {
     const viewed = req.body.viewed;
     const liked = req.body.liked;
     const subcategoryId = req.body.subcategoryId;
+    const userId = req.session.userid;
 
     try {
         const blog = await Blog.findByPk(id);
