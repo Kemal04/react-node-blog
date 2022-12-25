@@ -23,7 +23,6 @@ const AdminUserEdit = () => {
         axios.get(`http://localhost:3001/user/edit/${userId}`).then((res) => {
             setUser(res.data.user)
             setRole(res.data.user.role)
-            console.log(res.data.user.role)
         }).catch((err) => {
             toast.error(err.message)
         })
@@ -90,7 +89,12 @@ const AdminUserEdit = () => {
                                                 <div className="col-lg-6 mb-5">
                                                     <label className="form-label fw-bold">Role Ady <span className='text-danger'>*</span></label>
                                                     <select name='roleId' className="form-select rounded-0" onChange={handleChange}>
-                                                        <option defaultValue value={role.id}>{role.name}</option>
+                                                        {role == null
+                                                            ?
+                                                            <option defaultValue></option>
+                                                            :
+                                                            <option defaultValue value={role.id}>{role.name}</option>
+                                                        }
                                                         {roles.map(role => (
                                                             <option key={role.id} value={role.id}>{role.name}</option>
                                                         ))}
@@ -99,17 +103,17 @@ const AdminUserEdit = () => {
 
                                                 <div className="col-lg-6 mb-5">
                                                     <label className="form-label fw-bold">Ulanyjy Ady</label>
-                                                    <input value={user.name} onChange={handleChange} name='name' type="text" className="form-control rounded-0" autoComplete="off" disabled/>
+                                                    <input value={user.name} onChange={handleChange} name='name' type="text" className="form-control rounded-0" autoComplete="off" disabled />
                                                 </div>
 
                                                 <div className="col-lg-6 mb-3">
                                                     <label className="form-label fw-bold">Ulanyjy E-maili</label>
-                                                    <input value={user.email} onChange={handleChange} name='name' type="email" className="form-control rounded-0" autoComplete="off" disabled/>
+                                                    <input value={user.email} onChange={handleChange} name='name' type="email" className="form-control rounded-0" autoComplete="off" disabled />
                                                 </div>
 
                                                 <div className="col-lg-6 mb-3">
                                                     <label className="form-label fw-bold">Ulanyjy Acar sozi</label>
-                                                    <input value={user.password} onChange={handleChange} name='name' type="password" className="form-control rounded-0" autoComplete="off" disabled/>
+                                                    <input value={user.password} onChange={handleChange} name='name' type="password" className="form-control rounded-0" autoComplete="off" disabled />
                                                 </div>
 
                                                 <div className='d-grid mt-3'>

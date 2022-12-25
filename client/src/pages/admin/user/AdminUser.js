@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import AdminNavbar from '../../../components/admin/AdminNavbar'
 import Sidebar from '../../../components/admin/Sidebar'
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const AdminUser = () => {
 
@@ -19,6 +20,18 @@ const AdminUser = () => {
         }
         fetchUsers()
     }, [])
+
+    const handleDelete = async (id) => {
+
+        await axios.delete('http://localhost:3001/user/delete/' + id)
+            .then((res) => {
+                toast.success(res.data.success)
+                window.location.reload()
+            }).catch((error) => {
+                toast.error(error.message)
+            });
+
+    }
 
     return (
         <>
@@ -60,7 +73,7 @@ const AdminUser = () => {
                                                             <td>{user.roleId == null ? <div className='text-danger fw-bold'>BERILMEDIK</div> : <div className='text-success fw-bold'>{user.role.name}</div>}</td>
                                                             <td>
                                                                 <Link className='me-3 btn btn-sm btn-warning' to={`/admin/ulanyjy-uytget/${user.id}`}>Duzeltmek</Link>
-                                                                <button className='btn btn-sm btn-danger'>Pozmak</button>
+                                                                <button className='btn btn-sm btn-danger' onClick={() => handleDelete(user.id)}>Pozmak</button>
                                                             </td>
                                                         </tr>
                                                     ))

@@ -76,7 +76,7 @@ router.post("/edit/:roleId", async (req, res) => {
 });
 
 // delete POST
-router.post("/delete/:roleId", async (req, res) => {
+router.delete("/delete/:roleId", async (req, res) => {
     const id = req.params.roleId;
     try {
         const roles = await Role.findByPk(id);
