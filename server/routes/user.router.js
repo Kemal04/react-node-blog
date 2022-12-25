@@ -54,7 +54,7 @@ router.get("/edit/:userId", async (req, res) => {
 // Edit POST
 router.post("/edit/:userId", async (req, res) => {
     const id = req.params.userId;
-    const roleId = req.body.roles;
+    const roleId = req.body.roleId;
     try {
         const user = await User.findOne({
             where: { id: id },
@@ -64,8 +64,8 @@ router.post("/edit/:userId", async (req, res) => {
         if (user) {
             user.roleId = roleId;
             await user.save();
-            return res.json({ succes: "Ulanyjy duzedildi!!!"});
-        } 
+            return res.json({ succes: "Ulanyjy duzedildi!!!" });
+        }
         res.json({ error: "Ulanyjy tapylmady" });
     }
     catch (err) {
@@ -76,16 +76,16 @@ router.post("/edit/:userId", async (req, res) => {
 
 // delete POST 
 router.delete("/delete/:userId", async (req, res) => {
-    const id = req.params.userId; 
-    try{
+    const id = req.params.userId;
+    try {
         const user = await User.findByPk(id);
-        if(user){
+        if (user) {
             await user.destroy();
-            return res.json({success: "Ulanyjy üstünlikli pozuldy" });
+            return res.json({ success: "Ulanyjy üstünlikli pozuldy" });
         }
-        res.json({ error: "Ulanyjy tapylmady"})
+        res.json({ error: "Ulanyjy tapylmady" })
     }
-    catch(err){
+    catch (err) {
         console.log(err);
     }
 });

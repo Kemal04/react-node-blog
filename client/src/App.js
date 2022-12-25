@@ -12,7 +12,7 @@ import { Navbar, Footer } from "./components"
 import { Home, About, Register, Login, Ads, News, CategoryRead, SubCategoryRead, BlogRead } from "./pages/userInterface"
 
 //Admin Pages
-import { Admin, AdminAds, AdminBlog, AdminBlogCreate, AdminBlogEdit, AdminBlogRead, AdminCategory, AdminCategoryCreate, AdminCategoryEdit, AdminContact, AdminSubCategory, AdminSubCategoryCreate, AdminSubCategoryEdit, AdminUser, AdminUserCreate, AdminUserEdit } from './pages/admin';
+import { Admin, AdminAds, AdminAdsCreate, AdminAdsEdit, AdminBlog, AdminBlogCreate, AdminBlogEdit, AdminBlogRead, AdminCategory, AdminCategoryCreate, AdminCategoryEdit, AdminContact, AdminSubCategory, AdminSubCategoryCreate, AdminSubCategoryEdit, AdminUser, AdminUserCreate, AdminUserEdit } from './pages/admin';
 
 //Toast Container
 import { ToastContainer } from 'react-toastify'
@@ -68,8 +68,11 @@ const App = () => {
 
                         <Route path="/" element={<AdminWithNavbar />}>
                             <Route path='/admin' element={<Admin />}></Route>
-                            <Route path='/admin/reklamalar' element={<AdminAds />}></Route>
                             <Route path='/admin/teswirler' element={<AdminContact />}></Route>
+
+                            <Route path='/admin/reklamalar' element={<AdminAds />}></Route>
+                            <Route path='/admin/reklama-gos' element={<AdminAdsCreate />}></Route>
+                            <Route path='/admin/reklama-uytget/:id' element={<AdminAdsEdit />}></Route>
 
                             <Route path='/admin/ulanyjylar' element={<AdminUser />}></Route>
                             <Route path='/admin/ulanyjy-gos' element={<AdminUserCreate />}></Route>

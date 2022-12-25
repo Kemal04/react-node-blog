@@ -102,9 +102,9 @@ router.post("/edit/:blogId", async (req, res) => {
 });
 
 // delete POST
-router.post("/delete/:blogId", async (req, res) => {
-    const id = req.params.blogId;
-    try {
+router.delete("/delete/:blogId", async (req, res) => {
+    const id = req.params.blogId; 
+    try{
         const blog = await Blog.findByPk(id);
         if (blog) {
             await blog.destroy();
