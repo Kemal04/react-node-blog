@@ -70,7 +70,7 @@ const AdminAdsEdit = () => {
 
                                                 <div className="col-lg-6 mb-3">
                                                     <label className="form-label fw-bold">Reklama Suraty</label>
-                                                    <input value={ads.img} onChange={handleChange} name='img' type="text" className="form-control rounded-0" autoComplete="off" disabled />
+                                                    <input value={ads.img} onChange={handleChange} name='img' type="text" className="form-control rounded-0" autoComplete="off" />
                                                 </div>
 
                                                 <div className="col-lg-12 mb-3">

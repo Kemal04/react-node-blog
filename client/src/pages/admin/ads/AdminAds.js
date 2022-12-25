@@ -66,6 +66,7 @@ const AdminAds = () => {
                                                             <td>{ads.img}</td>
                                                             <td>{ads.title}</td>
                                                             <td>
+                                                                <Link className='me-3 btn btn-sm btn-primary' to={`/admin/reklama/${ads.id}`}>Gormek</Link>
                                                                 <Link className='me-3 btn btn-sm btn-warning' to={`/admin/reklama-uytget/${ads.id}`}>Duzeltmek</Link>
                                                                 <button className='btn btn-sm btn-danger' onClick={() => handleDelete(ads.id)}>Pozmak</button>
                                                             </td>

@@ -12,7 +12,7 @@ import { Navbar, Footer } from "./components"
 import { Home, About, Register, Login, Ads, News, CategoryRead, SubCategoryRead, BlogRead } from "./pages/userInterface"
 
 //Admin Pages
-import { Admin, AdminAds, AdminAdsCreate, AdminAdsEdit, AdminBlog, AdminBlogCreate, AdminBlogEdit, AdminBlogRead, AdminCategory, AdminCategoryCreate, AdminCategoryEdit, AdminContact, AdminSubCategory, AdminSubCategoryCreate, AdminSubCategoryEdit, AdminUser, AdminUserCreate, AdminUserEdit } from './pages/admin';
+import { Admin, AdminAds, AdminAdsCreate, AdminAdsEdit, AdminAdsRead, AdminBlog, AdminBlogCreate, AdminBlogEdit, AdminBlogRead, AdminCategory, AdminCategoryCreate, AdminCategoryEdit, AdminContact, AdminSubCategory, AdminSubCategoryCreate, AdminSubCategoryEdit, AdminUser, AdminUserCreate, AdminUserEdit } from './pages/admin';
 
 //Toast Container
 import { ToastContainer } from 'react-toastify'
@@ -62,7 +62,7 @@ const App = () => {
                             <Route path='/kategoriya/:id' element={<CategoryRead />}></Route>
 
                             <Route path='/kici-kategoriya/:id' element={<SubCategoryRead />}></Route>
-                            
+
                             <Route path='/blog/:id' element={<BlogRead />}></Route>
                         </Route>
 
@@ -73,6 +73,7 @@ const App = () => {
                             <Route path='/admin/reklamalar' element={<AdminAds />}></Route>
                             <Route path='/admin/reklama-gos' element={<AdminAdsCreate />}></Route>
                             <Route path='/admin/reklama-uytget/:id' element={<AdminAdsEdit />}></Route>
+                            <Route path='/admin/reklama/:id' element={<AdminAdsRead />}></Route>
 
                             <Route path='/admin/ulanyjylar' element={<AdminUser />}></Route>
                             <Route path='/admin/ulanyjy-gos' element={<AdminUserCreate />}></Route>
@@ -87,7 +88,7 @@ const App = () => {
                             <Route path='/admin/kici-kategoriya-uytget/:id' element={<AdminSubCategoryEdit />}></Route>
 
                             <Route path='/admin/bloglar' element={<AdminBlog />}></Route>
-                            <Route path='/admin/blog-gos' element={<AdminBlogCreate />}></Route>
+                            <Route path='/admin/blog-gos' element={<AdminBlogCreate authState={authState} />}></Route>
                             <Route path='/admin/blog-uytget/:id' element={<AdminBlogEdit />}></Route>
                             <Route path='/admin/blog/:id' element={<AdminBlogRead />}></Route>
                         </Route>
