@@ -12,7 +12,7 @@ import { Navbar, Footer } from "./components"
 import { Home, About, Register, Login, Ads, News, CategoryRead, SubCategoryRead, BlogRead } from "./pages/userInterface"
 
 //Admin Pages
-import { Admin, AdminAds, AdminBlog, AdminBlogCreate, AdminBlogEdit, AdminBlogRead, AdminCategory, AdminCategoryCreate, AdminCategoryEdit, AdminContact, AdminSubCategory, AdminSubCategoryCreate, AdminSubCategoryEdit, AdminUser } from './pages/admin';
+import { Admin, AdminAds, AdminBlog, AdminBlogCreate, AdminBlogEdit, AdminBlogRead, AdminCategory, AdminCategoryCreate, AdminCategoryEdit, AdminContact, AdminSubCategory, AdminSubCategoryCreate, AdminSubCategoryEdit, AdminUser, AdminUserCreate, AdminUserEdit } from './pages/admin';
 
 //Toast Container
 import { ToastContainer } from 'react-toastify'
@@ -58,22 +58,31 @@ const App = () => {
                             <Route path='/tazelikler' element={<News />}></Route>
                             <Route path='/reklamalar' element={<Ads />}></Route>
                             <Route path='/biz-barada' element={<About />}></Route>
+
                             <Route path='/kategoriya/:id' element={<CategoryRead />}></Route>
+
                             <Route path='/kici-kategoriya/:id' element={<SubCategoryRead />}></Route>
+                            
                             <Route path='/blog/:id' element={<BlogRead />}></Route>
                         </Route>
 
                         <Route path="/" element={<AdminWithNavbar />}>
                             <Route path='/admin' element={<Admin />}></Route>
-                            <Route path='/admin/ulanyjylar' element={<AdminUser />}></Route>
                             <Route path='/admin/reklamalar' element={<AdminAds />}></Route>
                             <Route path='/admin/teswirler' element={<AdminContact />}></Route>
+
+                            <Route path='/admin/ulanyjylar' element={<AdminUser />}></Route>
+                            <Route path='/admin/ulanyjy-gos' element={<AdminUserCreate />}></Route>
+                            <Route path='/admin/ulanyjy-uytget/:id' element={<AdminUserEdit />}></Route>
+
                             <Route path='/admin/kategoriyalar' element={<AdminCategory />}></Route>
                             <Route path='/admin/kategoriya-gos' element={<AdminCategoryCreate />}></Route>
                             <Route path='/admin/kategoriya-uytget/:id' element={<AdminCategoryEdit />}></Route>
+
                             <Route path='/admin/kici-kategoriyalar' element={<AdminSubCategory />}></Route>
                             <Route path='/admin/kici-kategoriya-gos' element={<AdminSubCategoryCreate />}></Route>
                             <Route path='/admin/kici-kategoriya-uytget/:id' element={<AdminSubCategoryEdit />}></Route>
+
                             <Route path='/admin/bloglar' element={<AdminBlog />}></Route>
                             <Route path='/admin/blog-gos' element={<AdminBlogCreate />}></Route>
                             <Route path='/admin/blog-uytget/:id' element={<AdminBlogEdit />}></Route>

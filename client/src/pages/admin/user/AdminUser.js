@@ -31,7 +31,7 @@ const AdminUser = () => {
                             <div className='container py-5'>
                                 <div className='d-flex justify-content-between aling-items-center h2 mb-5'>
                                     Ulanyjylar bölümi
-                                    <Link to="/" className='text-decoration-none'>+</Link>
+                                    <Link to="/admin/ulanyjy-gos" className='text-decoration-none'>+</Link>
                                 </div>
                                 <div className='row'>
                                     <div className='col-lg-12'>
@@ -43,6 +43,8 @@ const AdminUser = () => {
                                                     <th scope="col">Ulanyjy Ady</th>
                                                     <th scope="col">E-mail adresi</th>
                                                     <th scope="col">Açar sözi</th>
+                                                    <th scope="col">Role</th>
+                                                    <th scope="col">Duzeltmek</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -55,6 +57,11 @@ const AdminUser = () => {
                                                             <td>{user.name}</td>
                                                             <td>{user.email}</td>
                                                             <td>************</td>
+                                                            <td>{user.roleId == null ? <div className='text-danger fw-bold'>BERILMEDIK</div> : <div className='text-success fw-bold'>{user.role.name}</div>}</td>
+                                                            <td>
+                                                                <Link className='me-3 btn btn-sm btn-warning' to={`/admin/ulanyjy-uytget/${user.id}`}>Duzeltmek</Link>
+                                                                <button className='btn btn-sm btn-danger'>Pozmak</button>
+                                                            </td>
                                                         </tr>
                                                     ))
                                                 }
