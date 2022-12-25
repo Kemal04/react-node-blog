@@ -34,7 +34,7 @@ router.get("/edit/:userId", async (req, res) => {
     try {
         const user = await User.findOne({
             where: { id: id },
-            include: { model: Role, attributes: ["id"] }
+            include: { model: Role }
         });
 
         const roles = await Role.findAll();

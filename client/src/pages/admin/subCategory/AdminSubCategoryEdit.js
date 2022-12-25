@@ -54,7 +54,7 @@ const AdminSubCategoryEdit = () => {
 
     useEffect(() => {
         const fetchCategories = async () => {
-            try {
+            try {   
                 const res = await axios.get('http://localhost:3001/category/')
                 setCategories(res.data.categories)
             } catch (err) {
