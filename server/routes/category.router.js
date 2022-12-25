@@ -29,7 +29,7 @@ router.get("/:categoryId", async (req, res) => {
 // create POST 
 router.post("/create", async (req, res) => {
     const name = req.body.name;
-
+    
     try {
         await Category.create({name: name});
         res.json({success: "Kategoriya üstünlikli goşuldy" })

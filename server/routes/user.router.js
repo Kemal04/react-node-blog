@@ -70,8 +70,9 @@ router.post("/edit/:userId", async (req, res) => {
             if (roleIds == undefined) {
                 await user.removeRoles(user.roles);
             } else {
+                await user.removeRoles(user.roles);
                 const selectedRoles = await Role.findAll({
-                    where: {id: {[Op.in]: roleIds}}
+                    where: {id: {[Op.eq]: roleIds}}
                 });
                 await user.addRoles(selectedRoles);
             }
@@ -85,21 +86,6 @@ router.post("/edit/:userId", async (req, res) => {
     }
 });
 
-// delete POST
-router.post("/delete/:adsId", async (req, res) => {
-    const id = req.params.adsId;
-    try {
-        const ads = await Ads.findByPk(id);
-        if (ads) {
-            await ads.destroy();
-            return res.json({ success: "Reklama üstünlikli pozuldy" });
-        }
-        res.json({ error: "Reklama tapylmady" })
-    }
-    catch (err) {
-        console.log(err);
-    }
-});
 
 
 module.exports = router;
