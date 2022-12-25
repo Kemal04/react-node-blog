@@ -43,14 +43,16 @@ router.post("/login", async (req, res) => {
                 res.json({ error: "E-mailinizi yada acar sozunizi yalnys yazdynyz" });
             }
             else {
-                const UserRoles = await user.getRoles({
+                const UserRoles = await Role.findAll({
+                    where:{id: user.roleId},
                     attributes:["name"],
                     raw:true
                 });
-                req.session.roles = userRoles;
+                req.session.roles = UserRoles.map((role) => role["name"]);
                 req.session.isAuth = 1;
-                req.session.userId = user.id;
-                req.session.userid = user.name;
+                req.session.userid = user.id;
+                req.session.username = user.name;
+                req.session.roleId = user.roleId;
 
                 const accessToken = sign(
                     { email: user.email, id: user.id },

@@ -23,9 +23,7 @@ const User = sequelize.define("user", {
         type: DataTypes.STRING,
         allowNull: true
     }
-},
-    { timestamps: true }
-);
+});
 
 
 const Category = sequelize.define("categories", {
@@ -56,9 +54,7 @@ const Blog = sequelize.define("blog", {
         type: DataTypes.INTEGER,
         allowNull: true
     }
-},
-    { timestamps: true }
-);
+});
 
 const Role = sequelize.define("role", {
     name: {
@@ -87,9 +83,7 @@ const Ads = sequelize.define("ads", {
         type: DataTypes.STRING,
         allowNull: false
     }
-},
-    { timestamps: true }
-)
+});
 
 const Contact = sequelize.define("contact", {
     name: {
@@ -113,9 +107,7 @@ const Contact = sequelize.define("contact", {
         allowNull: false,
         defaultValue: "0"
     }
-},
-    { timestamps: true }
-);
+});
 
 
 
