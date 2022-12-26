@@ -5,9 +5,6 @@ const bcrypt = require('bcrypt');
 const { sign } = require("jsonwebtoken");
 const { validateToken } = require('../middlewares/AuthMiddlewares');
 
-//all data get 
-
-
 //register_post
 router.post("/register", async (req, res) => {
     const name = req.body.name;
@@ -33,85 +30,51 @@ router.post("/register", async (req, res) => {
     }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 //login_post
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     try {
         const user = await User.findOne({ where: { email: email } });
+
         if (!user) {
             return res.json({ error: "email invalid" });
         }
 
-
         const match = await bcrypt.compare(password, user.password)
+
         if (match) {
+
             const UserRoles = await Role.findAll({
                 where: { id: user.roleId },
                 attributes: ["name"],
                 raw: true
             });
+
             req.session.roles = UserRoles.map((role) => role["name"]);
             req.session.isAuth = true;
             req.session.username = user.name;
             req.session.roleId = user.roleId;
 
+            const sessionToken = req.session;
+
             const accessToken = sign(
                 { email: user.email, id: user.id },
                 "importantsecret"
             );
-            res.json({ token: accessToken, email: email, id: user.id });
+
+            res.json({ token: accessToken, email: email, id: user.id, sessionToken: sessionToken });
+            
         } else {
+
             return res.json({ error: "password invald" })
+
         }
     }
     catch (err) {
         console.log(err);
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //current user
 router.get("/current_user", validateToken, async (req, res) => {

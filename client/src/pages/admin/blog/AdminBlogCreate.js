@@ -5,14 +5,13 @@ import { toast } from 'react-toastify'
 import AdminNavbar from '../../../components/admin/AdminNavbar'
 import Sidebar from '../../../components/admin/Sidebar'
 
-const AdminBlogCreate = ({ authState }) => {
+const AdminBlogCreate = () => {
 
     const [blog, setBlog] = useState({
         title: "",
         description: "",
         img: "",
         subcategoryId: "",
-        // userId: authState.id
     })
 
     const handleChange = (e) => {
