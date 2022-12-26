@@ -33,7 +33,6 @@ const Login = () => {
                 if (res.data.error) {
                     toast.error(res.data.error)
                 } else {
-                    console.log(res.data);
                     localStorage.setItem("accessToken", res.data.token)
                     setAuthState(
                         {
@@ -42,6 +41,8 @@ const Login = () => {
                             status: true
                         }
                     );
+                    sessionStorage.setItem("token", res.data.sessionToken.cookie.path)
+                    console.log(res.data.sessionToken);
                     navigate("/")
                     toast.success(res.data.success)
                     window.location.reload()
@@ -50,6 +51,8 @@ const Login = () => {
             })
         }
     }
+
+
 
     return (
         <>

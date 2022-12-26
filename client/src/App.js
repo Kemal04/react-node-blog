@@ -12,7 +12,7 @@ import { Navbar, Footer } from "./components"
 import { Home, About, Register, Login, Ads, News, CategoryRead, SubCategoryRead, BlogRead } from "./pages/userInterface"
 
 //Admin Pages
-import { Admin, AdminAds, AdminAdsCreate, AdminAdsEdit, AdminAdsRead, AdminBlog, AdminBlogCreate, AdminBlogEdit, AdminBlogRead, AdminCategory, AdminCategoryCreate, AdminCategoryEdit, AdminContact, AdminSubCategory, AdminSubCategoryCreate, AdminSubCategoryEdit, AdminUser, AdminUserCreate, AdminUserEdit } from './pages/admin';
+import { Admin, AdminAds, AdminAdsCreate, AdminAdsEdit, AdminAdsRead, AdminBlog, AdminBlogCreate, AdminBlogEdit, AdminBlogRead, AdminCategory, AdminCategoryCreate, AdminCategoryEdit, AdminContact, AdminContactCreate, AdminContactEdit, AdminContactRead, AdminSubCategory, AdminSubCategoryCreate, AdminSubCategoryEdit, AdminUser, AdminUserCreate, AdminUserEdit } from './pages/admin';
 
 //Toast Container
 import { ToastContainer } from 'react-toastify'
@@ -68,7 +68,11 @@ const App = () => {
 
                         <Route path="/" element={<AdminWithNavbar />}>
                             <Route path='/admin' element={<Admin />}></Route>
+
                             <Route path='/admin/teswirler' element={<AdminContact />}></Route>
+                            <Route path='/admin/teswir-gos' element={<AdminContactCreate />}></Route>
+                            <Route path='/admin/teswir-uytget/:id' element={<AdminContactEdit />}></Route>
+                            <Route path='/admin/teswir/:id' element={<AdminContactRead />}></Route>
 
                             <Route path='/admin/reklamalar' element={<AdminAds />}></Route>
                             <Route path='/admin/reklama-gos' element={<AdminAdsCreate />}></Route>
