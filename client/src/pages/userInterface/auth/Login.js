@@ -4,12 +4,15 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { AuthContext } from "../../../context/AuthContext";
 import axios from 'axios';
+import { useCookies } from 'react-cookie'
 
 const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const { setAuthState } = useContext(AuthContext);
+
+    const [cookies, setCookie] = useCookies([])
 
     const navigate = useNavigate();
 
@@ -41,8 +44,7 @@ const Login = () => {
                             status: true
                         }
                     );
-                    sessionStorage.setItem("token", res.data.sessionToken.cookie.path)
-                    console.log(res.data.sessionToken);
+                    setCookie('sessionToken', res.data.sessionToken)
                     navigate("/")
                     toast.success(res.data.success)
                     window.location.reload()
