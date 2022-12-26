@@ -12,7 +12,7 @@ const AdminBlog = () => {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const res = await axios.get('http://localhost:3001/blog')
+                const res = await axios.get('http://localhost:3001/blog/admin')
                 setBlogs(res.data.blogs)
             } catch (err) {
                 console.log(err)
