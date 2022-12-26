@@ -16,6 +16,11 @@ router.post("/register", async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     try {
+        const user = await User.findOne({ where: { email: email } });
+        if (user) {
+            req.session.message = "Email on ulanylyp dur";
+            return res.json({ error: "Email on ulanylyp dur" })
+        }
         await User.create({
             name: name,
             email: email,
@@ -28,43 +33,85 @@ router.post("/register", async (req, res) => {
     }
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 //login_post
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
-    const user = await User.findOne({ where: { email: email } });
+    try {
+        const user = await User.findOne({ where: { email: email } });
+        if (!user) {
+            return res.json({ error: "email invalid" });
+        }
 
-    if (!user) {
-        res.json({ error: "Ulanyjy tapylmady" })
+
+        const match = await bcrypt.compare(password, user.password)
+        if (match) {
+            const UserRoles = await Role.findAll({
+                where: { id: user.roleId },
+                attributes: ["name"],
+                raw: true
+            });
+            req.session.roles = UserRoles.map((role) => role["name"]);
+            req.session.isAuth = true;
+            req.session.username = user.name;
+            req.session.roleId = user.roleId;
+
+            const accessToken = sign(
+                { email: user.email, id: user.id },
+                "importantsecret"
+            );
+            res.json({ token: accessToken, email: email, id: user.id });
+        } else {
+            return res.json({ error: "password invald" })
+        }
     }
-    else {
-        bcrypt.compare(password, user.password).then(async (match) => {
-            if (!match) {
-                res.json({ error: "E-mailinizi yada acar sozunizi yalnys yazdynyz" });
-            }
-            else {
-                const UserRoles = await Role.findAll({
-                    where:{id: user.roleId},
-                    attributes:["name"],
-                    raw:true
-                });
-                req.session.roles = UserRoles.map((role) => role["name"]);
-                req.session.isAuth = 1;
-                req.session.userid = user.id;
-                req.session.username = user.name;
-                req.session.roleId = user.roleId;
-
-                const accessToken = sign(
-                    { email: user.email, id: user.id },
-                    "importantsecret"
-                );
-                res.json({ token: accessToken, email: email, id: user.id });
-            }
-        });
+    catch (err) {
+        console.log(err);
     }
-
-
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //current user
 router.get("/current_user", validateToken, async (req, res) => {
