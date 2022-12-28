@@ -1,11 +1,11 @@
 const express = require('express');
-const { Category, SubCategory, Blog } = require('../models/model');
+const { SubCategory, Blog } = require('../models/model');
 const router = express.Router();
 const fs = require('fs')
 
-//all data GET 
+// all data GET 
 router.get("/", async (req, res) => {
-    const blogs = await Blog.findAll({include: SubCategory});
+    const blogs = await Blog.findAll({ include: SubCategory });
     res.json({
         blogs: blogs
     })
@@ -15,14 +15,15 @@ router.get("/admin", async (req, res) => {
     const userId = req.session.userid;
     const isModerator = req.session.roles.includes("MODERATOR");
     const isAdmin = req.session.roles.includes("ADMIN")
-
     const blogs = await Blog.findAll({
-            include: SubCategory,
-            where: isModerator && !isAdmin ? { userid: userId } : null
+        include: SubCategory,
+        where: isModerator && !isAdmin ? { userid: userId } : null
+    });
+    if (blogs) {
+        return res.json({
+            blog: blog
         });
-    res.json({
-        blogs: blogs
-    })
+    } else res.json({ error: "Ulgama girmediniz!" })
 });
 
 // create GET
@@ -70,23 +71,25 @@ router.get("/edit/:blogId", async (req, res) => {
     const id = req.params.blogId;
     const userId = req.session.userid;
     try {
-        const blog = await Blog.findOne({ 
+        const blog = await Blog.findOne({
             where: {
                 id: id,
                 userId: userId
             },
-            include: SubCategory 
+            include: SubCategory
         });
         if (blog) {
             return res.json({
                 blog: blog
             });
-        }
+        } else res.json({ error: "Makala tapylmady!" })
     }
     catch (err) {
         console.log(err);
     }
 });
+
+// edit POST
 router.post("/edit/:blogId", async (req, res) => {
     const id = req.params.blogId;
     const title = req.body.title;
@@ -119,8 +122,8 @@ router.post("/edit/:blogId", async (req, res) => {
 
 // delete POST
 router.delete("/delete/:blogId", async (req, res) => {
-    const id = req.params.blogId; 
-    try{
+    const id = req.params.blogId;
+    try {
         const blog = await Blog.findByPk(id);
         if (blog) {
             await blog.destroy();
