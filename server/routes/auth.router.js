@@ -54,8 +54,7 @@ router.post("/login", async (req, res) => {
             req.session.roles = UserRoles.map((role) => role["name"]);
             req.session.isAuth = true;
             req.session.username = user.name;
-            req.session.roleId = user.roleId;
-
+            req.session.userid = user.id;
             const sessionToken = req.session;
 
             const accessToken = sign(
