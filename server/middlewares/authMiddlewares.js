@@ -1,6 +1,6 @@
 const { verify } = require("jsonwebtoken")
 
-const validateToken = (req, res, next) => {
+const isAdmin = (req, res, next) => {
   const accessToken = req.header("accessToken");
 
   if (!accessToken) return res.json({ error: "User not logged in!" });
@@ -10,6 +10,9 @@ const validateToken = (req, res, next) => {
     req.user = validToken
 
     if (validToken) {
+      if (req.user.role == 3 || req.user.role == 2) {
+            return res.status(403).json({error: "Sizin hich hili hukugynyz yok!!"});
+        }
       return next();
     }
     
@@ -18,4 +21,20 @@ const validateToken = (req, res, next) => {
   }
 };
 
-module.exports = { validateToken };
+const validateToken = (req, res, next) => {
+  const accessToken = req.header("accessToken");
+  try {
+      const validToken = verify(accessToken, "importantsecret");
+      req.user = validToken;
+      if (validToken) {
+        if (req.user.role == 3) {
+              return res.status(403).json({error: "Sizin ulanyjy, sizin hic hili hukugynyz yok!!"});
+          }
+        return next();
+      }
+  } catch (err) {
+      return res.json({ error: err });
+  }
+};
+
+module.exports = { isAdmin, validateToken };

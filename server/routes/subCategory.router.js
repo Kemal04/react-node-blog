@@ -2,8 +2,12 @@ const express = require('express');
 const { SubCategory, Category, Blog } = require('../models/model');
 const router = express.Router();
 
+const {isAdmin, validateToken} = require("../middlewares/authMiddlewares");
+
+// ADMIN UCIN
+
 // all data GET 
-router.get("/", async (req, res) => {
+router.get("/", isAdmin, validateToken, async (req, res) => {
     const subCategories = await SubCategory.findAll( {include: Category});
     res.json({
         subCategories: subCategories
@@ -11,7 +15,7 @@ router.get("/", async (req, res) => {
 });
 
 // single subCategory GET 
-router.get("/:subId", async (req, res) => {
+router.get("/:subId", isAdmin, validateToken, async (req, res) => {
     const id = req.params.subId;
     try {
         const subCategories = await SubCategory.findByPk(id, {include: Blog});
@@ -27,7 +31,7 @@ router.get("/:subId", async (req, res) => {
 });
 
 // create GET and POST
-router.get("/create", async (req, res) => {
+router.get("/create",isAdmin, validateToken, async (req, res) => {
     try {
         const category = await Category.findAll();
         res.json({
@@ -38,7 +42,7 @@ router.get("/create", async (req, res) => {
         console.log(err)
     }
 });
-router.post("/create", async (req, res) => {
+router.post("/create", isAdmin, validateToken, async (req, res) => {
     const name = req.body.name;
     const categoryId = req.body.categoryId;
 
@@ -55,7 +59,7 @@ router.post("/create", async (req, res) => {
 });
 
 // edit GET and POST
-router.get("/edit/:subCategoryId", async (req, res) => {
+router.get("/edit/:subCategoryId",isAdmin, validateToken, async (req, res) => {
     const id = req.params.subCategoryId;
     try {
         const subCategory = await SubCategory.findByPk(id, {include:Category});
@@ -69,7 +73,7 @@ router.get("/edit/:subCategoryId", async (req, res) => {
         console.log(err);
     }
 });
-router.post("/edit/:subCategoryId", async (req, res) => {
+router.post("/edit/:subCategoryId", isAdmin, validateToken, async (req, res) => {
     const id = req.params.subCategoryId;
     const name = req.body.name;
     const categoryId = req.body.categoryId;
@@ -90,7 +94,7 @@ router.post("/edit/:subCategoryId", async (req, res) => {
 });
 
 // delete POST
-router.delete("/delete/:subCategoryId", async (req, res) => {
+router.delete("/delete/:subCategoryId", isAdmin, validateToken, async (req, res) => {
     const id = req.params.subCategoryId; 
     try{
         const subCategory = await SubCategory.findByPk(id);

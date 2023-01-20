@@ -2,6 +2,8 @@ const express = require('express');
 const { Contact  } = require('../models/model');
 const router = express.Router();
 
+// HOME CONTACT UCIN
+
 //all data GET 
 router.get("/", async (req, res) => {
     const contact = await Contact.findAll();
