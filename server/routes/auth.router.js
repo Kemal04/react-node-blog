@@ -15,13 +15,13 @@ router.post("/register", async (req, res) => {
     try {
         const user = await User.findOne({ where: { email: email } });
         if (user) {
-            req.session.message = "Email on ulanylyp dur";
             return res.json({ error: "Email on ulanylyp dur" })
         }
         await User.create({
             name: name,
             email: email,
-            password: hashedPassword
+            password: hashedPassword,
+            roleId: "3",
         });
         res.json("Giris kabul edildi");
     }
@@ -44,25 +44,13 @@ router.post("/login", async (req, res) => {
         const match = await bcrypt.compare(password, user.password)
 
         if (match) {
-
-            const UserRoles = await Role.findAll({
-                where: { id: user.roleId },
-                attributes: ["name"],
-                raw: true
-            });
-
-            req.session.roles = UserRoles.map((role) => role["name"]);
-            req.session.isAuth = true;
-            req.session.username = user.name;
-            req.session.userid = user.id;
-            const sessionToken = req.session;
-
+            
             const accessToken = sign(
-                { email: user.email, id: user.id },
+                { email: user.email, id: user.id, role: user.roleId },
                 "importantsecret"
             );
 
-            res.json({ token: accessToken, email: email, id: user.id, sessionToken: sessionToken });
+            res.json({ token: accessToken, email: email, id: user.id });
             
         } else {
 

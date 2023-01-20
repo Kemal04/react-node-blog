@@ -2,6 +2,8 @@ const express = require('express');
 const { SubCategory, Blog } = require('../models/model');
 const router = express.Router();
 const fs = require('fs')
+const {validateToken} = require("../middlewares/authMiddlewares");
+const {isAdmin, isModerator} = require("../middlewares/roleMiddlewares");
 
 // all data GET 
 router.get("/", async (req, res) => {
@@ -11,23 +13,21 @@ router.get("/", async (req, res) => {
     })
 });
 
-router.get("/admin", async (req, res) => {
-    const userId = req.session.userid;
-    const isModerator = req.session.roles.includes("MODERATOR");
-    const isAdmin = req.session.roles.includes("ADMIN")
+router.get("/admin", validateToken, isAdmin, async (req, res) => {
+    const userId = req.user.id;
     const blogs = await Blog.findAll({
         include: SubCategory,
-        where: isModerator && !isAdmin ? { userid: userId } : null
+        where: req.user.role == 2 ? { userId: userId } : null
     });
     if (blogs) {
         return res.json({
-            blog: blog
+            blogs: blogs
         });
     } else res.json({ error: "Ulgama girmediniz!" })
 });
 
 // create GET
-router.get("/create", async (req, res) => {
+router.get("/create", validateToken, isModerator, async (req, res) => {
     try {
         const subCategory = await SubCategory.findAll();
         res.json({
@@ -40,14 +40,14 @@ router.get("/create", async (req, res) => {
 });
 
 // create POST
-router.post("/create", async (req, res) => {
+router.post("/create", validateToken, isModerator,  async (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
     const img = req.body.img;
     const viewed = req.body.viewed;
     const liked = req.body.liked;
     const subcategoryId = req.body.subcategoryId;
-    const userid = req.session.userid;
+    const userId = req.user.id;
 
     try {
         await Blog.create({
@@ -57,7 +57,7 @@ router.post("/create", async (req, res) => {
             viewed: viewed,
             liked: liked,
             subcategoryId: subcategoryId,
-            userId: userid
+            userId: userId
         });
         res.json({ success: "Makala üstünlikli goşuldy" });
     }
@@ -67,9 +67,9 @@ router.post("/create", async (req, res) => {
 });
 
 // edit GET and POST
-router.get("/edit/:blogId", async (req, res) => {
+router.get("/edit/:blogId", validateToken, isModerator, async (req, res) => {
     const id = req.params.blogId;
-    const userId = req.session.userid;
+    const userId = req.user.id;
     try {
         const blog = await Blog.findOne({
             where: {
@@ -90,7 +90,7 @@ router.get("/edit/:blogId", async (req, res) => {
 });
 
 // edit POST
-router.post("/edit/:blogId", async (req, res) => {
+router.post("/edit/:blogId", validateToken, isModerator, async (req, res) => {
     const id = req.params.blogId;
     const title = req.body.title;
     const description = req.body.description;
@@ -98,7 +98,6 @@ router.post("/edit/:blogId", async (req, res) => {
     const viewed = req.body.viewed;
     const liked = req.body.liked;
     const subcategoryId = req.body.subcategoryId;
-    const userId = req.session.userid;
 
     try {
         const blog = await Blog.findByPk(id);
@@ -124,7 +123,10 @@ router.post("/edit/:blogId", async (req, res) => {
 router.delete("/delete/:blogId", async (req, res) => {
     const id = req.params.blogId;
     try {
-        const blog = await Blog.findByPk(id);
+        const blog = await Blog.findByPk(id, {where: {
+            id: id,
+            userId: userId
+        }});
         if (blog) {
             await blog.destroy();
             return res.json({ success: "Makala üstünlikli pozuldy" });

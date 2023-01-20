@@ -109,7 +109,7 @@ const Contact = sequelize.define("contact", {
     }
 });
 
-
+User.findOrCreate({ where: { name:"Admin", email: "admin@gmail.com", password: "$2b$10$.2s8SLEln9Dnql5sPuvtfec93qtcKyvMAqDY8zeLg8IcndoHNtXWS", roleId: "1" } });
 
 Category.hasMany(SubCategory, { onDelete: "cascade" });
 SubCategory.belongsTo(Category);
