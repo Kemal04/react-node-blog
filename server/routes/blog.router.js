@@ -2,80 +2,45 @@ const express = require('express');
 const { SubCategory, Blog } = require('../models/model');
 const router = express.Router();
 const fs = require('fs')
-const {validateToken} = require("../middlewares/authMiddlewares");
-const {isAdmin, isModerator} = require("../middlewares/roleMiddlewares");
+const { isAdmin, validateToken } = require("../middlewares/authMiddlewares");
 
-// all data GET 
-router.get("/", async (req, res) => {
+// ADMIN UCIN
+
+// Admin all data GET 
+router.get("/", isAdmin, validateToken, async (req, res) => {
     const blogs = await Blog.findAll({ include: SubCategory });
     res.json({
         blogs: blogs
     })
 });
 
-router.get("/admin", validateToken, isAdmin, async (req, res) => {
-    const userId = req.user.id;
-    const blogs = await Blog.findAll({
-        include: SubCategory,
-        where: req.user.role == 2 ? { userId: userId } : null
-    });
-    if (blogs) {
-        return res.json({
-            blogs: blogs
-        });
-    } else res.json({ error: "Ulgama girmediniz!" })
-});
 
-// create GET
-router.get("/create", validateToken, isModerator, async (req, res) => {
+// Admin single blog GET
+router.get("/:blogId", isAdmin, validateToken, async (req, res) => {
+    const id = req.params.blogId;
     try {
-        const subCategory = await SubCategory.findAll();
-        res.json({
-            subCategory: subCategory
+        const blog = await Blog.findByPk(id, {
+            where: { id: id },
+            include: SubCategory
         });
+        if (blog) {
+            return res.json({
+                blog: blog
+            })
+        } res.json({ error: "Blog tapylmady" });
     }
     catch (err) {
         console.log(err)
     }
 });
 
-// create POST
-router.post("/create", validateToken, isModerator,  async (req, res) => {
-    const title = req.body.title;
-    const description = req.body.description;
-    const img = req.body.img;
-    const viewed = req.body.viewed;
-    const liked = req.body.liked;
-    const subcategoryId = req.body.subcategoryId;
-    const userId = req.user.id;
 
-    try {
-        await Blog.create({
-            title: title,
-            description: description,
-            img: img,
-            viewed: viewed,
-            liked: liked,
-            subcategoryId: subcategoryId,
-            userId: userId
-        });
-        res.json({ success: "Makala üstünlikli goşuldy" });
-    }
-    catch (err) {
-        console.log(err);
-    }
-});
-
-// edit GET and POST
-router.get("/edit/:blogId", validateToken, isModerator, async (req, res) => {
+// Admin edit GET
+router.get("/edit/:blogId",isAdmin, validateToken, async (req, res) => {
     const id = req.params.blogId;
-    const userId = req.user.id;
     try {
-        const blog = await Blog.findOne({
-            where: {
-                id: id,
-                userId: userId
-            },
+        const blog = await Blog.findByPk(id,{
+            where: { id: id },
             include: SubCategory
         });
         if (blog) {
@@ -89,8 +54,8 @@ router.get("/edit/:blogId", validateToken, isModerator, async (req, res) => {
     }
 });
 
-// edit POST
-router.post("/edit/:blogId", validateToken, isModerator, async (req, res) => {
+//Admin edit POST
+router.post("/edit/:blogId",isAdmin, validateToken, async (req, res) => {
     const id = req.params.blogId;
     const title = req.body.title;
     const description = req.body.description;
@@ -119,14 +84,13 @@ router.post("/edit/:blogId", validateToken, isModerator, async (req, res) => {
     }
 });
 
-// delete POST
-router.delete("/delete/:blogId", async (req, res) => {
+// Admin delete POST
+router.delete("/delete/:blogId",isAdmin, validateToken, async (req, res) => {
     const id = req.params.blogId;
     try {
-        const blog = await Blog.findByPk(id, {where: {
-            id: id,
-            userId: userId
-        }});
+        const blog = await Blog.findByPk({
+            where: { id: id }
+        });
         if (blog) {
             await blog.destroy();
             return res.json({ success: "Makala üstünlikli pozuldy" });
@@ -138,21 +102,7 @@ router.delete("/delete/:blogId", async (req, res) => {
     }
 });
 
-// single blog GET
-router.get("/:blogId", async (req, res) => {
-    const id = req.params.blogId
-    try {
-        const blog = await Blog.findByPk(id, { include: SubCategory });
-        if (blog) {
-            return res.json({
-                blog: blog
-            })
-        } res.json({ error: "Blog tapylmady" });
-    }
-    catch (err) {
-        console.log(err)
-    }
-});
+
 
 
 module.exports = router;

@@ -2,6 +2,8 @@ const express = require('express');
 const { Ads } = require('../models/model');
 const router = express.Router();
 
+// ADMIN UCIN
+
 // all data GET 
 router.get("/", async (req, res) => {
     const ads = await Ads.findAll();

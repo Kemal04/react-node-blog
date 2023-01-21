@@ -3,7 +3,7 @@ const { User, Role } = require('../models/model');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const { sign } = require("jsonwebtoken");
-const { validateToken } = require('../middlewares/AuthMiddlewares');
+const { isAdmin } = require('../middlewares/AuthMiddlewares');
 
 //register_post
 router.post("/register", async (req, res) => {
@@ -64,7 +64,7 @@ router.post("/login", async (req, res) => {
 });
 
 //current user
-router.get("/current_user", validateToken, async (req, res) => {
+router.get("/current_user", async (req, res) => {
     res.json(req.user)
 })
 

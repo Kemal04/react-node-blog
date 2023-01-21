@@ -1,9 +1,12 @@
 const express = require('express');
 const { Category, SubCategory } = require('../models/model');
 const router = express.Router();
+const {isAdmin, validateToken} = require("../middlewares/authMiddlewares");
+
+// ADMIN UCIN
 
 //all data GET 
-router.get("/", async (req, res) => {
+router.get("/",isAdmin, validateToken, async (req, res) => {
     const categories = await Category.findAll();
     res.json({
         categories: categories
@@ -11,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 // single category GET 
-router.get("/:categoryId", async (req, res) => {
+router.get("/:categoryId", isAdmin, validateToken,  async (req, res) => {
     const id = req.params.categoryId
     try {
         const category = await Category.findByPk(id, {include: SubCategory});
@@ -27,7 +30,7 @@ router.get("/:categoryId", async (req, res) => {
 });
 
 // create POST 
-router.post("/create", async (req, res) => {
+router.post("/create",isAdmin, validateToken, async (req, res) => {
     const name = req.body.name;
     
     try {
@@ -40,7 +43,7 @@ router.post("/create", async (req, res) => {
 });
 
 // edit GET and POST 
-router.get("/edit/:categoryId", async (req, res) => {
+router.get("/edit/:categoryId",isAdmin, validateToken, async (req, res) => {
     const id = req.params.categoryId;
     try {
         const category = await Category.findByPk(id);
@@ -54,7 +57,7 @@ router.get("/edit/:categoryId", async (req, res) => {
         console.log(err);
     }
 });
-router.post("/edit/:categoryId", async (req, res) => {
+router.post("/edit/:categoryId",isAdmin, validateToken, async (req, res) => {
     const id = req.params.categoryId;
     const name = req.body.name;
     try {
@@ -73,7 +76,7 @@ router.post("/edit/:categoryId", async (req, res) => {
 });
 
 // delete POST 
-router.delete("/delete/:categoryId", async (req, res) => {
+router.delete("/delete/:categoryId", isAdmin, validateToken, async (req, res) => {
     const id = req.params.categoryId; 
     try{
         const category = await Category.findByPk(id);
