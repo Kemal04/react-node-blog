@@ -2,12 +2,12 @@ const express = require('express');
 const { SubCategory, Blog } = require('../models/model');
 const router = express.Router();
 const fs = require('fs')
-const { isAdmin, validateToken } = require("../middlewares/authMiddlewares");
+const { isAdmin } = require("../middlewares/authMiddlewares");
 
-// ADMIN UCIN
+// ADMIN UCIN blog
 
-// Admin all data GET 
-router.get("/", isAdmin, validateToken, async (req, res) => {
+// Admin all blog data GET 
+router.get("/", async (req, res) => {
     const blogs = await Blog.findAll({ include: SubCategory });
     res.json({
         blogs: blogs
@@ -16,7 +16,7 @@ router.get("/", isAdmin, validateToken, async (req, res) => {
 
 
 // Admin single blog GET
-router.get("/:blogId", isAdmin, validateToken, async (req, res) => {
+router.get("/:blogId", async (req, res) => {
     const id = req.params.blogId;
     try {
         const blog = await Blog.findByPk(id, {
@@ -35,11 +35,11 @@ router.get("/:blogId", isAdmin, validateToken, async (req, res) => {
 });
 
 
-// Admin edit GET
-router.get("/edit/:blogId",isAdmin, validateToken, async (req, res) => {
+// Admin ucin blog edit GET
+router.get("/edit/:blogId", isAdmin, async (req, res) => {
     const id = req.params.blogId;
     try {
-        const blog = await Blog.findByPk(id,{
+        const blog = await Blog.findByPk(id, {
             where: { id: id },
             include: SubCategory
         });
@@ -54,8 +54,8 @@ router.get("/edit/:blogId",isAdmin, validateToken, async (req, res) => {
     }
 });
 
-//Admin edit POST
-router.post("/edit/:blogId",isAdmin, validateToken, async (req, res) => {
+//Admin ucin blog edit POST
+router.post("/edit/:blogId", isAdmin, async (req, res) => {
     const id = req.params.blogId;
     const title = req.body.title;
     const description = req.body.description;
@@ -84,8 +84,8 @@ router.post("/edit/:blogId",isAdmin, validateToken, async (req, res) => {
     }
 });
 
-// Admin delete POST
-router.delete("/delete/:blogId",isAdmin, validateToken, async (req, res) => {
+// Admin ucin blog delete POST
+router.delete("/delete/:blogId", isAdmin, async (req, res) => {
     const id = req.params.blogId;
     try {
         const blog = await Blog.findByPk({

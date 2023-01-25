@@ -1,5 +1,5 @@
 const express = require('express');
-const { Contact  } = require('../models/model');
+const { Contact } = require('../models/model');
 const router = express.Router();
 
 // HOME CONTACT UCIN
@@ -19,9 +19,9 @@ router.get("/:contactId", async (req, res) => {
         const contact = await Contact.findByPk(id);
         if (contact) {
             return res.json({
-                contact:contact
+                contact: contact
             })
-        } res.json({ error: "Komentariya tapylmady"});
+        } res.json({ error: "Komentariya tapylmady" });
     }
     catch (err) {
         console.log(err)
@@ -37,11 +37,11 @@ router.post("/create", async (req, res) => {
     try {
         await Contact.create({
             name: name,
-            email:email,
-            subject:subject,
-            comment:comment
+            email: email,
+            subject: subject,
+            comment: comment
         });
-        res.json({success: "Komentariya üstünlikli ugradyldy" });
+        res.json({ success: "Komentariya üstünlikli ugradyldy" });
     }
     catch (err) {
         console.log(err);
@@ -71,16 +71,16 @@ router.post("/edit/:contactId", async (req, res) => {
     const comment = req.body.comment;
     try {
         const contact = await Contact.findByPk(id);
-        if(contact){
+        if (contact) {
             contact.name = name;
             contact.email = email;
             contact.subject = subject;
             contact.comment = comment;
             contact.save();
-            return  res.json({success: "Komentariya üstünlikli duzedildi" });
+            return res.json({ success: "Komentariya üstünlikli duzedildi" });
         }
-        res.json({error: "Komentariya tapylmady"});
-        
+        res.json({ error: "Komentariya tapylmady" });
+
     }
     catch (err) {
         console.log(err);
@@ -89,16 +89,16 @@ router.post("/edit/:contactId", async (req, res) => {
 
 // delete POST 
 router.delete("/delete/:contactId", async (req, res) => {
-    const id = req.params.contactId; 
-    try{
+    const id = req.params.contactId;
+    try {
         const contact = await Contact.findByPk(id);
-        if(contact){
+        if (contact) {
             await contact.destroy();
-            return res.json({success: "Komentariya üstünlikli pozuldy" });
+            return res.json({ success: "Komentariya üstünlikli pozuldy" });
         }
-        res.json({ error: "Komentariya tapylmady"})
+        res.json({ error: "Komentariya tapylmady" })
     }
-    catch(err){
+    catch (err) {
         console.log(err);
     }
 });
