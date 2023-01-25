@@ -2,6 +2,7 @@ const express = require('express');
 const { User, Role } = require('../models/model');
 const { Op } = require("sequelize");
 const router = express.Router();
+const { isAdmin } = require("../middlewares/authMiddlewares");
 
 // all data GET 
 router.get("/", async (req, res) => {
@@ -29,7 +30,7 @@ router.get("/:userId", async (req, res) => {
 
 
 // edit GET and POST
-router.get("/edit/:userId", async (req, res) => {
+router.get("/edit/:userId", isAdmin, async (req, res) => {
     const id = req.params.userId;
     try {
         const user = await User.findOne({
@@ -52,7 +53,7 @@ router.get("/edit/:userId", async (req, res) => {
 });
 
 // Edit POST
-router.post("/edit/:userId", async (req, res) => {
+router.post("/edit/:userId", isAdmin, async (req, res) => {
     const id = req.params.userId;
     const roleId = req.body.roleId;
     try {
@@ -75,7 +76,7 @@ router.post("/edit/:userId", async (req, res) => {
 
 
 // delete POST 
-router.delete("/delete/:userId", async (req, res) => {
+router.delete("/delete/:userId", isAdmin, async (req, res) => {
     const id = req.params.userId;
     try {
         const user = await User.findByPk(id);

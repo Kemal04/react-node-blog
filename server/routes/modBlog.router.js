@@ -2,11 +2,11 @@ const express = require('express');
 const { SubCategory, Blog } = require('../models/model');
 const router = express.Router();
 const fs = require('fs')
-const {isAdmin, validateToken} = require("../middlewares/authMiddlewares");
+const { isModerator } = require("../middlewares/authMiddlewares");
 
 // MODERATOR UCIN
 
-router.get("/", validateToken, async (req, res) => {
+router.get("/", isModerator, async (req, res) => {
     const userId = req.user.id;
     const blogs = await Blog.findAll({
         include: SubCategory,
@@ -20,7 +20,7 @@ router.get("/", validateToken, async (req, res) => {
 });
 
 // Moderator single blog GET
-router.get("/:blogId", validateToken, async (req, res) => {
+router.get("/:blogId", isModerator, async (req, res) => {
     const id = req.params.blogId;
     const userId = req.user.id;
     console.log(userId)
@@ -44,7 +44,7 @@ router.get("/:blogId", validateToken, async (req, res) => {
 });
 
 // Moderator create 
-router.get("/create", validateToken,  async (req, res) => {
+router.get("/create", isModerator, async (req, res) => {
     try {
         const subCategory = await SubCategory.findAll();
         res.json({
@@ -57,7 +57,7 @@ router.get("/create", validateToken,  async (req, res) => {
 });
 
 // Moderator create POST
-router.post("/create", validateToken, async (req, res) => {
+router.post("/create", isModerator, async (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
     const img = req.body.img;
@@ -84,7 +84,7 @@ router.post("/create", validateToken, async (req, res) => {
 });
 
 // Moderator edit GET
-router.get("/edit/:blogId", validateToken,  async (req, res) => {
+router.get("/edit/:blogId", isModerator, async (req, res) => {
     const id = req.params.blogId;
     const userId = req.user.id;
     try {
@@ -107,7 +107,7 @@ router.get("/edit/:blogId", validateToken,  async (req, res) => {
 });
 
 //Moderator edit POST
-router.post("/edit/:blogId", validateToken, async (req, res) => {
+router.post("/edit/:blogId", isModerator, async (req, res) => {
     const id = req.params.blogId;
     const title = req.body.title;
     const description = req.body.description;
@@ -137,14 +137,16 @@ router.post("/edit/:blogId", validateToken, async (req, res) => {
 });
 
 // Moderator delete POST
-router.delete("/delete/:blogId", validateToken, async (req, res) => {
+router.delete("/delete/:blogId", isModerator, async (req, res) => {
     const id = req.params.blogId;
     const userId = req.user.id;
     try {
-        const blog = await Blog.findOne({where: {
-            id: id,
-            userId: userId
-        }});
+        const blog = await Blog.findOne({
+            where: {
+                id: id,
+                userId: userId
+            }
+        });
         if (blog) {
             await blog.destroy();
             return res.json({ success: "Makala üstünlikli pozuldy" });

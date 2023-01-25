@@ -1,7 +1,7 @@
 const express = require('express');
 const { Ads } = require('../models/model');
 const router = express.Router();
-
+const { isAdmin } = require("../middlewares/authMiddlewares");
 // ADMIN UCIN
 
 // all data GET 
@@ -21,7 +21,7 @@ router.get("/:adsId", async (req, res) => {
             return res.json({
                 ads: ads
             })
-        } res.json({ error: "Reklama tapylmady"});
+        } res.json({ error: "Reklama tapylmady" });
     }
     catch (err) {
         console.log(err)
@@ -30,16 +30,16 @@ router.get("/:adsId", async (req, res) => {
 
 // create POST
 
-router.post("/create", async (req, res) => {
+router.post("/create", isAdmin, async (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
 
     try {
         await Ads.create({
-            title: title, 
+            title: title,
             description: description
         });
-         res.json({success: "Reklama üstünlikli goşuldy" })
+        res.json({ success: "Reklama üstünlikli goşuldy" })
     }
     catch (err) {
         console.log(err);
@@ -47,7 +47,7 @@ router.post("/create", async (req, res) => {
 });
 
 // edit GET and POST
-router.get("/edit/:adsId", async (req, res) => {
+router.get("/edit/:adsId", isAdmin, async (req, res) => {
     const id = req.params.adsId;
     try {
         const ads = await Ads.findByPk(id);
@@ -61,20 +61,20 @@ router.get("/edit/:adsId", async (req, res) => {
         console.log(err);
     }
 });
-router.post("/edit/:adsId", async (req, res) => {
+router.post("/edit/:adsId", isAdmin, async (req, res) => {
     const id = req.params.adsId;
     const title = req.body.title;
     const description = req.body.description;
     try {
         const ads = await Ads.findByPk(id);
-        if(ads){
+        if (ads) {
             ads.title = title;
             ads.description = description;
             ads.save();
-            return  res.json({success: "Reklama üstünlikli duzedildi" });
+            return res.json({ success: "Reklama üstünlikli duzedildi" });
         }
-        res.json({error: "Reklama tapylmady"});
-        
+        res.json({ error: "Reklama tapylmady" });
+
     }
     catch (err) {
         console.log(err);
@@ -82,17 +82,17 @@ router.post("/edit/:adsId", async (req, res) => {
 });
 
 // delete POST
-router.delete("/delete/:adsId", async (req, res) => {
-    const id = req.params.adsId; 
-    try{
+router.delete("/delete/:adsId", isAdmin, async (req, res) => {
+    const id = req.params.adsId;
+    try {
         const ads = await Ads.findByPk(id);
-        if(ads){
+        if (ads) {
             await ads.destroy();
-            return res.json({success: "Reklama üstünlikli pozuldy" });
+            return res.json({ success: "Reklama üstünlikli pozuldy" });
         }
-        res.json({ error: "Reklama tapylmady"})
+        res.json({ error: "Reklama tapylmady" })
     }
-    catch(err){
+    catch (err) {
         console.log(err);
     }
 });

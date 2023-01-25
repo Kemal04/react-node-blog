@@ -2,9 +2,10 @@ const express = require('express');
 const sequelize = require('../data/db');
 const { Role, User } = require('../models/model');
 const router = express.Router();
+const { isAdmin } = require("../middlewares/authMiddlewares");
 
 // all data GET 
-router.get("/", async (req, res) => {
+router.get("/", isAdmin, async (req, res) => {
     const roles = await Role.findAll({
         attributes: {
             include: ['role.id', 'role.name', [sequelize.fn('COUNT', sequelize.col('users.id')), 'user_count']]
@@ -20,8 +21,8 @@ router.get("/", async (req, res) => {
     })
 });
 
-// single reklam_ads GET 
-router.get("/:roleId", async (req, res) => {
+// single role GET 
+router.get("/:roleId", isAdmin, async (req, res) => {
     const id = req.params.roleId;
     try {
         const roles = await Role.findByPk(id);
@@ -29,7 +30,7 @@ router.get("/:roleId", async (req, res) => {
         if (roles) {
             return res.json({
                 roles: roles,
-                users:users
+                users: users
             })
         } res.json({ error: "Beyle Rol tapylmady" });
     }
@@ -39,7 +40,7 @@ router.get("/:roleId", async (req, res) => {
 });
 
 // edit GET and POST
-router.get("/edit/:roleId", async (req, res) => {
+router.get("/edit/:roleId", isAdmin, async (req, res) => {
     const id = req.params.roleId;
     try {
         const roles = await Role.findByPk(id);
@@ -57,7 +58,7 @@ router.get("/edit/:roleId", async (req, res) => {
 });
 
 // edit POST
-router.post("/edit/:roleId", async (req, res) => {
+router.post("/edit/:roleId", isAdmin, async (req, res) => {
     const id = req.params.roleId;
     const name = req.body.name;
     try {
@@ -76,7 +77,7 @@ router.post("/edit/:roleId", async (req, res) => {
 });
 
 // delete POST
-router.delete("/delete/:roleId", async (req, res) => {
+router.delete("/delete/:roleId", isAdmin, async (req, res) => {
     const id = req.params.roleId;
     try {
         const roles = await Role.findByPk(id);
