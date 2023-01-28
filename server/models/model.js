@@ -44,7 +44,7 @@ const Blog = sequelize.define("blog", {
     },
     img: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
     viewed: {
         type: DataTypes.INTEGER,

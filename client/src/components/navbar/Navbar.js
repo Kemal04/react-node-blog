@@ -45,7 +45,7 @@ const Navbar = () => {
                                                 authState.role === 1 && <li><NavLink to="/admin" className="dropdown-item bg-white text-black">Admin</NavLink></li>
                                             }
                                             {
-                                                authState.role === 2 && <li><NavLink to={`/moderator/${authState.id}`} className="dropdown-item bg-white text-black">Moderator</NavLink></li>
+                                                authState.role === 2 && <li><NavLink to={"/moderator"} className="dropdown-item bg-white text-black">Moderator</NavLink></li>
                                             }
                                             {
                                                 authState.role === 3 && <li><NavLink to={`/ulanyjy-profili/${authState.id}`} className="dropdown-item bg-white text-black">Profil</NavLink></li>
