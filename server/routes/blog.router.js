@@ -1,9 +1,11 @@
 const express = require('express');
 const { SubCategory, Blog } = require('../models/model');
 const router = express.Router();
-const fs = require('fs')
 const { isAdmin } = require("../middlewares/authMiddlewares");
-
+const fs = require('fs')
+const imageUpload = require("../helpers/image-upload")
+const multer = require("multer");
+const upload = multer({ dest: "./public/img" });
 // ADMIN UCIN blog
 
 // Admin all blog data GET 
@@ -27,7 +29,7 @@ router.get("/:blogId", async (req, res) => {
             return res.json({
                 blog: blog
             })
-        } res.json({ error: "Blog tapylmady" });
+        } res.json({ error: "Makala tapylmady" });
     }
     catch (err) {
         console.log(err)
@@ -54,12 +56,21 @@ router.get("/edit/:blogId", isAdmin, async (req, res) => {
     }
 });
 
+
 //Admin ucin blog edit POST
-router.post("/edit/:blogId", isAdmin, async (req, res) => {
+router.post("/edit/:blogId", isAdmin, imageUpload.upload.single("img"), async (req, res) => {
     const id = req.params.blogId;
     const title = req.body.title;
     const description = req.body.description;
-    const img = req.body.img;
+    let img = req.body.img;
+
+    if (req.file) {
+        img = req.file.filename;
+
+        fs.unlink(".public/img/" + req.body.img, err => {
+            console.log(err);
+        })
+    }
     const viewed = req.body.viewed;
     const liked = req.body.liked;
     const subcategoryId = req.body.subcategoryId;
@@ -74,7 +85,7 @@ router.post("/edit/:blogId", isAdmin, async (req, res) => {
                 blog.liked = liked,
                 blog.subcategoryId = subcategoryId,
                 blog.save();
-            return res.json({ success: "Makala üstünlikli duzedildi" });
+            return res.json({ success: "Makala üstünlikli düzedildi" });
         }
         res.json({ error: "Makala tapylmady" });
 
@@ -84,11 +95,12 @@ router.post("/edit/:blogId", isAdmin, async (req, res) => {
     }
 });
 
+
 // Admin ucin blog delete POST
 router.delete("/delete/:blogId", isAdmin, async (req, res) => {
     const id = req.params.blogId;
     try {
-        const blog = await Blog.findByPk({
+        const blog = await Blog.findOne({
             where: { id: id }
         });
         if (blog) {
@@ -101,8 +113,6 @@ router.delete("/delete/:blogId", isAdmin, async (req, res) => {
         console.log(err);
     }
 });
-
-
 
 
 module.exports = router;

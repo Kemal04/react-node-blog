@@ -23,7 +23,7 @@ router.get("/:subId", async (req, res) => {
             return res.json({
                 subCategories: subCategories
             })
-        } res.json({ error: "Kici kategoriya tapylmady" });
+        } res.json({ error: "Bölümçe tapylmady" });
     }
     catch (err) {
         console.log(err)
@@ -51,7 +51,7 @@ router.post("/create", isAdmin, async (req, res) => {
             name: name,
             categoryId: categoryId
         });
-        res.json({ success: "SubKategoriya üstünlikli goşuldy" })
+        res.json({ success: "Bölümçe üstünlikli goşuldy" })
     }
     catch (err) {
         console.log(err);
@@ -83,9 +83,9 @@ router.post("/edit/:subCategoryId", isAdmin, async (req, res) => {
             subCategory.name = name;
             subCategory.categoryId = categoryId;
             subCategory.save();
-            return res.json({ success: "SubKategoriya üstünlikli duzedildi" });
+            return res.json({ success: "Bölümçe üstünlikli düzedildi" });
         }
-        res.json({ error: "SubKategoriya tapylmady" });
+        res.json({ error: "Bölümçe tapylmady" });
 
     }
     catch (err) {
@@ -100,9 +100,9 @@ router.delete("/delete/:subCategoryId", isAdmin, async (req, res) => {
         const subCategory = await SubCategory.findByPk(id);
         if (subCategory) {
             await subCategory.destroy();
-            return res.json({ success: "SubKategoriya üstünlikli pozuldy" });
+            return res.json({ success: "Bölümçe üstünlikli pozuldy" });
         }
-        res.json({ error: "SubKategoriya tapylmady" })
+        res.json({ error: "Bölümçe tapylmady" })
     }
     catch (err) {
         console.log(err);

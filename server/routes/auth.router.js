@@ -12,7 +12,7 @@ router.post("/register", async (req, res) => {
     const password = req.body.password;
 
     if (!(name && email && password)) {
-        res.json({ error: "Ahli oyjukleri doldurun" });
+        res.json({ error: "Ähli öyjükleri dolduruň" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -36,7 +36,7 @@ router.post("/register", async (req, res) => {
             res.json({ success: "Giris kabul edildi", token: accessToken, email: email, id: user.id });
 
         } else {
-            return res.json({ error: "Email on ulanylyp dur" })
+            return res.json({ error: "Siziň öň hasabyňyz bar!" })
         }
 
     }
@@ -50,14 +50,14 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
 
     if (!(email && password)) {
-        res.json({ error: "Ahli oyjukleri doldurun" });
+        res.json({ error: "Ähli öyjükleri dolduruň" });
     }
 
     try {
         const user = await User.findOne({ where: { email: email } });
 
         if (!user) {
-            return res.json({ error: "email invalid" });
+            return res.json({ error: "Email ýa-da açar sözi nädogry!" });
         }
 
         const match = await bcrypt.compare(password, user.password)
@@ -73,7 +73,7 @@ router.post("/login", async (req, res) => {
 
         } else {
 
-            return res.json({ error: "password invald" })
+            return res.json({ error: "Email ýa-da açar sözi nädogry!" })
 
         }
     }

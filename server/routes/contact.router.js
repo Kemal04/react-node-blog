@@ -21,7 +21,7 @@ router.get("/:contactId", async (req, res) => {
             return res.json({
                 contact: contact
             })
-        } res.json({ error: "Komentariya tapylmady" });
+        } res.json({ error: "Teswir tapylmady" });
     }
     catch (err) {
         console.log(err)
@@ -41,7 +41,7 @@ router.post("/create", async (req, res) => {
             subject: subject,
             comment: comment
         });
-        res.json({ success: "Komentariya üstünlikli ugradyldy" });
+        res.json({ success: "Teswir üstünlikli ugradyldy" });
     }
     catch (err) {
         console.log(err);
@@ -77,9 +77,9 @@ router.post("/edit/:contactId", async (req, res) => {
             contact.subject = subject;
             contact.comment = comment;
             contact.save();
-            return res.json({ success: "Komentariya üstünlikli duzedildi" });
+            return res.json({ success: "Teswir üstünlikli duzedildi" });
         }
-        res.json({ error: "Komentariya tapylmady" });
+        res.json({ error: "Teswir tapylmady" });
 
     }
     catch (err) {
@@ -94,9 +94,9 @@ router.delete("/delete/:contactId", async (req, res) => {
         const contact = await Contact.findByPk(id);
         if (contact) {
             await contact.destroy();
-            return res.json({ success: "Komentariya üstünlikli pozuldy" });
+            return res.json({ success: "Teswir üstünlikli pozuldy" });
         }
-        res.json({ error: "Komentariya tapylmady" })
+        res.json({ error: "Teswir tapylmady" })
     }
     catch (err) {
         console.log(err);

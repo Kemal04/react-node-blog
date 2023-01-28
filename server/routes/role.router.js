@@ -32,7 +32,7 @@ router.get("/:roleId", isAdmin, async (req, res) => {
                 roles: roles,
                 users: users
             })
-        } res.json({ error: "Beyle Rol tapylmady" });
+        } res.json({ error: "Roll tapylmady" });
     }
     catch (err) {
         console.log(err)
