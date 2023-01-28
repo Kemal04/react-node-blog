@@ -78,7 +78,7 @@ const CategoryRead = () => {
                                                 <img src={blog.img} className="card-img-top rounded-0" alt="card" />
                                                 <div className="card-body">
                                                     <div className="card-title fw-bold">{blog.title}</div>
-                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>{blog.subcategory.name} - </Link><span>{new Date(blog.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric", })}</span></div>
+                                                    <div style={{ fontSize: "13px" }} className="mt-3"><span className='fw-bold'>{blog.subcategory.name} - </span><span>{new Date(blog.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric", })}</span></div>
                                                 </div>
                                             </div>
                                         </Link>
@@ -87,7 +87,7 @@ const CategoryRead = () => {
                                             <div className="card border-0 rounded-3 me-4 shadow">
                                                 <div className="card-body">
                                                     <div className="card-title fw-bold">{blog.title}</div>
-                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>{blog.subcategory.name} - </Link><span>{new Date(blog.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric", })}</span></div>
+                                                    <div style={{ fontSize: "13px" }} className="mt-3"><span className='fw-bold'>{blog.subcategory.name} - </span><span>{new Date(blog.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric", })}</span></div>
                                                 </div>
                                                 <img src={blog.img} className="card-img-top rounded-0" alt="card" />
                                             </div>

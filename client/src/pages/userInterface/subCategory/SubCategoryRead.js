@@ -54,7 +54,7 @@ const SubCategoryRead = () => {
                                                 <img src={blog.img} className="card-img-top rounded-0" alt="card" />
                                                 <div className="card-body">
                                                     <div className="card-title fw-bold">{blog.title}</div>
-                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
+                                                    <div style={{ fontSize: "13px" }} className="mt-3"><span className='fw-bold'>Kemal </span><span>Sep 29, 2022 at 9:48 am</span></div>
                                                 </div>
                                             </div>
                                         </Link>
@@ -63,7 +63,7 @@ const SubCategoryRead = () => {
                                             <div className="card border-0 rounded-3 me-4 shadow">
                                                 <div className="card-body">
                                                     <div className="card-title fw-bold">{blog.title}</div>
-                                                    <div style={{ fontSize: "13px" }} className="mt-3"><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></div>
+                                                    <div style={{ fontSize: "13px" }} className="mt-3"><span className='fw-bold'>Kemal </span><span>Sep 29, 2022 at 9:48 am</span></div>
                                                 </div>
                                                 <img src={blog.img} className="card-img-top rounded-0" alt="card" />
                                             </div>

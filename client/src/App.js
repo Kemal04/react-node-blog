@@ -101,7 +101,6 @@ const App = () => {
                                         <Route path='/admin/kici-kategoriya-uytget/:id' element={<AdminSubCategoryEdit />}></Route>
 
                                         <Route path='/admin/bloglar' element={<AdminBlog />}></Route>
-                                        <Route path='/admin/blog-gos' element={<AdminBlogCreate />}></Route>
                                         <Route path='/admin/blog-uytget/:id' element={<AdminBlogEdit />}></Route>
                                         <Route path='/admin/blog/:id' element={<AdminBlogRead />}></Route>
 

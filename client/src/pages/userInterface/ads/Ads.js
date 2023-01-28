@@ -78,7 +78,7 @@ const Ads = () => {
                                 ads.sort((a, b) => a.viewed > b.viewed ? -1 : 1).map((ads, index) => (
                                     index % 2 === 0
                                         ?
-                                        <Link key={ads.id} to={`/ads/${ads.id}`} className='col-lg-12 text-decoration-none text-dark'>
+                                        <Link key={index} to={`/ads/${ads.id}`} className='col-lg-12 text-decoration-none text-dark'>
                                             <div className="card mb-5 border-0 rounded-3 me-4 shadow">
                                                 <div className="row g-0 align-items-center">
                                                     <div className="col-md-4">
@@ -88,21 +88,21 @@ const Ads = () => {
                                                         <div className="card-body">
                                                             <h5 className="card-title">{ads.title}</h5>
                                                             <p className="card-text my-3">{ads.description}</p>
-                                                            <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
+                                                            <small><span className='fw-bold'>Kemal </span><span>Sep 29, 2022 at 9:48 am</span></small>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </Link>
                                         :
-                                        <Link key={ads.id} to={`/ads/${ads.id}`} className='col-lg-12 text-decoration-none text-dark'>
+                                        <Link key={index} to={`/ads/${ads.id}`} className='col-lg-12 text-decoration-none text-dark'>
                                             <div className="card mb-5 border-0 rounded-3 me-4 shadow">
                                                 <div className="row g-0 align-items-center">
                                                     <div className="col-md-8">
                                                         <div className="card-body">
                                                             <h5 className="card-title">{ads.title}</h5>
                                                             <p className="card-text my-3">{ads.description}</p>
-                                                            <small><Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link><span>Sep 29, 2022 at 9:48 am</span></small>
+                                                            <small><span className='fw-bold'>Kemal </span><span>Sep 29, 2022 at 9:48 am</span></small>
                                                         </div>
                                                     </div>
                                                     <div className="col-md-4">
