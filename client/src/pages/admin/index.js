@@ -9,7 +9,6 @@ export { default as AdminSubCategoryCreate } from "./subCategory/AdminSubCategor
 export { default as AdminSubCategoryEdit } from "./subCategory/AdminSubCategoryEdit"
 
 export { default as AdminBlog } from "./blog/AdminBlog"
-export { default as AdminBlogCreate } from "./blog/AdminBlogCreate"
 export { default as AdminBlogEdit } from "./blog/AdminBlogEdit"
 export { default as AdminBlogRead } from "./blog/AdminBlogRead"
 

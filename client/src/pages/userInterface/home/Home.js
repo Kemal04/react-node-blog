@@ -89,7 +89,7 @@ const Home = () => {
                                             <div className="card-body">
                                                 <div className="card-title h5">{blog.title}</div>
                                                 <p className="card-text my-3">{blog.description.substring(0, 140)}...</p>
-                                                <small><Link to="/" className='text-decoration-none text-dark fw-bold'>{blog.subcategory.name} </Link><span>Sep 29, 2022 at 9:48 am</span></small>
+                                                <small><span className='fw-bold'>{blog.subcategory.name} </span><span>Sep 29, 2022 at 9:48 am</span></small>
                                             </div>
                                         </div>
                                     </Link>
@@ -198,25 +198,25 @@ const Home = () => {
                                 blogs.sort((a, b) => a.viewed > b.viewed ? -1 : 1).map((blog, index) => (
                                     index % 2 === 0
                                         ?
-                                        <Link key={blog.id} to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
+                                        <Link key={index} to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
                                             <div className="card border-0 rounded-3 me-4 shadow">
                                                 <img src={blog.img} className="card-img-top rounded-0" alt="card" />
                                                 <div className="card-body">
                                                     <div className="card-title fw-bold">{blog.title}</div>
                                                     <div style={{ fontSize: "13px" }} className="mt-5">
-                                                        <Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link>
+                                                        <span className='fw-bold'>Kemal </span>
                                                         <span>Sep 29, 2022 at 9:48 am</span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </Link>
                                         :
-                                        <Link key={blog.id} to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
+                                        <Link key={index} to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
                                             <div className="card border-0 rounded-3 me-4 shadow">
                                                 <div className="card-body">
                                                     <div className="card-title fw-bold">{blog.title}</div>
                                                     <div style={{ fontSize: "13px" }} className="mt-5">
-                                                        <Link to="/" className='text-decoration-none text-dark fw-bold'>Kemal </Link>
+                                                        <span className='fw-bold'>Kemal </span>
                                                         <span>Sep 29, 2022 at 9:48 am</span>
                                                     </div>
                                                 </div>

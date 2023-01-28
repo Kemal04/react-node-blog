@@ -7,7 +7,25 @@ import Sidebar from '../../../components/admin/Sidebar'
 
 const AdminBlogEdit = () => {
 
-    const [blog, setBlog] = useState("")
+    const [subCategories, setSubCategories] = useState([])
+
+    useEffect(() => {
+        const fetchSubCategories = async () => {
+            try {
+                const res = await axios.get('http://localhost:3001/subCategory/')
+                setSubCategories(res.data.subCategories)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchSubCategories()
+    }, [])
+
+    const [blog, setBlog] = useState({
+        subcategoryId: "",
+        title: "",
+        description: "",
+    })
     const [subCategory, setSubCategory] = useState("")
 
     const navigate = useNavigate()
@@ -21,7 +39,11 @@ const AdminBlogEdit = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/blog/edit/${blogId}`).then((res) => {
+        axios.get(`http://localhost:3001/blog/edit/${blogId}`, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        }).then((res) => {
             setBlog(res.data.blog)
             setSubCategory(res.data.blog.subcategory)
         }).catch((err) => {
@@ -39,14 +61,18 @@ const AdminBlogEdit = () => {
         else if (!blog.description) {
             toast.error("Mazmuny yazyn")
         }
-        else if (!blog.img) {
-            toast.error("Surat sayla")
-        }
+        // else if (!blog.img) {
+        //     toast.error("Surat sayla")
+        // }
         else if (!blog.subcategoryId) {
             toast.error("Kici Kategoriya sayla")
         }
         else {
-            await axios.post(`http://localhost:3001/blog/edit/${blogId}`, blog)
+            await axios.post(`http://localhost:3001/blog/edit/${blogId}`, blog, {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+            })
                 .then((res) => {
                     toast.success(res.data.success)
                     navigate("/admin/bloglar")
@@ -55,20 +81,6 @@ const AdminBlogEdit = () => {
                 });
         }
     }
-
-    const [subCategories, setSubCategories] = useState([])
-
-    useEffect(() => {
-        const fetchSubCategories = async () => {
-            try {
-                const res = await axios.get('http://localhost:3001/subCategory/')
-                setSubCategories(res.data.subCategories)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-        fetchSubCategories()
-    }, [])
 
     return (
         <>
@@ -102,10 +114,10 @@ const AdminBlogEdit = () => {
                                                     <input value={blog.title} onChange={handleChange} name='title' type="text" className="form-control rounded-0" autoComplete="off" />
                                                 </div>
 
-                                                <div className="col-lg-6 mb-3">
+                                                {/* <div className="col-lg-6 mb-3">
                                                     <label className="form-label fw-bold">Blog Suraty</label>
                                                     <input value={blog.img} onChange={handleChange} name='img' type="text" className="form-control rounded-0" autoComplete="off" />
-                                                </div>
+                                                </div> */}
 
                                                 <div className="col-lg-12 mb-3">
                                                     <label className="form-label fw-bold">Blog Mazmuny</label>
