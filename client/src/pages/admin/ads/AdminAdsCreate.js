@@ -9,7 +9,6 @@ const AdminAdsCreate = () => {
 
     const [ads, setAds] = useState({
         title: "",
-        img: "",
         description: "",
     })
 
@@ -28,11 +27,12 @@ const AdminAdsCreate = () => {
         else if (!ads.description) {
             toast.error("Mazmuny ýazyň")
         }
-        else if (!ads.img) {
-            toast.error("Surady ýazyň")
-        }
         else {
-            await axios.post("http://localhost:3001/ads/create", ads)
+            await axios.post("http://localhost:3001/ads/create", ads, {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+            })
                 .then((res) => {
                     toast.success(res.data.success)
                     navigate("/admin/reklamalar")
@@ -59,14 +59,9 @@ const AdminAdsCreate = () => {
                                             </div>
                                             <form className='row'>
 
-                                                <div className="col-lg-6 mb-3">
+                                                <div className="col-lg-12 mb-3">
                                                     <label className="form-label fw-bold">Reklama Ady</label>
                                                     <input onChange={handleChange} name='title' type="text" className="form-control rounded-0" autoComplete="off" />
-                                                </div>
-
-                                                <div className="col-lg-6 mb-3">
-                                                    <label className="form-label fw-bold">Reklama Suraty</label>
-                                                    <input onChange={handleChange} name='img' type="text" className="form-control rounded-0" autoComplete="off" />
                                                 </div>
 
                                                 <div className="col-lg-12 mb-3">

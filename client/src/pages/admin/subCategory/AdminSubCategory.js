@@ -23,10 +23,15 @@ const AdminSubCategory = () => {
 
     const handleDelete = async (id) => {
 
-        await axios.delete('http://localhost:3001/subCategory/delete/' + id)
+        await axios.delete('http://localhost:3001/subCategory/delete/' + id, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        })
             .then((res) => {
                 toast.success(res.data.success)
-                window.location.reload()
+                const del = subCategories.filter(subCategories => id !== subCategories.id)
+                setSubCategories(del)
             }).catch((error) => {
                 toast.error(error.message)
             });
@@ -60,9 +65,9 @@ const AdminSubCategory = () => {
                                             <tbody>
 
                                                 {
-                                                    subCategories.map(subCategory => (
-                                                        <tr key={subCategory.id}>
-                                                            <td>{subCategory.id}</td>
+                                                    subCategories.map((subCategory, index) => (
+                                                        <tr key={index}>
+                                                            <td>{index}</td>
                                                             <td>{subCategory.name}</td>
                                                             <td className='text-muted'>{subCategory.category.name}</td>
                                                             <td>

@@ -23,10 +23,15 @@ const AdminContact = () => {
 
     const handleDelete = async (id) => {
 
-        await axios.delete('http://localhost:3001/contact/delete/' + id)
+        await axios.delete('http://localhost:3001/contact/delete/' + id, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        })
             .then((res) => {
                 toast.success(res.data.success)
-                window.location.reload()
+                const del = contact.filter(contact => id !== contact.id)
+                setContact(del)
             }).catch((error) => {
                 toast.error(error.message)
             });
@@ -44,7 +49,6 @@ const AdminContact = () => {
                             <div className='container py-5'>
                                 <div className='d-flex justify-content-between aling-items-center h2 mb-5'>
                                     Habarlasmak bölümi
-                                    <Link to="/admin/teswir-gos" className='text-decoration-none'>+</Link>
                                 </div>
                                 <div className='row'>
                                     <div className='col-lg-12'>
@@ -53,16 +57,20 @@ const AdminContact = () => {
                                                 <tr>
                                                     <th scope="col">№</th>
                                                     <th scope="col">Ady</th>
+                                                    <th scope="col">Temasy</th>
+                                                    <th scope="col">Mazmuny</th>
                                                     <th scope="col">Duzeltmek</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
 
                                                 {
-                                                    contact.map(contact => (
-                                                        <tr key={contact.id}>
-                                                            <td>{contact.id}</td>
+                                                    contact.map((contact, index) => (
+                                                        <tr key={index}>
+                                                            <td>{index}</td>
                                                             <td>{contact.name}</td>
+                                                            <td>{contact.subject}</td>
+                                                            <td>{contact.comment.substring(0, 40)}...</td>
                                                             <td>
                                                                 <Link className='me-3 btn btn-sm btn-warning' to={`/admin/teswir-uytget/${contact.id}`}>Duzeltmek</Link>
                                                                 <button className='btn btn-sm btn-danger' onClick={() => handleDelete(contact.id)}>Pozmak</button>

@@ -23,10 +23,15 @@ const AdminAds = () => {
 
     const handleDelete = async (id) => {
 
-        await axios.delete('http://localhost:3001/ads/delete/' + id)
+        await axios.delete('http://localhost:3001/ads/delete/' + id, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        })
             .then((res) => {
                 toast.success(res.data.success)
-                window.location.reload()
+                const del = ads.filter(ads => id !== ads.id)
+                setAds(del)
             }).catch((error) => {
                 toast.error(error.message)
             });
@@ -60,9 +65,9 @@ const AdminAds = () => {
                                             <tbody>
 
                                                 {
-                                                    ads.map(ads => (
-                                                        <tr key={ads.id}>
-                                                            <td>{ads.id}</td>
+                                                    ads.map((ads, index) => (
+                                                        <tr key={index}>
+                                                            <td>{index}</td>
                                                             <td>{ads.img}</td>
                                                             <td>{ads.title}</td>
                                                             <td>

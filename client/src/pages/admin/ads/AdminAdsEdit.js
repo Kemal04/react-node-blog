@@ -7,7 +7,10 @@ import Sidebar from '../../../components/admin/Sidebar';
 
 const AdminAdsEdit = () => {
 
-    const [ads, setAds] = useState("")
+    const [ads, setAds] = useState({
+        title: "",
+        description: "",
+    })
 
     const navigate = useNavigate()
     const location = useLocation();
@@ -19,7 +22,11 @@ const AdminAdsEdit = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/ads/edit/${adsId}`).then((res) => {
+        axios.get(`http://localhost:3001/ads/edit/${adsId}`, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        }).then((res) => {
             setAds(res.data.ads)
         }).catch((err) => {
             toast.error(err.message)
@@ -36,7 +43,11 @@ const AdminAdsEdit = () => {
             toast.error("Mazmuny ýazyň")
         }
         else {
-            await axios.post(`http://localhost:3001/ads/edit/${adsId}`, ads)
+            await axios.post(`http://localhost:3001/ads/edit/${adsId}`, ads, {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+            })
                 .then((res) => {
                     toast.success(res.data.success)
                     navigate("/admin/reklamalar")
@@ -63,14 +74,9 @@ const AdminAdsEdit = () => {
                                             </div>
                                             <form className='row'>
 
-                                                <div className="col-lg-6 mb-3">
+                                                <div className="col-lg-12 mb-3">
                                                     <label className="form-label fw-bold">Reklama Ady</label>
                                                     <input value={ads.title} onChange={handleChange} name='title' type="text" className="form-control rounded-0" autoComplete="off" />
-                                                </div>
-
-                                                <div className="col-lg-6 mb-3">
-                                                    <label className="form-label fw-bold">Reklama Suraty</label>
-                                                    <input value={ads.img} onChange={handleChange} name='img' type="text" className="form-control rounded-0" autoComplete="off" />
                                                 </div>
 
                                                 <div className="col-lg-12 mb-3">

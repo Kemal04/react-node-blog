@@ -4,7 +4,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { AuthContext } from "../../../context/AuthContext";
 import axios from 'axios';
-import { useCookies } from 'react-cookie'
 
 const Login = () => {
 
@@ -12,12 +11,12 @@ const Login = () => {
     const [password, setPassword] = useState("")
     const { setAuthState } = useContext(AuthContext);
 
-    const [cookies, setCookie] = useCookies([])
-
     const navigate = useNavigate();
 
     const loginUser = async (e) => {
         e.preventDefault();
+
+        const data = { email: email, password: password }
 
         if (!email) {
             toast.error("E-mail adresiňizi ýazyň!")
@@ -29,25 +28,19 @@ const Login = () => {
             toast.error("Açar sözüňiz 8-den uly bolmaly")
         }
         else {
-            await axios.post("http://localhost:3001/auth/login", {
-                email: email,
-                password: password,
-            }).then((res) => {
+            await axios.post("http://localhost:3001/auth/login", data).then((res) => {
                 if (res.data.error) {
                     toast.error(res.data.error)
                 } else {
                     localStorage.setItem("accessToken", res.data.token)
-                    setAuthState(
-                        {
-                            email: res.data.email,
-                            id: res.data.id,
-                            status: true
-                        }
-                    );
-                    setCookie('sessionToken', res.data.sessionToken)
-                    navigate("/")
+                    setAuthState({
+                        email: res.data.email,
+                        id: res.data.id,
+                        status: true,
+                        role: res.data.role,
+                    });
                     toast.success(res.data.success)
-                    window.location.reload()
+                    navigate("/")
                 }
 
             })

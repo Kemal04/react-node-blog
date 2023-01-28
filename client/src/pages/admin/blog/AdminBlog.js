@@ -12,7 +12,7 @@ const AdminBlog = () => {
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
-                const res = await axios.get('http://localhost:3001/blog/admin')
+                const res = await axios.get('http://localhost:3001/blog/')
                 setBlogs(res.data.blogs)
             } catch (err) {
                 console.log(err)
@@ -20,18 +20,6 @@ const AdminBlog = () => {
         }
         fetchBlogs()
     }, [])
-
-    const handleDelete = async (id) => {
-
-        await axios.delete('http://localhost:3001/blog/delete/' + id)
-            .then((res) => {
-                toast.success(res.data.success)
-                window.location.reload()
-            }).catch((error) => {
-                toast.error(error.message)
-            });
-
-    }
     
     return (
         <>
@@ -45,7 +33,6 @@ const AdminBlog = () => {
                             <div className='container py-5'>
                                 <div className='d-flex justify-content-between aling-items-center h2 mb-5'>
                                     Blog bölümi
-                                    <Link to="/admin/blog-gos" className='text-decoration-none'>+</Link>
                                 </div>
                                 <div className='row'>
                                     <div className='col-lg-12'>
@@ -54,30 +41,20 @@ const AdminBlog = () => {
                                                 <tr>
                                                     <th scope="col">№</th>
                                                     <th scope="col">Ady</th>
-                                                    {/* <th scope="col">Dusundirisi</th> */}
-                                                    {/* <th scope="col">Suraty</th> */}
-                                                    {/* <th scope="col">Goren adam sany</th> */}
-                                                    {/* <th scope="col">Like sany</th> */}
                                                     <th scope="col">Kici kategoriyasy</th>
-                                                    <th scope="col">Duzeltmek</th>
+                                                    <th scope="col">Gormek</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
 
                                                 {
-                                                    blogs.map(blog => (
-                                                        <tr key={blog.id}>
-                                                            <td>{blog.id}</td>
+                                                    blogs.map((blog,index) => (
+                                                        <tr key={index}>
+                                                            <td>{index}</td>
                                                             <td>{blog.title}</td>
-                                                            {/* <td>{blog.description}</td> */}
-                                                            {/* <td>{blog.img}</td> */}
-                                                            {/* <td>{blog.viewed}</td> */}
-                                                            {/* <td>{blog.liked}</td> */}
                                                             <td className='text-muted'>{blog.subcategory.name}</td>
                                                             <td>
                                                                 <Link className='me-3 btn btn-sm btn-primary' to={`/admin/blog/${blog.id}`}>Gormek</Link>
-                                                                <Link className='me-3 btn btn-sm btn-warning' to={`/admin/blog-uytget/${blog.id}`}>Duzeltmek</Link>
-                                                                <button className='btn btn-sm btn-danger' onClick={() => handleDelete(blog.id)}>Pozmak</button>
                                                             </td>
                                                         </tr>
                                                     ))

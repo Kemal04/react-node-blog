@@ -10,7 +10,7 @@ const AdminCategoryCreate = () => {
     const [category, setCategory] = useState({
         name: ""
     })
- 
+
     const handleChange = (e) => {
         setCategory((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
@@ -23,7 +23,11 @@ const AdminCategoryCreate = () => {
         if (!category.name) {
             toast.error("Adyny ýazyň")
         } else {
-            await axios.post("http://localhost:3001/category/create", category)
+            await axios.post("http://localhost:3001/category/create", category, {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+            })
                 .then((res) => {
                     toast.success(res.data.success)
                     navigate("/admin/kategoriyalar")

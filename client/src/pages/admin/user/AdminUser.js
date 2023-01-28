@@ -12,7 +12,11 @@ const AdminUser = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const res = await axios.get('http://localhost:3001/user')
+                const res = await axios.get('http://localhost:3001/user', {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken"),
+                    },
+                })
                 setUsers(res.data.users)
             } catch (err) {
                 console.log(err)
@@ -23,10 +27,15 @@ const AdminUser = () => {
 
     const handleDelete = async (id) => {
 
-        await axios.delete('http://localhost:3001/user/delete/' + id)
+        await axios.delete('http://localhost:3001/user/delete/' + id, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        })
             .then((res) => {
                 toast.success(res.data.success)
-                window.location.reload()
+                const del = users.filter(users => id !== users.id)
+                setUsers(del)
             }).catch((error) => {
                 toast.error(error.message)
             });
@@ -55,7 +64,6 @@ const AdminUser = () => {
                                                     <th scope="col">Suraty</th>
                                                     <th scope="col">Ulanyjy Ady</th>
                                                     <th scope="col">E-mail adresi</th>
-                                                    <th scope="col">Açar sözi</th>
                                                     <th scope="col">Role</th>
                                                     <th scope="col">Duzeltmek</th>
                                                 </tr>
@@ -63,14 +71,17 @@ const AdminUser = () => {
                                             <tbody>
 
                                                 {
-                                                    users.map(user => (
-                                                        <tr key={user.id}>
-                                                            <td>{user.id}</td>
+                                                    users.map((user, index) => (
+                                                        <tr key={index}>
+                                                            <td>{index}</td>
                                                             <td>{user.img}</td>
                                                             <td>{user.name}</td>
                                                             <td>{user.email}</td>
-                                                            <td>************</td>
-                                                            <td>{user.roleId == null ? <div className='text-danger fw-bold'>BERILMEDIK</div> : <div className='text-success fw-bold'>{user.role.name}</div>}</td>
+                                                            <td>
+                                                                {user.roleId === 1 && <div className='text-success fw-bold'>{user.role.name}</div>}
+                                                                {user.roleId === 2 && <div className='text-warning fw-bold'>{user.role.name}</div>}
+                                                                {user.roleId === 3 && <div className='text-danger fw-bold'>{user.role.name}</div>}
+                                                            </td>
                                                             <td>
                                                                 <Link className='me-3 btn btn-sm btn-warning' to={`/admin/ulanyjy-uytget/${user.id}`}>Duzeltmek</Link>
                                                                 <button className='btn btn-sm btn-danger' onClick={() => handleDelete(user.id)}>Pozmak</button>

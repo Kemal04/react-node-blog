@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import $ from 'jquery';
 import { NavLink } from 'react-router-dom'
 import './Navbar.css'
+import { AuthContext } from '../../context/AuthContext';
 
-const Navbar = ({ authState }) => {
+const Navbar = () => {
+
+    const { authState, setAuthState } = useContext(AuthContext)
 
     const logout = () => {
         localStorage.removeItem("accessToken");
-        window.location.reload()
+        setAuthState({ email: "", id: 0, status: false, role: "User" })
     };
 
     return (
@@ -37,7 +40,16 @@ const Navbar = ({ authState }) => {
                                             {authState.email}
                                         </NavLink>
                                         <ul className="dropdown-menu rounded-0">
-                                            <li><NavLink to={`/ulanyjy-profili/${authState.id}`} className="dropdown-item bg-white text-black">Profile</NavLink></li>
+
+                                            {
+                                                authState.role === 1 && <li><NavLink to="/admin" className="dropdown-item bg-white text-black">Admin</NavLink></li>
+                                            }
+                                            {
+                                                authState.role === 2 && <li><NavLink to={`/moderator/${authState.id}`} className="dropdown-item bg-white text-black">Moderator</NavLink></li>
+                                            }
+                                            {
+                                                authState.role === 3 && <li><NavLink to={`/ulanyjy-profili/${authState.id}`} className="dropdown-item bg-white text-black">Profil</NavLink></li>
+                                            }
                                             <li><hr className="dropdown-divider" /></li>
                                             <li><button onClick={logout} className="dropdown-item bg-white text-black">Logout</button></li>
                                         </ul>
