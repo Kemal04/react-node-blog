@@ -21,7 +21,7 @@ router.get("/:userId", async (req, res) => {
             return res.json({
                 users: users
             })
-        } res.json({ error: "User tapylmady" });
+        } res.json({ error: "Ulanyjy tapylmady" });
     }
     catch (err) {
         console.log(err)
@@ -65,7 +65,7 @@ router.post("/edit/:userId", isAdmin, async (req, res) => {
         if (user) {
             user.roleId = roleId;
             await user.save();
-            return res.json({ succes: "Ulanyjy duzedildi!!!" });
+            return res.json({ succes: "Ulanyjy düzedildi" });
         }
         res.json({ error: "Ulanyjy tapylmady" });
     }

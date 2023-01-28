@@ -22,7 +22,7 @@ router.get("/:categoryId", async (req, res) => {
             return res.json({
                 category: category
             })
-        } res.json({ error: "Kategory tapylmady" });
+        } res.json({ error: "Kategoriýa tapylmady" });
     }
     catch (err) {
         console.log(err)
@@ -35,7 +35,7 @@ router.post("/create", isAdmin, async (req, res) => {
 
     try {
         await Category.create({ name: name });
-        res.json({ success: "Kategoriya üstünlikli goşuldy" })
+        res.json({ success: "Kategoriýa üstünlikli goşuldy" })
     }
     catch (err) {
         console.log(err);
@@ -65,7 +65,7 @@ router.post("/edit/:categoryId", isAdmin, async (req, res) => {
         if (category) {
             category.name = name;
             category.save();
-            return res.json({ success: "Kategoriya üstünlikli duzedildi" });
+            return res.json({ success: "Kategoriýa üstünlikli duzedildi" });
         }
         res.json({ error: "Kategoriya tapylmady" });
 

@@ -44,7 +44,7 @@ const Blog = sequelize.define("blog", {
     },
     img: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     viewed: {
         type: DataTypes.INTEGER,
@@ -81,7 +81,7 @@ const Ads = sequelize.define("ads", {
     },
     img: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     }
 });
 

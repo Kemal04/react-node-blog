@@ -1,11 +1,13 @@
 const express = require('express');
 const { SubCategory, Blog } = require('../models/model');
 const router = express.Router();
-const fs = require('fs')
 const { isModerator } = require("../middlewares/authMiddlewares");
+const fs = require('fs')
+const imageUpload = require("../helpers/image-upload")
+const multer = require("multer");
+const upload = multer({ dest: "./public/img" });
 
 // MODERATOR UCIN
-
 router.get("/", isModerator, async (req, res) => {
     const userId = req.user.id;
     const blogs = await Blog.findAll({
@@ -23,7 +25,6 @@ router.get("/", isModerator, async (req, res) => {
 router.get("/:blogId", isModerator, async (req, res) => {
     const id = req.params.blogId;
     const userId = req.user.id;
-    console.log(userId)
     try {
         const blog = await Blog.findOne({
             where: {
@@ -36,7 +37,7 @@ router.get("/:blogId", isModerator, async (req, res) => {
             return res.json({
                 blog: blog
             })
-        } res.json({ error: "Blog tapylmady" });
+        } res.json({ error: "Makala tapylmady" });
     }
     catch (err) {
         console.log(err)
@@ -57,10 +58,10 @@ router.get("/create", isModerator, async (req, res) => {
 });
 
 // Moderator create POST
-router.post("/create", isModerator, async (req, res) => {
+router.post("/create", isModerator, imageUpload.upload.single("img"), async (req, res) => {
     const title = req.body.title;
     const description = req.body.description;
-    const img = req.body.img;
+    const img = req.file.filename;
     const viewed = req.body.viewed;
     const liked = req.body.liked;
     const subcategoryId = req.body.subcategoryId;
@@ -106,12 +107,21 @@ router.get("/edit/:blogId", isModerator, async (req, res) => {
     }
 });
 
+
 //Moderator edit POST
-router.post("/edit/:blogId", isModerator, async (req, res) => {
+router.post("/edit/:blogId", isModerator, imageUpload.upload.single("img"), async (req, res) => {
     const id = req.params.blogId;
     const title = req.body.title;
     const description = req.body.description;
-    const img = req.body.img;
+    let img = req.body.img;
+
+    if (req.file) {
+        img = req.file.filename;
+
+        fs.unlink(".public/img/" + req.body.img, err => {
+            console.log(err);
+        })
+    }
     const viewed = req.body.viewed;
     const liked = req.body.liked;
     const subcategoryId = req.body.subcategoryId;
@@ -126,10 +136,9 @@ router.post("/edit/:blogId", isModerator, async (req, res) => {
                 blog.liked = liked,
                 blog.subcategoryId = subcategoryId,
                 blog.save();
-            return res.json({ success: "Makala üstünlikli duzedildi" });
+            return res.json({ success: "Makala üstünlikli düzedildi" });
         }
         res.json({ error: "Makala tapylmady" });
-
     }
     catch (err) {
         console.log(err);
@@ -157,7 +166,6 @@ router.delete("/delete/:blogId", isModerator, async (req, res) => {
         console.log(err);
     }
 });
-
 
 
 
