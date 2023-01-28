@@ -14,13 +14,15 @@ import { Home, About, Register, Login, Ads, News, CategoryRead, SubCategoryRead,
 //Admin Pages
 import { Admin, AdminAds, AdminAdsCreate, AdminAdsEdit, AdminAdsRead, AdminBlog, AdminBlogCreate, AdminBlogEdit, AdminBlogRead, AdminCategory, AdminCategoryCreate, AdminCategoryEdit, AdminContact, AdminContactCreate, AdminContactEdit, AdminContactRead, AdminSubCategory, AdminSubCategoryCreate, AdminSubCategoryEdit, AdminUser, AdminUserCreate, AdminUserEdit } from './pages/admin';
 
-//Components
+//Error
 import { Forbiden, NotFounded } from "./pages/error"
+
+//Moderator
+import { ModeratorInfo, ModeratorBlog, ModeratorBlogCreate, ModeratorBlogEdit, ModeratorBlogRead } from './pages/moderator';
 
 //Toast Container
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-
 
 const App = () => {
 
@@ -108,6 +110,22 @@ const App = () => {
                             }
                         </Route>
 
+
+                        <Route path="/" element={<ModeratorWithNavbar />}>
+                            {
+                                authState.role === 2 && (
+                                    <>
+                                        <Route path='/moderator' element={<ModeratorInfo />}></Route>
+
+                                        <Route path='/moderator/bloglarym' element={<ModeratorBlog />}></Route>
+                                        <Route path='/moderator/blog-gos' element={<ModeratorBlogCreate />}></Route>
+                                        <Route path='/moderator/blogym/:id' element={<ModeratorBlogRead />}></Route>
+                                        <Route path='/moderator/blogymy-uytget/:id' element={<ModeratorBlogEdit />}></Route>
+                                    </>
+                                )
+                            }
+                        </Route>
+
                         {
                             !authState.status && (
                                 <>
@@ -146,4 +164,11 @@ function AdminWithNavbar() {
         <Outlet />
     );
 }
+
+function ModeratorWithNavbar() {
+    return (
+        <Outlet />
+    );
+}
+
 export default App;
