@@ -7,7 +7,9 @@ import Sidebar from '../../../components/admin/Sidebar'
 
 const AdminCategoryEdit = () => {
 
-    const [category, setCategory] = useState("")
+    const [category, setCategory] = useState({
+        name: ""
+    })
 
     const navigate = useNavigate()
     const location = useLocation();
@@ -20,7 +22,11 @@ const AdminCategoryEdit = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/category/edit/${categoryId}`).then((res) => {
+        axios.get(`http://localhost:3001/category/edit/${categoryId}`, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        }).then((res) => {
             setCategory(res.data.category)
         }).catch((err) => {
             toast.error(err.message)
@@ -34,7 +40,11 @@ const AdminCategoryEdit = () => {
         if (!category.name) {
             toast.error("Adyny ýazyň")
         } else {
-            await axios.post(`http://localhost:3001/category/edit/${categoryId}`, category)
+            await axios.post(`http://localhost:3001/category/edit/${categoryId}`, category, {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+            })
                 .then((res) => {
                     toast.success(res.data.success)
                     navigate("/admin/kategoriyalar")
@@ -43,7 +53,7 @@ const AdminCategoryEdit = () => {
                 });
         }
     }
- 
+
     return (
         <>
             <div className="hold-transition sidebar-mini layout-fixed">

@@ -23,10 +23,15 @@ const AdminCategory = () => {
 
     const handleDelete = async (id) => {
 
-        await axios.delete('http://localhost:3001/category/delete/' + id)
+        await axios.delete('http://localhost:3001/category/delete/' + id, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        })
             .then((res) => {
                 toast.success(res.data.success)
-                window.location.reload()
+                const del = categories.filter(categories => id !== categories.id)
+                setCategories(del)
             }).catch((error) => {
                 toast.error(error.message)
             });
@@ -59,9 +64,9 @@ const AdminCategory = () => {
                                             <tbody>
 
                                                 {
-                                                    categories.map(category => (
-                                                        <tr key={category.id}>
-                                                            <td>{category.id}</td>
+                                                    categories.map((category, index) => (
+                                                        <tr key={index}>
+                                                            <td>{index}</td>
                                                             <td>{category.name}</td>
                                                             <td>
                                                                 <Link className='me-3 btn btn-sm btn-warning' to={`/admin/kategoriya-uytget/${category.id}`}>Duzeltmek</Link>
@@ -81,7 +86,7 @@ const AdminCategory = () => {
             </div>
         </>
     )
-    
+
 }
 
 export default AdminCategory

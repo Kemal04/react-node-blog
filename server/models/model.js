@@ -81,7 +81,7 @@ const Ads = sequelize.define("ads", {
     },
     img: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     }
 });
 

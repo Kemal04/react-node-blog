@@ -7,7 +7,9 @@ import Sidebar from '../../../components/admin/Sidebar'
 
 const AdminSubCategoryEdit = () => {
 
-    const [subCategory, setSubCategory] = useState("")
+    const [subCategory, setSubCategory] = useState({
+        name: ""
+    })
     const [category, setCategory] = useState("")
 
     const navigate = useNavigate()
@@ -21,7 +23,11 @@ const AdminSubCategoryEdit = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/subCategory/edit/${subCategoryId}`).then((res) => {
+        axios.get(`http://localhost:3001/subCategory/edit/${subCategoryId}`, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        }).then((res) => {
             setSubCategory(res.data.subCategory)
             setCategory(res.data.subCategory.category)
         }).catch((err) => {
@@ -40,7 +46,11 @@ const AdminSubCategoryEdit = () => {
             toast.error("Kategoriya sayla")
         }
         else {
-            await axios.post(`http://localhost:3001/subCategory/edit/${subCategoryId}`, subCategory)
+            await axios.post(`http://localhost:3001/subCategory/edit/${subCategoryId}`, subCategory, {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+            })
                 .then((res) => {
                     toast.success(res.data.success)
                     navigate("/admin/kici-kategoriyalar")
@@ -54,7 +64,7 @@ const AdminSubCategoryEdit = () => {
 
     useEffect(() => {
         const fetchCategories = async () => {
-            try {   
+            try {
                 const res = await axios.get('http://localhost:3001/category/')
                 setCategories(res.data.categories)
             } catch (err) {

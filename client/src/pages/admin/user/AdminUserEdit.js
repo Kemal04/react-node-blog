@@ -20,7 +20,11 @@ const AdminUserEdit = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/user/edit/${userId}`).then((res) => {
+        axios.get(`http://localhost:3001/user/edit/${userId}`, {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            },
+        }).then((res) => {
             setUser(res.data.user)
             setRole(res.data.user.role)
         }).catch((err) => {
@@ -45,7 +49,11 @@ const AdminUserEdit = () => {
             toast.error("Role sayla")
         }
         else {
-            await axios.post(`http://localhost:3001/user/edit/${userId}`, user)
+            await axios.post(`http://localhost:3001/user/edit/${userId}`, user, {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+            })
                 .then((res) => {
                     toast.success(res.data.success)
                     navigate("/admin/ulanyjylar")
@@ -60,7 +68,11 @@ const AdminUserEdit = () => {
     useEffect(() => {
         const fetchRoles = async () => {
             try {
-                const res = await axios.get('http://localhost:3001/role/')
+                const res = await axios.get('http://localhost:3001/role/', {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken"),
+                    },
+                })
                 setRoles(res.data.roles)
             } catch (err) {
                 console.log(err)
@@ -86,7 +98,7 @@ const AdminUserEdit = () => {
                                             </div>
                                             <form className='row'>
 
-                                                <div className="col-lg-6 mb-5">
+                                                <div className="col-lg-12 mb-5">
                                                     <label className="form-label fw-bold">Role Ady <span className='text-danger'>*</span></label>
                                                     <select name='roleId' className="form-select rounded-0" onChange={handleChange}>
                                                         {role == null
@@ -99,21 +111,6 @@ const AdminUserEdit = () => {
                                                             <option key={role.id} value={role.id}>{role.name}</option>
                                                         ))}
                                                     </select>
-                                                </div>
-
-                                                <div className="col-lg-6 mb-5">
-                                                    <label className="form-label fw-bold">Ulanyjy Ady</label>
-                                                    <input value={user.name} onChange={handleChange} name='name' type="text" className="form-control rounded-0" autoComplete="off" disabled />
-                                                </div>
-
-                                                <div className="col-lg-6 mb-3">
-                                                    <label className="form-label fw-bold">Ulanyjy E-maili</label>
-                                                    <input value={user.email} onChange={handleChange} name='name' type="email" className="form-control rounded-0" autoComplete="off" disabled />
-                                                </div>
-
-                                                <div className="col-lg-6 mb-3">
-                                                    <label className="form-label fw-bold">Ulanyjy Acar sozi</label>
-                                                    <input value={user.password} onChange={handleChange} name='name' type="password" className="form-control rounded-0" autoComplete="off" disabled />
                                                 </div>
 
                                                 <div className='d-grid mt-3'>

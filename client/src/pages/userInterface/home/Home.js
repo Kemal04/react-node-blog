@@ -10,7 +10,11 @@ const Home = () => {
     useEffect(() => {
         const fetchAllCategories = async () => {
             try {
-                const res = await axios.get('http://localhost:3001/category/')
+                const res = await axios.get('http://localhost:3001/category/', {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken"),
+                    },
+                })
                 setCategories(res.data.categories)
             } catch (err) {
                 console.log(err)
@@ -24,7 +28,11 @@ const Home = () => {
     useEffect(() => {
         const fetchAllBlogs = async () => {
             try {
-                const res = await axios.get('http://localhost:3001/blog/')
+                const res = await axios.get('http://localhost:3001/blog/', {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken"),
+                    },
+                })
                 setBlogs(res.data.blogs)
             } catch (err) {
                 console.log(err)

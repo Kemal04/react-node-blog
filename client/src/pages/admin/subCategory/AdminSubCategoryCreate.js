@@ -28,7 +28,11 @@ const AdminSubCategoryCreate = () => {
             toast.error("Kategoriya sayla")
         }
         else {
-            await axios.post("http://localhost:3001/subCategory/create", subCategory)
+            await axios.post("http://localhost:3001/subCategory/create", subCategory, {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                },
+            })
                 .then((res) => {
                     toast.success(res.data.success)
                     navigate("/admin/kici-kategoriyalar")

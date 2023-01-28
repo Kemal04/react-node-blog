@@ -23,6 +23,5 @@ export { default as AdminUserCreate } from "./user/AdminUserCreate"
 export { default as AdminUserEdit } from "./user/AdminUserEdit"
 
 export { default as AdminContact } from "./contact/AdminContact" 
-export { default as AdminContactCreate } from "./contact/AdminContactCreate" 
 export { default as AdminContactEdit } from "./contact/AdminContactEdit" 
 export { default as AdminContactRead } from "./contact/AdminContactRead" 
