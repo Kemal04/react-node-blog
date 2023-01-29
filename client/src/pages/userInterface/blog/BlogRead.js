@@ -60,7 +60,7 @@ const BlogRead = () => {
                             </div>
                         </div>
                         <div className='mt-5 me-5 text-center'>
-                            <img src={blog.img} alt={blog.title} className="img-fluid" />
+                            <img src={`http://localhost:3001/img/${blog.img}`} alt={blog.title} className="img-fluid" />
                         </div>
                         <div className='mt-3 me-5' style={{ lineHeight: "30px", fontSize: "18px", wordSpacing: "2px", textAlign: "justify" }}>
                             {blog.description}

@@ -75,7 +75,7 @@ const CategoryRead = () => {
                                         ?
                                         <Link key={blog.id} to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretchk'>
                                             <div className="card border-0 rounded-3 me-4 shadow">
-                                                <img src={blog.img} className="card-img-top rounded-0" alt="card" />
+                                                <img src={`http://localhost:3001/img/${blog.img}`} className="card-img-top rounded-0" alt="card" />
                                                 <div className="card-body">
                                                     <div className="card-title fw-bold">{blog.title}</div>
                                                     <div style={{ fontSize: "13px" }} className="mt-3"><span className='fw-bold'>{blog.subcategory.name} - </span><span>{new Date(blog.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric", })}</span></div>
@@ -89,7 +89,7 @@ const CategoryRead = () => {
                                                     <div className="card-title fw-bold">{blog.title}</div>
                                                     <div style={{ fontSize: "13px" }} className="mt-3"><span className='fw-bold'>{blog.subcategory.name} - </span><span>{new Date(blog.createdAt).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric", second: "numeric", })}</span></div>
                                                 </div>
-                                                <img src={blog.img} className="card-img-top rounded-0" alt="card" />
+                                                <img src={`http://localhost:3001/img/${blog.img}`} className="card-img-top rounded-0" alt="card" />
                                             </div>
                                         </Link>
                                 ))

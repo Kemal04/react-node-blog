@@ -11,6 +11,8 @@ const AdminAdsCreate = () => {
         title: "",
         description: "",
     })
+    
+    const [img, setImg] = useState('')
 
     const handleChange = (e) => {
         setAds((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -20,16 +22,25 @@ const AdminAdsCreate = () => {
 
     const handleClick = async (e) => {
         e.preventDefault()
+        
+        const formData = new FormData()
+        formData.append('title', ads.title)
+        formData.append('description', ads.description)
+        formData.append('img', img)
 
         if (!ads.title) {
             toast.error("Adyny ýazyň")
+        }
+        else if (!img) {
+            toast.error("Surat sayla")
         }
         else if (!ads.description) {
             toast.error("Mazmuny ýazyň")
         }
         else {
-            await axios.post("http://localhost:3001/ads/create", ads, {
+            await axios.post("http://localhost:3001/ads/create", formData, {
                 headers: {
+                    "Content-Type": "multipart/form-data",
                     accessToken: localStorage.getItem("accessToken"),
                 },
             })
@@ -59,9 +70,14 @@ const AdminAdsCreate = () => {
                                             </div>
                                             <form className='row'>
 
-                                                <div className="col-lg-12 mb-3">
+                                                <div className="col-lg-6 mb-3">
                                                     <label className="form-label fw-bold">Reklama Ady</label>
                                                     <input onChange={handleChange} name='title' type="text" className="form-control rounded-0" autoComplete="off" />
+                                                </div>
+                                                
+                                                <div className="col-lg-6 mb-3">
+                                                    <label className="form-label fw-bold">Reklama Suraty</label>
+                                                    <input name='img' onChange={(e) => setImg(e.target.files[0])} type="file" className="form-control rounded-0" autoComplete="off" />
                                                 </div>
 
                                                 <div className="col-lg-12 mb-3">

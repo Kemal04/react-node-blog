@@ -10,7 +10,17 @@ const AdminAdsEdit = () => {
     const [ads, setAds] = useState({
         title: "",
         description: "",
+        img: "",
     })
+    
+    const [img, setImg] = useState('')  
+    
+    const uploadPicture = (e) => {
+        setImg({
+            picturePreview: URL.createObjectURL(e.target.files[0]),
+            pictureAsFile: e.target.files[0],
+        });
+    };
 
     const navigate = useNavigate()
     const location = useLocation();
@@ -28,6 +38,7 @@ const AdminAdsEdit = () => {
             },
         }).then((res) => {
             setAds(res.data.ads)
+            setImg(res.data.ads.img)
         }).catch((err) => {
             toast.error(err.message)
         })
@@ -35,16 +46,25 @@ const AdminAdsEdit = () => {
 
     const handleClick = async (e) => {
         e.preventDefault()
+        
+        const formData = new FormData()
+        formData.append('title', ads.title)
+        formData.append('description', ads.description)
+        formData.append('img', img.pictureAsFile)
 
         if (!ads.title) {
             toast.error("Adyny ýazyň")
+        }
+        else if (!img) {
+            toast.error("Surat sayla")
         }
         else if (!ads.description) {
             toast.error("Mazmuny ýazyň")
         }
         else {
-            await axios.post(`http://localhost:3001/ads/edit/${adsId}`, ads, {
+            await axios.post(`http://localhost:3001/ads/edit/${adsId}`, formData, {
                 headers: {
+                    "Content-Type": "multipart/form-data",
                     accessToken: localStorage.getItem("accessToken"),
                 },
             })
@@ -74,9 +94,14 @@ const AdminAdsEdit = () => {
                                             </div>
                                             <form className='row'>
 
-                                                <div className="col-lg-12 mb-3">
+                                                <div className="col-lg-6 mb-3">
                                                     <label className="form-label fw-bold">Reklama Ady</label>
                                                     <input value={ads.title} onChange={handleChange} name='title' type="text" className="form-control rounded-0" autoComplete="off" />
+                                                </div>
+
+                                                <div className="col-lg-6 mb-3">
+                                                    <label className="form-label fw-bold">Reklama Suraty</label>
+                                                    <input name='img' onChange={uploadPicture} type="file" className="form-control rounded-0" autoComplete="off" />
                                                 </div>
 
                                                 <div className="col-lg-12 mb-3">
