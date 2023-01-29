@@ -32,7 +32,7 @@ const AdminAdsRead = () => {
                                 <div className='row justify-content-center'>
                                     <div className='col-lg-8'>
                                         <div className='card rounded-0'>
-                                            <img src={ads.img} alt='' className='img-fluid' />
+                                            <img src={`http://localhost:3001/img/${ads.img}`} alt='' className='img-fluid' />
                                             <div className='card-body'>
                                                 <div className='card-title h4'>{ads.title}</div>
                                                 <div className='card-text mt-5'>{ads.description}</div>

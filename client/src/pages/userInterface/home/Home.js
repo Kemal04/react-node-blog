@@ -85,7 +85,7 @@ const Home = () => {
                                 blogs.sort((a, b) => a.id > b.id ? -1 : 1).slice(0, 2).map(blog => (
                                     <Link key={blog.id} to={`/blog/${blog.id}`} className='col-lg-6 mt-4 text-decoration-none text-dark d-flex align-items-stretch'>
                                         <div className="card border-0 rounded-3 me-4 shadow">
-                                            <img src={blog.img} className="card-img-top rounded-0" alt="card" />
+                                            <img src={`http://localhost:3001/img/${blog.img}`} className="card-img-top rounded-0" alt="card" />
                                             <div className="card-body">
                                                 <div className="card-title h5">{blog.title}</div>
                                                 <p className="card-text my-3">{blog.description.substring(0, 140)}...</p>
@@ -200,7 +200,7 @@ const Home = () => {
                                         ?
                                         <Link key={index} to={`/blog/${blog.id}`} className='col-lg-4 mb-4 text-decoration-none text-dark d-flex align-items-stretch'>
                                             <div className="card border-0 rounded-3 me-4 shadow">
-                                                <img src={blog.img} className="card-img-top rounded-0" alt="card" />
+                                                <img src={`http://localhost:3001/img/${blog.img}`} className="card-img-top rounded-0" alt="card" />
                                                 <div className="card-body">
                                                     <div className="card-title fw-bold">{blog.title}</div>
                                                     <div style={{ fontSize: "13px" }} className="mt-5">
@@ -220,7 +220,7 @@ const Home = () => {
                                                         <span>Sep 29, 2022 at 9:48 am</span>
                                                     </div>
                                                 </div>
-                                                <img src={blog.img} className="card-img-top rounded-0" alt="card" />
+                                                <img src={`http://localhost:3001/img/${blog.img}`} className="card-img-top rounded-0" alt="card" />
                                             </div>
                                         </Link>
                                 ))

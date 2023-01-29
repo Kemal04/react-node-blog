@@ -82,7 +82,7 @@ const Ads = () => {
                                             <div className="card mb-5 border-0 rounded-3 me-4 shadow">
                                                 <div className="row g-0 align-items-center">
                                                     <div className="col-md-4">
-                                                        <img src={ads.img} className="img-fluid rounded-0" alt="card" />
+                                                        <img src={`http://localhost:3001/img/${ads.img}`} className="img-fluid rounded-0" alt="card" />
                                                     </div>
                                                     <div className="col-md-8">
                                                         <div className="card-body">
@@ -106,7 +106,7 @@ const Ads = () => {
                                                         </div>
                                                     </div>
                                                     <div className="col-md-4">
-                                                        <img src={ads.img} className="img-fluid rounded-0" alt="card" />
+                                                        <img src={`http://localhost:3001/img/${ads.img}`} className="img-fluid rounded-0" alt="card" />
                                                     </div>
                                                 </div>
                                             </div>

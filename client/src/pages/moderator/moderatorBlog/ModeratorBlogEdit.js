@@ -21,12 +21,23 @@ const ModeratorBlogEdit = () => {
         fetchSubCategories()
     }, [])
 
+    const [subCategory, setSubCategory] = useState("")
+
     const [blog, setBlog] = useState({
         subcategoryId: "",
         title: "",
         description: "",
+        img: "",
     })
-    const [subCategory, setSubCategory] = useState("")
+
+    const [img, setImg] = useState('')
+
+    const uploadPicture = (e) => {
+        setImg({
+            picturePreview: URL.createObjectURL(e.target.files[0]),
+            pictureAsFile: e.target.files[0],
+        });
+    };
 
     const navigate = useNavigate()
     const location = useLocation();
@@ -46,6 +57,7 @@ const ModeratorBlogEdit = () => {
         }).then((res) => {
             setBlog(res.data.blog)
             setSubCategory(res.data.blog.subcategory)
+            setImg(res.data.blog.img)
         }).catch((err) => {
             toast.error(err.message)
         })
@@ -55,21 +67,28 @@ const ModeratorBlogEdit = () => {
     const handleClick = async (e) => {
         e.preventDefault()
 
+        const formData = new FormData()
+        formData.append('title', blog.title)
+        formData.append('subcategoryId', blog.subcategoryId)
+        formData.append('description', blog.description)
+        formData.append('img', img.pictureAsFile)
+
         if (!blog.title) {
             toast.error("Adyny ýazyň")
         }
         else if (!blog.description) {
             toast.error("Mazmuny yazyn")
         }
-        // else if (!img) {
-        //     toast.error("Surat sayla")
-        // }
+        else if (!img) {
+            toast.error("Surat sayla")
+        }
         else if (!blog.subcategoryId) {
             toast.error("Kici Kategoriya sayla")
         }
         else {
-            await axios.post(`http://localhost:3001/modblog/edit/${blogId}`, blog, {
+            await axios.post(`http://localhost:3001/modblog/edit/${blogId}`, formData, {
                 headers: {
+                    "Content-Type": "multipart/form-data",
                     accessToken: localStorage.getItem("accessToken"),
                 },
             })
@@ -114,10 +133,10 @@ const ModeratorBlogEdit = () => {
                                                     <input value={blog.title} onChange={handleChange} name='title' type="text" className="form-control rounded-0" autoComplete="off" />
                                                 </div>
 
-                                                {/* <div className="col-lg-6 mb-3">
+                                                <div className="col-lg-6 mb-3">
                                                     <label className="form-label fw-bold">Blog Suraty</label>
-                                                    <input value={blog.img} onChange={handleChange} name='img' type="text" className="form-control rounded-0" autoComplete="off" />
-                                                </div> */}
+                                                    <input name='img' onChange={uploadPicture} type="file" className="form-control rounded-0" autoComplete="off" />
+                                                </div>
 
                                                 <div className="col-lg-12 mb-3">
                                                     <label className="form-label fw-bold">Blog Mazmuny</label>

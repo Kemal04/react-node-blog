@@ -66,7 +66,7 @@ router.get("/edit/:adsId", isAdmin, async (req, res) => {
         console.log(err);
     }
 });
-router.post("/edit/:adsId", isAdmin, async (req, res) => {
+router.post("/edit/:adsId", isAdmin, imageUpload.upload.single("img"), async (req, res) => {
     const id = req.params.adsId;
     const title = req.body.title;
     const description = req.body.description;

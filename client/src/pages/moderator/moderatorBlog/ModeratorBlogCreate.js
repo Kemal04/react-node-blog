@@ -27,9 +27,7 @@ const ModeratorBlogCreate = () => {
         description: "",
     })
 
-    // const [img, setImg] = useState('')
-
-    // console.log(img);
+    const [img, setImg] = useState('')
 
     const handleChange = (e) => {
         setBlog((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -40,11 +38,11 @@ const ModeratorBlogCreate = () => {
     const handleClick = async (e) => {
         e.preventDefault()
 
-        // const formData = new FormData()
-        // formData.append('subcategoryId', blog.subcategoryId)
-        // formData.append('title', blog.title)
-        // formData.append('img', img)
-        // formData.append('description', blog.description)
+        const formData = new FormData()
+        formData.append('subcategoryId', blog.subcategoryId)
+        formData.append('title', blog.title)
+        formData.append('img', img)
+        formData.append('description', blog.description)
 
         if (!blog.title) {
             toast.error("Adyny ýazyň")
@@ -52,16 +50,16 @@ const ModeratorBlogCreate = () => {
         else if (!blog.description) {
             toast.error("Mazmuny yazyn")
         }
-        // else if (!img) {
-        //     toast.error("Surat sayla")
-        // }
+        else if (!img) {
+            toast.error("Surat sayla")
+        }
         else if (!blog.subcategoryId) {
             toast.error("Kici Kategoriya sayla")
         }
         else {
-            await axios.post("http://localhost:3001/modblog/create", blog, {
+            await axios.post("http://localhost:3001/modblog/create", formData, {
                 headers: {
-                    // "Content-Type": "multipart/form-data",
+                    "Content-Type": "multipart/form-data",
                     accessToken: localStorage.getItem("accessToken"),
                 },
             })
@@ -108,10 +106,10 @@ const ModeratorBlogCreate = () => {
                                                     <input onChange={handleChange} name='title' type="text" className="form-control rounded-0" autoComplete="off" />
                                                 </div>
 
-                                                {/* <div className="col-lg-6 mb-3">
+                                                <div className="col-lg-6 mb-3">
                                                     <label className="form-label fw-bold">Blog Suraty</label>
                                                     <input name='img' onChange={(e) => setImg(e.target.files[0])} type="file" className="form-control rounded-0" autoComplete="off" />
-                                                </div> */}
+                                                </div>
 
                                                 <div className="col-lg-12 mb-3">
                                                     <label className="form-label fw-bold">Blog Mazmuny</label>
